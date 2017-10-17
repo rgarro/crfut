@@ -25,12 +25,14 @@
   <script src="facturasjs/facturascr.js"></script>
   <script src="facturasjs/login.js"></script>
   <script src="facturasjs/localeSeter.js"></script>
+  <script src="facturasjs/sha1.js"></script>
   <!-- Page level plugin JavaScript-->
 </head>
 <body class="bg-dark">
   <div class="container">
       <div class="card card-login mx-auto mt-5">
         <div class="card-header">
+          <img class="img-thumbnail" src="img/tucanlogo.png"></img>
           <script>
           document.write(translate('projectTitle'));
           </script>
@@ -45,17 +47,18 @@
               <label for="exampleInputPassword1">Password</label>
               <input class="form-control" type="password" placeholder="Password" required="required">
             </div>
-            <div class="form-group">
-              <div class="form-check">
-                <label class="form-check-label">
-
-              </div>
-            </div>
-            <a class="btn btn-primary btn-block" href="index.html">Login</a>
-            <button type="submit" class="btn btn-primary"><i class="fa fa"></i> <script>document.write(translate('Enter'));</script></button>
+            <div class="text-center">
+  <button type="reset" class="btn btn-primary btn-outline-warning"><i class="fa fa-magic"></i> <script>document.write(translate('Reset'));</script></button>
+  <button type="submit" class="btn btn-primary btn-outline-primary"><i class="fa fa-sign-in"></i> <script>document.write(translate('Enter'));</script></button>
+</div>
           </form>
           <div class="text-center">
-
+<a href="index.html?lang=es">
+  <img src="img/cr.png">
+</a>
+<a href="index.html?lang=en">
+  <img src="img/en.png">
+</a>
           </div>
         </div>
       </div>
@@ -63,7 +66,7 @@
 <script>
 $(document).ready(function(){
 
-  
+  console.log(SHA1("hellokitty"));
 });
 </script>
 </body>

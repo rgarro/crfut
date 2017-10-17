@@ -9,3 +9,6 @@ translate.add({Email: 'Correo-E'}, 'es');
 
 translate.add({Enter: 'Enter'}, 'en');
 translate.add({Enter: 'Entrar'}, 'es');
+
+translate.add({Reset: 'Reset'}, 'en');
+translate.add({Reset: 'Restablecer'}, 'es');

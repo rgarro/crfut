@@ -16,7 +16,7 @@ var FacturasCR = (function(){
     });
     return vars;
   }
-
+  
   return FacturasCR;
 })();
 CRFut.FacturasCR = FacturasCR;

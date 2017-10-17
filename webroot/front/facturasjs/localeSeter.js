@@ -14,9 +14,17 @@ var cookie_lang = "";
 
 if(typeof url_lang != "undefined"){
   if(url_lang == "en" || url_lang == "es"){
+    document.cookie = url_lang;
     lang = url_lang;
     check_cookie = false;
   }
 }
-console.log(lang);
-//translate.setLocale('es');
+if(check_cookie){
+  if(document.cookie == "es" || document.cookie == "en"){
+    lang = document.cookie;
+  }else{
+    document.cookie = default_lang;
+  }
+}
+
+translate.setLocale(lang);
