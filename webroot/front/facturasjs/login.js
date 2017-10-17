@@ -17,7 +17,6 @@ var Login = (function(){
     loadJson(mesh );
 }).bind(this));*/
   }
-
   return Login;
 })();
 CRFut.Login = Login;

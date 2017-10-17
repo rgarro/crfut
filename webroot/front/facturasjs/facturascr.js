@@ -6,13 +6,15 @@ var FacturasCR = (function(){
   }
 
   FacturasCR.prototype.loadModel = function(modelUrl){
-/*loader.load(modelUrl, (function(geo, mat){
-    var materials = new THREE.MeshFaceMaterial( mat );
-    this.mesh = new THREE.Mesh(geo, materials);
-    mesh.position.y=0;
-    mesh.position.x=5;
-    loadJson(mesh );
-}).bind(this));*/
+
+  }
+
+  FacturasCR.UrlVars = function() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value;
+    });
+    return vars;
   }
 
   return FacturasCR;
