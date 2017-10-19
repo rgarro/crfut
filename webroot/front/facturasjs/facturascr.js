@@ -1,12 +1,12 @@
 var FacturasCR = (function(){
 
   function FacturasCR(){
-    this.mesh = null;
-    this.gameIsSet = false;
+
   }
 
-  FacturasCR.prototype.loadModel = function(modelUrl){
-
+  FacturasCR.prototype.p = function(){
+    this.baseUrl = "http://localhost:8000/";
+    //this.baseUrl = "http://crfut.com/";
   }
 
   FacturasCR.UrlVars = function() {
@@ -16,7 +16,7 @@ var FacturasCR = (function(){
     });
     return vars;
   }
-  
+
   return FacturasCR;
 })();
 CRFut.FacturasCR = FacturasCR;

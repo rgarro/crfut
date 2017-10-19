@@ -13,7 +13,7 @@
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-  
+
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/popper/popper.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -21,7 +21,9 @@
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+
 <script src="facturasjs/CRFut.js"></script>
+<script src="facturasjs/jquery.serialize-hash.js"></script>
   <script src="facturasjs/jquery.translate.js"></script>
   <script src="facturasjs/il8.js"></script>
   <script src="facturasjs/facturascr.js"></script>
@@ -33,21 +35,21 @@
 <body class="bg-dark">
   <div class="container">
       <div class="card card-login mx-auto mt-5">
-        <div class="card-header" style="font-family: 'Pacifico';color:#bee575;font-size:24px;">
+        <div class="card-header" style="font-family: 'Pacifico';color:#23ad0d;font-size:24px;background-color:#f4df22;">
           <img class="img-thumbnail" src="img/tucanlogo.png"></img>
           <script>
           document.write(translate('projectTitle'));
           </script>
         </div>
         <div class="card-body">
-          <form>
+          <form id="loginForm" name="loginForm">
             <div class="form-group">
               <label><script>document.write(translate('Email'));</script></label>
-              <input class="form-control" type="email" required="required">
+              <input class="form-control" name="email" type="email" required="required">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input class="form-control" type="password" required="required">
+              <input class="form-control" name="password" type="password" required="required">
             </div>
             <div class="text-center">
   <button type="reset" class="btn btn-primary btn-outline-warning"><i class="fa fa-magic"></i> <script>document.write(translate('Reset'));</script></button>
@@ -68,7 +70,29 @@
 <script>
 $(document).ready(function(){
 
-  console.log(SHA1("hellokitty"));
+  $("#loginForm").on("submit",function(){
+    var data = $("#loginForm").serializeHash();
+    data.password = SHA1(data.password);
+    $.ajax({
+      url:"users/auth",
+      data:data,
+      type:"GET",
+      dataType:"json",
+      success:function(data){
+        /*CRContactos_Manager.check_errors(data);
+        if(data.invalid_form == 1){
+          CRContactos_Manager.noty_form_errors(data.error_list);
+        }
+        if(data.is_success == 1){
+          var n = noty({text: data.flash,layout:'topLeft',type:'success','timeout':5000});
+          Clientes.lista();
+        }*/
+      }
+    });
+    return false;
+  });
+
+  //console.log(SHA1("hellokitty"));
 });
 </script>
 </body>

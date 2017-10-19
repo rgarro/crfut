@@ -1,8 +1,8 @@
 var Login = (function(){
 
   function Login(){
+    CRFut.FacturasCR.call(this.p);
     this.mesh = null;
-    this.gameIsSet = false;
   }
 
   Login.prototype = Object.create(CRFut.FacturasCR.prototype);
