@@ -14,16 +14,18 @@ var cookie_lang = "";
 
 if(typeof url_lang != "undefined"){
   if(url_lang == "en" || url_lang == "es"){
-    document.cookie = url_lang;
+    //document.cookie = url_lang;
+    Cookies.set('lang', 'url_lang');
     lang = url_lang;
     check_cookie = false;
   }
 }
 if(check_cookie){
   if(document.cookie == "es" || document.cookie == "en"){
-    lang = document.cookie;
+    lang = Cookies.get('lang');
   }else{
-    document.cookie = default_lang;
+    //document.cookie = default_lang;
+    Cookies.set('lang', 'default_lang');
   }
 }
 

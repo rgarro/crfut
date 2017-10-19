@@ -19,6 +19,7 @@ var Login = (function(){
       success:(function(data){
         console.log(this.authUrl);
         console.log(data);
+        this.alert_success("se conecto al tester ...");
         /*CRContactos_Manager.check_errors(data);
         if(data.invalid_form == 1){
           CRContactos_Manager.noty_form_errors(data.error_list);
