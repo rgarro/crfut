@@ -31,10 +31,10 @@ class UsersTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('users');
+        $this->setTable('Users');
         $this->setDisplayField('UserID');
         $this->setPrimaryKey('UserID');
-        $this->belongsTo('AccessLevels', ['className' => 'AccessLevels','foreignKey'=>"AccessLevelID"]);
+        //$this->belongsTo('AccessLevels', ['className' => 'AccessLevels','foreignKey'=>"AccessLevelID"]);
     }
 
     /**

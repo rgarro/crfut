@@ -30,7 +30,7 @@ class SessionsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('sessions');
+        $this->setTable('Sessions');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
     }

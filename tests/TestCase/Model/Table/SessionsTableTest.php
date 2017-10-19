@@ -62,6 +62,15 @@ class SessionsTableTest extends TestCase
     }
 
     /**
+     * Test isTestable
+     *
+     * @return void
+     */
+    public function testIsTestable(){
+      $this->assertTrue(true);
+    }
+
+    /**
      * Test validationDefault method
      *
      * @return void
