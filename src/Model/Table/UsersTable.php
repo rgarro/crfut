@@ -47,24 +47,24 @@ class UsersTable extends Table
     {
         $validator
             ->integer('UserID')
-            ->allowEmpty('UserID', 'create')
+            ->allowEmpty('UserID', 'create');
 
         $validator
-            ->scalar('FirstName')
-            ->notEmpty('FirstName')
+
+            ->notEmpty('FirstName');
 
         $validator
-            ->scalar('LastName')
-            ->notEmpty('LastName')
+
+            ->notEmpty('LastName');
 
         $validator
-            ->scalar('Email')
+
             ->notEmpty('Email')
             ->email('Email')
-            -isUnique('Email')
+            ->isUnique('Email');
         $validator
-            ->scalar('Password')
-            ->notEmpty('Password')
+
+            ->notEmpty('Password');
 
         $validator
             ->allowEmpty('UserStatus');
@@ -75,7 +75,7 @@ class UsersTable extends Table
             ->notEmpty('AccessLevelID');
 
         $validator
-            ->scalar('ModifiedBy')
+
             ->allowEmpty('ModifiedBy');
 
         $validator
@@ -84,7 +84,7 @@ class UsersTable extends Table
             ->notEmpty('Entered');
 
         $validator
-            ->scalar('EnteredBy')
+
             ->allowEmpty('EnteredBy');
 
         $validator
