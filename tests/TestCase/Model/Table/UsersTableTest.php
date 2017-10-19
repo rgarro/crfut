@@ -77,9 +77,67 @@ class UsersTableTest extends TestCase
      *
      * @return void
      */
+    public function testHasIsSha1()
+    {
+        $this->assertTrue(method_exists($this->Users,'isSha1'));
+    }
+
+    /**
+     * Test testIsSha1WithValidHash
+     *
+     * @return void
+     */
+    public function testIsSha1WithValidHash()
+    {
+      $str = sha1("elfinaldelverano");
+        $this->assertTrue($this->Users->isSha1($str));
+    }
+
+    /**
+     * Test testIsSha1WithInValidHash
+     *
+     * @return void
+     */
+    public function testIsSha1WithInValidHash()
+    {
+      $str = md5("elfinaldelverano");
+        $this->assertFalse($this->Users->isSha1($str));
+    }
+
+    /**
+     * Test has checkAuth method
+     *
+     * @return void
+     */
     public function testHasCheckAuth()
     {
         $this->assertTrue(method_exists($this->Users,'checkAuth'));
+    }
+
+    /**
+     * Test valid checkAuth method
+     *
+     * @return void
+     */
+    public function testInValidCheckAuth()
+    {
+      $invalid_email = "wcoyote@everland.net";
+      $invalid_pass = sha1("pajaroEnMano23#");
+      $res = $this->Users->checkAuth($invalid_email,$invalid_pass);
+      $this->assertArraySubset(["is_valid"=>false],$res);
+    }
+
+    /**
+     * Test valid checkAuth method
+     *
+     * @return void
+     */
+    public function testValidCheckAuth()
+    {
+      $invalid_email = "fchacon@pragmatico.com";
+      $invalid_pass = sha1("NewPas1557");
+      $res = $this->Users->checkAuth($invalid_email,$invalid_pass);
+      $this->assertArraySubset(["is_valid"=>true],$res);
     }
 
     /**
