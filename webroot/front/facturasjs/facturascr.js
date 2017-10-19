@@ -1,12 +1,10 @@
 var FacturasCR = (function(){
 
-  function FacturasCR(){
+  function FacturasCR(){}
 
-  }
-
-  FacturasCR.prototype.p = function(){
-    this.baseUrl = "http://localhost:8000/";
-    //this.baseUrl = "http://crfut.com/";
+  FacturasCR.prototype.parentVars = function(){
+    //this.baseUrl = "http://localhost:8766/";
+    this.baseUrl = "http://crfut.com/";
   }
 
   FacturasCR.UrlVars = function() {

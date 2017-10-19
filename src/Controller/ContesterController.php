@@ -8,6 +8,13 @@ class ContesterController extends AppController
       $this->loadComponent('RequestHandler');
   }
 
+  private function cors_here(){
+    $r = $this->response->cors($this->request);
+    $r->allowOrigin('*');
+    $r->allowMethods(['GET', 'POST']);
+    $r->build();
+  }
+
   public function testService()
   {
     $this->cors_here();
