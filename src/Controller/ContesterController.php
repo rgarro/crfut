@@ -5,14 +5,7 @@ use App\Controller\AppController;
 class ContesterController extends AppController
 {
   public function initialize(){
-      $this->loadComponent('RequestHandler');
-  }
-
-  private function cors_here(){
-    $r = $this->response->cors($this->request);
-    $r->allowOrigin('*');
-    $r->allowMethods(['GET', 'POST']);
-    $r->build();
+      parent::initialize();
   }
 
   public function testService()
