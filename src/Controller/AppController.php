@@ -52,12 +52,12 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
     }
 
-    /*protected function cors_here(){
+    protected function cors_here(){
       $r = $this->response->cors($this->request);
       $r->allowOrigin('*');
       $r->allowMethods(['GET', 'POST']);
       $r->build();
-    }*/
+    }
 
     /**
      * Before render callback.
