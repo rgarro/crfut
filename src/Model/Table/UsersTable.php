@@ -93,4 +93,38 @@ class UsersTable extends Table
 
         return $validator;
     }
+
+    public function checkAuth($email,$sha1_password){
+      if($this->isSha1($sha1_password)){
+        $sql ="SELECT COUNT(*) as hay ";
+  			$sql .=" FROM Users ";
+  			$sql .=" WHERE UserStatus = 1 ";
+  			$sql .=" AND Email ='".$email."'";
+        $sql .=" AND Password ='".$sha1_password."'";
+  			$res = $this->connection()->execute($sql)->fetch('assoc');
+        $return = [];
+        if($res['hay']){
+          $return['is_valid'] = true;
+          $return['User'] = $this->getUserbyEmail($email);
+        }else{
+          $return['is_valid'] = false;
+        }
+        return $return;
+      }else{
+        throw new Exception("Password must be sha1.");
+      }
+    }
+
+    public function getUserbyEmail($email){
+      $sql ="SELECT * ";
+      $sql .=" FROM Users ";
+      $sql .=" WHERE UserStatus = 1 ";
+      $sql .=" AND Email ='".trim($email)."'";
+      return $this->connection()->execute($sql)->fetch('assoc');
+    }
+
+    public function isSha1($str){
+      return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
+    }
+
 }

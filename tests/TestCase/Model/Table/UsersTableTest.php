@@ -136,7 +136,7 @@ class UsersTableTest extends TestCase
     {
       $valid_email = "fchacon@pragmatico.com";
       $valid_pass = sha1("NewPas1557");
-      $res = $this->Users->checkAuth($valid_email,$valid_pass);
+      $res = $this->Users->checkAuth($valid_email,$valid_pass);      
       $this->assertArraySubset(["is_valid"=>true],$res);
     }
 

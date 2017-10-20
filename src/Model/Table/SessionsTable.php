@@ -69,4 +69,18 @@ class SessionsTable extends Table
 
         return $validator;
     }
+
+    public function setSession($uid){
+      if(is_int($uid)){
+
+      }else{
+        throw new Exception("UserID must be integer");
+      }
+    }
+
+    public function createToken(){
+      $pref = str_shuffle(str_shuffle(rand(1000,9999)."tortugaMarina".rand(1000,9999)));
+      return uniqid($pref,true);
+    }
+
 }
