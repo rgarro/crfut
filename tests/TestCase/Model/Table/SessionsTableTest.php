@@ -62,6 +62,83 @@ class SessionsTableTest extends TestCase
     }
 
     /**
+     * Test testHasSetSession
+     *
+     * @return void
+     */
+    public function testHasSetSession()
+    {
+        $this->assertTrue(method_exists($this->Sessions,'setSession'));
+    }
+
+    /**
+     * Test testSetSession
+     *
+     * @return void
+     */
+    public function testSetSession()
+    {
+      $res = $this->Sessions->setSession(2);//uid de perla oviedo
+      $this->assertArrayHasKey("token",$res);
+    }
+
+    /**
+     * Test testHasSessionIsAlive
+     *
+     * @return void
+     */
+    public function testHasSessionIsAlive()
+    {
+        $this->assertTrue(method_exists($this->Sessions,'sessionIsAlive'));
+    }
+
+    /**
+     * Test testHasSessionIsAlive
+     *
+     * @return void
+     */
+    public function testSessionIsAlive()
+    {
+        $res = $this->Sessions->setSession(1);//uid fchacon
+        $this->assertTrue($this->Sessions->sessionIsAlive($res["token"]));
+    }
+
+    /**
+     * Test testHasKillSession
+     *
+     * @return void
+     */
+    public function testHasKillSession()
+    {
+        $this->assertTrue(method_exists($this->Sessions,'killSession'));
+    }
+
+    /**
+     * Test testHasCreateToken
+     *
+     * @return void
+     */
+    public function testHasCreateToken()
+    {
+        $this->assertTrue(method_exists($this->Sessions,'createToken'));
+    }
+
+    /**
+     * Test testHasCreateToken
+     *
+     * @return void
+     */
+    public function testTokenIsAlwaysUnique()
+    {
+      $a = $this->Sessions->createToken();
+      $keys = [];
+      for($i=0;$i<10;$i++){
+          $keys[] = $this->Sessions->createToken();
+      }
+      $this->assertFalse(in_array($a,$keys));
+    }
+
+    /**
      * Test isTestable
      *
      * @return void
