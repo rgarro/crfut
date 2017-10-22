@@ -17,7 +17,7 @@ class LoginControllerTest extends IntegrationTestCase
 
     public function testValidAuth(){
         $data = ["email" => "fchacon@pragmatico.com","password" => sha1("NewPas1557")];
-        $r = $this->get('/login/auth',$data);
+        $r = $this->get('/login/auth/b.json',$data);
         $this->assertResponseContains('token');
         $this->assertTrue($r['invalid_form']==0);
     }
