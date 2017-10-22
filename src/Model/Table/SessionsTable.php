@@ -104,6 +104,15 @@ class SessionsTable extends Table
       return $q->count();
     }
 
+    public function killSession($token){
+      $q = $this->find('all',['conditions'=>["Sessions.token"=>$token]]);
+      $q->hydrate(false);
+      $s = $q->first();
+      $e = $this->get($s["id"]);
+      $result = $this->delete($e);
+      return $result;
+    }
+
     public function userHasLivingSession($uid){
         if(is_int($uid)){
           $q = $this->find('all',['conditions'=>["Sessions.UserID"=>$uid,"Sessions.expires > ".time()]]);

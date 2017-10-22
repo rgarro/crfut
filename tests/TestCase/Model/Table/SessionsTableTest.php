@@ -107,8 +107,8 @@ class SessionsTableTest extends TestCase
      */
     public function testSessionIsAlive()
     {
-        $res = $this->Sessions->setSession(1);//uid fchacon
-        $this->assertTrue($this->Sessions->sessionIsAlive($res["token"]));
+        $res = $this->Sessions->setSession(2);//uid perla oviedo
+        $this->assertTrue($this->Sessions->sessionIsAlive($res["token"]) > 0);
     }
 
     /**
@@ -119,6 +119,12 @@ class SessionsTableTest extends TestCase
     public function testHasKillSession()
     {
         $this->assertTrue(method_exists($this->Sessions,'killSession'));
+    }
+
+    public function testKillSession()
+    {
+        $res = $this->Sessions->setSession(2);//uid perla oviedo
+        $this->assertTrue($this->Sessions->killSession($res["token"]) > 0);
     }
 
     /**
