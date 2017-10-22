@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Sessions Model
@@ -19,6 +20,9 @@ use Cake\Validation\Validator;
  */
 class SessionsTable extends Table
 {
+
+
+  public $session_seconds = 3600;
 
     /**
      * Initialize method
@@ -72,14 +76,31 @@ class SessionsTable extends Table
 
     public function setSession($uid){
       if(is_int($uid)){
-
+        $session_data = ["UserID"=>$uid,"token"=>$this->createToken(),"expires"=>time()+$this->session_seconds];
+        $session_t = $this->newEntity();
+        $ses = $this->patchEntity($session_t,$session_data);
+        if ($this->save($ses)) {
+            $flash = __('Session has been started.');
+            $success = 1;
+            $invalid_form = 0;
+            $errors = [];
+        }else{
+          $success = 0;
+          $flash = __('Session could not be started');
+          $invalid_form = 1;
+          $errors = $ses->errors();
+        }
+        $ret = ["session_data"=>$session_data,"is_success"=>$success,"flash"=>$flash,"invalid_form"=>$invalid_form,"error_list"=>$errors];
+        print_r($ret);
+        exit;
       }else{
         throw new Exception("UserID must be integer");
       }
     }
 
+
     public function createToken(){
-      $pref = str_shuffle(str_shuffle(rand(1000,9999)."tortugaMarina".rand(1000,9999)));
+      $pref = str_shuffle(str_shuffle(rand(1000,9999)."tortugaDeRio".rand(1000,9999)));
       return uniqid($pref,true);
     }
 
