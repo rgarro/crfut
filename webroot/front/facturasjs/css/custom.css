@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Verzierte';
+    src: url('fonts/Verzierte Favorite.ttf');
+}
+
+@font-face {
+    font-family: 'serifled';
+    src: url('fonts/serif_led_board-7.ttf');
+}
+
+.tituloBrand {
+  font-family: 'serifled';
+  color:#23ad0d;
+  font-size:22px;
+  background-color:#f4df22;
+  text-shadow: 2px 2px black;
+}
+
+.crfbody {
+    background-image: url("img/tortuguero.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+}
