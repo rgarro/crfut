@@ -76,7 +76,9 @@ class SessionsTable extends Table
 
     public function setSession($uid){
       if(is_int($uid)){
-        $session_data = ["UserID"=>$uid,"token"=>$this->createToken(),"expires"=>time()+$this->session_seconds];
+        $this->setTable('Sessions');
+        $token = $this->createToken();
+        $session_data = ["UserID"=>$uid,"token"=>$token,"expires"=>time()+$this->session_seconds,"is_active"=>1];
         $session_t = $this->newEntity();
         $ses = $this->patchEntity($session_t,$session_data);
         if ($this->save($ses)) {
@@ -90,17 +92,34 @@ class SessionsTable extends Table
           $invalid_form = 1;
           $errors = $ses->errors();
         }
-        $ret = ["session_data"=>$session_data,"is_success"=>$success,"flash"=>$flash,"invalid_form"=>$invalid_form,"error_list"=>$errors];
-        print_r($ret);
-        exit;
+        $ret = ["token"=>$token,"session_data"=>$session_data,"is_success"=>$success,"flash"=>$flash,"invalid_form"=>$invalid_form,"error_list"=>$errors];
+        return $ret;
       }else{
         throw new Exception("UserID must be integer");
       }
     }
 
+    public function sessionIsAlive($token){
+      $q = $this->find('all',['conditions'=>["Sessions.token"=>$token,"Sessions.expires > ".time()]]);
+      return $q->count();
+    }
+
+    public function userHasLivingSession($uid){
+        if(is_int($uid)){
+          $q = $this->find('all',['conditions'=>["Sessions.UserID"=>$uid,"Sessions.expires > ".time()]]);
+          $res = ["has_session"=>false,"session_data"=>[]];
+          if($q->count()){
+            $res["session_data"] = $q->first();
+            $res["has_session"] = true;
+          }
+          return $res;
+        }else{
+          throw new Exception("UserID must be integer");
+        }
+    }
 
     public function createToken(){
-      $pref = str_shuffle(str_shuffle(rand(1000,9999)."tortugaDeRio".rand(1000,9999)));
+      $pref = str_shuffle(str_shuffle(rand(1000,9999).str_shuffle("tortugaDeRio").rand(1000,9999)));
       return uniqid($pref,true);
     }
 
