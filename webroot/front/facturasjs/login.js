@@ -3,7 +3,8 @@ var Login = (function(){
   function Login(){
     this.parentVars();
     //this.authUrl = this.baseUrl + "users/auth";
-    this.authUrl = this.baseUrl + "contester/test_service";
+    this.authUrl = this.baseUrl + "login/auth";
+    //this.authUrl = this.baseUrl + "contester/testService";
   }
 
   Login.prototype = Object.create(CRFut.FacturasCR.prototype);
@@ -17,9 +18,9 @@ var Login = (function(){
       type:"GET",
       dataType:"json",
       success:(function(data){
-        console.log(this.authUrl);
+        //console.log(this.authUrl);
         console.log(data);
-        this.alert_success("se conecto al tester ...");
+        ///this.alert_success("se conecto al tester ...");
         /*CRContactos_Manager.check_errors(data);
         if(data.invalid_form == 1){
           CRContactos_Manager.noty_form_errors(data.error_list);
