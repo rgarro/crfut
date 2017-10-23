@@ -103,6 +103,7 @@ class UsersTable extends Table
         $sql .=" AND Password ='".$sha1_password."'";
   			$res = $this->connection()->execute($sql)->fetch('assoc');
         $return = [];
+        
         if($res['hay']){
           $return['is_valid'] = true;
           $return['User'] = $this->getUserbyEmail($email);

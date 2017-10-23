@@ -2,9 +2,7 @@ var Login = (function(){
 
   function Login(){
     this.parentVars();
-    //this.authUrl = this.baseUrl + "users/auth";
     this.authUrl = this.baseUrl + "login/auth";
-    //this.authUrl = this.baseUrl + "contester/testService";
   }
 
   Login.prototype = Object.create(CRFut.FacturasCR.prototype);
@@ -18,17 +16,17 @@ var Login = (function(){
       type:"GET",
       dataType:"json",
       success:(function(data){
-        //console.log(this.authUrl);
-        console.log(data);
-        ///this.alert_success("se conecto al tester ...");
-        /*CRContactos_Manager.check_errors(data);
+        this.checkTimedOut(data);
+console.log(data);        
         if(data.invalid_form == 1){
-          CRContactos_Manager.noty_form_errors(data.error_list);
+          this.alert_warning(data.flash);
+        }else{
+          this.alert_success(data.flash);
+          Cookies.set('Session', data.Session);
+          Cookies.set('User', data.User);
+          Cookies.set('token', data.token);
+          window.location = "dashboard.html";
         }
-        if(data.is_success == 1){
-          var n = noty({text: data.flash,layout:'topLeft',type:'success','timeout':5000});
-          Clientes.lista();
-        }*/
       }).bind(this)
     });
   }

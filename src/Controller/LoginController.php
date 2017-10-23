@@ -28,14 +28,16 @@ class LoginController extends AppController
     if($res['is_valid']){
       $ret['invalid_form'] = 0;
       $ret['User'] = $res['User'];
-      $ret['Session'] = $this->Sessions->setSession($ret['User']['id']);
+      $ret['Session'] = $this->Sessions->setSession(intval($res['User']['UserID']));
       $ret['token'] = $ret['Session']['token'];
-      $ret['flash'] = "Welcome ".$ret['User']['FirstName']." ".$ret['User']['LastName']; 
+      $ret['flash'] = "Welcome ".$ret['User']['FirstName']." ".$ret['User']['LastName'];
     }else{
       $ret['invalid_form'] = 1;
       $ret['flash'] = "invalid auth data";
     }
-
+    $ret['res'] = $res;
+    $ret['password'] = $password;
+    $ret['email'] = $email;
     $this->cors_here();
     $this->set($ret);
   }

@@ -67,6 +67,12 @@ var FacturasCR = (function(){
     }).show();
   }
 
+  FacturasCR.prototype.checkTimedOut = function(data){
+      if(data.is_timed_out == 1){
+        window.location = "index.html";
+      }
+  }
+
   return FacturasCR;
 })();
 CRFut.FacturasCR = FacturasCR;
