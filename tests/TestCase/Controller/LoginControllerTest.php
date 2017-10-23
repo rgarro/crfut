@@ -16,16 +16,24 @@ class LoginControllerTest extends IntegrationTestCase
     }
 
     public function testValidAuth(){
+      $this->configRequest([
+            'headers' => ['Accept' => 'application/json']
+        ]);
         $data = ["email" => "fchacon@pragmatico.com","password" => sha1("NewPas1557")];
-        $r = $this->get('/login/auth/b.json',$data);
-        $this->assertResponseContains('token');
-        $this->assertTrue($r['invalid_form']==0);
+        $r = $this->get('/login/auth',$data);
+        $res = json_decode($this->_response->body());
+        $this->assertArrayHasKey("token",$res);
+        $this->assertArraySubset(["invalid_form"=>0],$res);
     }
 
     public function testInValidAuth(){
+      $this->configRequest([
+            'headers' => ['Accept' => 'application/json']
+        ]);
         $data = ["email" => "fchon@pragtico.com","password" => sha1("Nas1557")];
         $r = $this->get('/login/auth',$data);
-        $this->assertTrue($r['invalid_form']==1);
+        $res = json_decode($this->_response->body());
+        $this->assertArraySubset(["invalid_form"=>1],$res);
     }
 
     public function testChecksession(){
