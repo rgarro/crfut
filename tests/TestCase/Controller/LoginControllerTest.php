@@ -20,8 +20,10 @@ class LoginControllerTest extends IntegrationTestCase
             'headers' => ['Accept' => 'application/json']
         ]);
         $data = ["email" => "fchacon@pragmatico.com","password" => sha1("NewPas1557")];
-        $r = $this->get('/login/auth',$data);
+        //$r = $this->post('/login/auth',$data);
+  $r = $this->get('/login/auth?email=fchacon@pragmatico.com&password='.sha1("NewPas1557"));
         $res = json_decode($this->_response->body());
+
         $this->assertArrayHasKey("token",$res);
         $this->assertArraySubset(["invalid_form"=>0],$res);
     }
