@@ -17,6 +17,19 @@ class LoginController extends AppController
       parent::initialize();
       $this->loadModel("Users");
       $this->loadModel("Sessions");
+      $this->loadComponent("BettyChecks");
+  }
+
+  public function checksession(){
+    if(isset($_GET["token"])){
+      $ret = [];
+      $this->BettyChecks->veryToken($_GET["token"]);
+      $ret["is_alive"] = $this->BettyChecks->LastCheckResult["is_alive"];
+      $this->cors_here();
+      $this->set($ret);
+    }else{
+      throw new Exception("token is required");
+    }
   }
 
   public function auth()

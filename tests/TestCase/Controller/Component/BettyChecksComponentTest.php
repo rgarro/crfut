@@ -28,6 +28,7 @@ class BettyChecksComponentTest extends TestCase
         parent::setUp();
         $registry = new ComponentRegistry();
         $this->BettyChecks = new BettyChecksComponent($registry);
+        
     }
 
     /**
@@ -49,7 +50,7 @@ class BettyChecksComponentTest extends TestCase
 
     public function testHasSessions()
     {
-        $this->assertTrue(property_exists($this->BettyChecks,'Sessions'));
+        $this->assertTrue(property_exists($this->BettyChecks,'SessionTable'));
     }
 
     public function testHasLastCheckResult()
