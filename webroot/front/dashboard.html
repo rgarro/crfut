@@ -31,16 +31,41 @@
   <!-- Custom scripts for this page-->
   <script src="js/sb-admin-datatables.min.js"></script>
 
+  <script src="facturasjs/soundjs-0.6.2.min.js"></script>
+  <script src="facturasjs/jquery.serialize-hash.js"></script>
+  <script src="facturasjs/jquery.translate.js"></script>
+  <script src="facturasjs/pace.min.js"></script>
+  <script src="facturasjs/sha1.js"></script>
+  <script src="facturasjs/js.cookie.js"></script>
+  <script src="facturasjs/noty.js"></script>
   <script src="facturasjs/jquery.route32.js"></script>
   <script src="facturasjs/config.js"></script>
+
+  <script src="facturasjs/CRFut.js"></script>
+    <script src="facturasjs/il8.js"></script>
+    <script src="facturasjs/facturascr.js"></script>
+    <script src="facturasjs/veryToken.js"></script>
+    <script src="facturasjs/localeSeter.js"></script>
+    <link href="facturasjs/css/pace-theme-flash.css" rel="stylesheet">
+    <link href="facturasjs/css/animate.css" rel="stylesheet">
+    <link href="facturasjs/css/noty.css" rel="stylesheet">
+    <link href="facturasjs/css/custom.css" rel="stylesheet">
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer bg-dark  crfbody" id="page-top">
 
 
 <script>
 $(document).ready(function(){
-  console.log("groovy kitties..");
+  var token = Cookies.get("token");
+  if(token.length > 7 ){
+    var verificator = new CRFut.VeryToken();
+    verificator.setToken(token);
+    verificator.checksession();
+    window.setInterval((function(){ verificator.checksession(); }).bind(verificator),5000);
+  }else{
+    window.location = "index.html";
+  }
 });
 </script>
 </body>

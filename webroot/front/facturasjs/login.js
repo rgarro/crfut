@@ -16,8 +16,7 @@ var Login = (function(){
       type:"GET",
       dataType:"json",
       success:(function(data){
-        this.checkTimedOut(data);
-console.log(data);        
+        this.checkTimedOut(data);        
         if(data.invalid_form == 1){
           this.alert_warning(data.flash);
         }else{

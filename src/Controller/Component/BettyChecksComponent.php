@@ -60,13 +60,13 @@ class BettyChecksComponent extends Component
     public function initialize(array $config)
     {
       parent::initialize($config);
-      $this->SessionTable = TableRegistry::get('Sessions');
+      $this->SessionTable = TableRegistry::get('Sessions', $config);
     }
 
     public function veryToken($token){
-      $query = $this->SessionsTable->find("all",["conditions"=>["Sessions.token"=>$token,"Sessions.expires > ".time()]]);
-      $this->LastCheckResult['is_alive'] = ($query->count() ? true : false);
-      return $query->count();
+      $total_sessions_with_token = $this->SessionTable->sessionIsAlive($token);
+      $this->LastCheckResult['is_alive'] = ($total_sessions_with_token > 0 ? true : false);
+      return $total_sessions_with_token;
     }
 
 }

@@ -4,12 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use PhpParser\Node\Stmt\If_;
 
-/**
- * Login Controller
- *
- *
- * @method \App\Model\Entity\Login[] paginate($object = null, array $settings = [])
- */
+
 class LoginController extends AppController
 {
 
