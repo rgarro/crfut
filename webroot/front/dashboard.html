@@ -58,14 +58,17 @@
 <script>
 $(document).ready(function(){
   var token = Cookies.get("token");
-alert(typeof token);  
-  if(token.length > 7 ){
-    var verificator = new CRFut.VeryToken();
-    verificator.setToken(token);
-    verificator.checksession();
-    window.setInterval((function(){ verificator.checksession(); }).bind(verificator),5000);
-  }else{
+  if(typeof token == "undefined"){
     window.location = "index.html";
+  }else{
+    if(token.length > 7 ){
+      var verificator = new CRFut.VeryToken();
+      verificator.setToken(token);
+      verificator.checksession();
+      window.setInterval((function(){ verificator.checksession(); }).bind(verificator),5000);
+    }else{
+      window.location = "index.html";
+    }
   }
 });
 </script>
