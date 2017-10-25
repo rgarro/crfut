@@ -19,7 +19,9 @@ class LoginController extends AppController
     if(isset($_GET["token"])){
       $ret = ["signed_out"=>1];
       $ses= $this->Sessions->findByToken($_GET["token"]);
-      $this->Sessions->delete($ses);
+      $tmp_ses = $ses->first();
+      $ent = $this->Sessions->get($tmp_ses->id);
+      $this->Sessions->delete($ent);
       $this->cors_here();
       $this->set($ret);
     }else{
