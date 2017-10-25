@@ -15,6 +15,18 @@ class LoginController extends AppController
       $this->loadComponent("BettyChecks");
   }
 
+  public function signout(){
+    f(isset($_GET["token"])){
+      $ret = ["signed_out"=>1];
+      $ses= $this->Sessions->findByToken($_GET["token"]);
+      $this->Sessions->delete($ses);
+      $this->cors_here();
+      $this->set($ret);
+    }else{
+      throw new Exception("token is required");
+    }
+  }
+
   public function checksession(){
     if(isset($_GET["token"])){
       $ret = [];
