@@ -16,7 +16,7 @@ class LoginController extends AppController
   }
 
   public function signout(){
-    f(isset($_GET["token"])){
+    if(isset($_GET["token"])){
       $ret = ["signed_out"=>1];
       $ses= $this->Sessions->findByToken($_GET["token"]);
       $this->Sessions->delete($ses);
