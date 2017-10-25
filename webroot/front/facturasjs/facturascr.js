@@ -1,8 +1,10 @@
 var restaurantBellSnd ="restaurantBellSnd";
 var errSnd = "errSnd";
+var changeRouteSnd = "changeRouteSnd";
 //createjs.Sound.registerSound("/css/alarm_beep.wav", notySnd);
 createjs.Sound.registerSound("wavs/buzzer3_x.wav", errSnd);
 createjs.Sound.registerSound("wavs/221515__alaskarobotics__service-bell-ring.wav", restaurantBellSnd);
+createjs.Sound.registerSound("wavs/Mechanic-Public_D-139_hifi.mp3", changeRouteSnd);
 
 var FacturasCR = (function(){
 

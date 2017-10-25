@@ -47,10 +47,25 @@
     <script src="facturasjs/veryToken.js"></script>
     <script src="facturasjs/login.js"></script>
     <script src="facturasjs/localeSeter.js"></script>
+    <script src="facturasjs/rutas_modulos.js"></script>
     <link href="facturasjs/css/pace-theme-flash.css" rel="stylesheet">
     <link href="facturasjs/css/animate.css" rel="stylesheet">
     <link href="facturasjs/css/noty.css" rel="stylesheet">
     <link href="facturasjs/css/custom.css" rel="stylesheet">
+    <script>
+    function loadStage(stage_url){
+      var s = createjs.Sound.play(changeRouteSnd);
+      s.volume = 0.03;
+    	$("#centerContent").html("<i class='fa fa-truck'></i> <i class='fa fa-spinner fa-pulse'></i> Cargando ...");
+    	$.ajax({
+    		url:stage_url,
+    		type:"GET",
+    		success:function(data){
+    			$("#centerContent").html(data);
+    		}
+      });
+    }
+    </script>
 </head>
 
 <body class="bg-dark  crfbody">
@@ -66,38 +81,38 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Dashboard">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="#/Dashboard/">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Charts">
-          <a class="nav-link" href="charts.html">
-            <i class="fa fa-fw fa-area-chart"></i>
+          <a class="nav-link" href="#/Facturas/">
+            <i class="fa fa-fw fa-folder"></i>
             <span class="nav-link-text"><script>document.write(translate('Invoices'));</script></span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tables">
-          <a class="nav-link" href="tables.html">
-            <i class="fa fa-fw fa-table"></i>
+          <a class="nav-link" href="#/Clientes/">
+            <i class="fa fa-fw fa-blind"></i>
             <span class="nav-link-text"><script>document.write(translate('Clients'));</script></span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tables">
-          <a class="nav-link" href="tables.html">
-            <i class="fa fa-fw fa-table"></i>
+          <a class="nav-link" href="#/Usuarios/">
+            <i class="fa fa-fw fa-users"></i>
             <span class="nav-link-text"><script>document.write(translate('Users'));</script></span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tables">
-          <a class="nav-link" href="tables.html">
-            <i class="fa fa-fw fa-table"></i>
+          <a class="nav-link" href="#/MyCompany/">
+            <i class="fa fa-fw fa-building-o"></i>
             <span class="nav-link-text"><script>document.write(translate('MyCompany'));</script></span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tables">
-          <a class="nav-link" href="tables.html">
-            <i class="fa fa-fw fa-table"></i>
+          <a class="nav-link" href="#/Reportes/">
+            <i class="fa fa-fw fa-line-chart"></i>
             <span class="nav-link-text"><script>document.write(translate('Reports'));</script></span>
           </a>
         </li>
@@ -121,7 +136,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/#/MyProfile" class="nav-link log-out">
+          <a href="#/MyProfile/" class="nav-link">
             <i class="fa fa-fw fa-user"></i><script>document.write(translate('Profile'));</script></a>
         </li>
         <li class="nav-item">
@@ -131,8 +146,30 @@
       </ul>
     </div>
   </nav>
-
 <!-- end nav -->
+<!-- begin content -->
+<div class="content-wrapper" style="background: none !important;">
+    <div id="centerContent" class="container-fluid" style="padding-left:15px;padding-top:65px;">
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>FacturaDigitalCR © 2017</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+
+
+  </div>
+<!-- end content -->
 <script>
 $(document).ready(function(){
   var token = Cookies.get("token");
@@ -140,10 +177,45 @@ $(document).ready(function(){
     window.location = "index.html";
   }else{
     if(token.length > 7 ){
+      //var rutas = new CRFut.rutasModulos();
+      //rutas.initRoutes();
+      var router = new Route32({
+            'automatic':true
+        });
+
+    		router.add('#/Dashboard/',function(){
+    			loadStage("modules/dashboard.html");
+    		});
+
+        router.add('#/Facturas/',function(){
+    			loadStage("modules/facturas.html");
+    		});
+
+        router.add('#/Clientes/',function(){
+    			loadStage("modules/clientes.html");
+    		});
+
+        router.add('#/Usuarios/',function(){
+    			loadStage("modules/usuarios.html");
+    		});
+
+        router.add('#/MyCompany/',function(){
+    			loadStage("modules/mycompany.html");
+    		});
+
+        router.add('#/Reportes/',function(){
+    			loadStage("modules/reportes.html");
+    		});
+
+        router.add('#/MyProfile/',function(){
+    			loadStage("modules/myprofile.html");
+    		});
+
+        router.drive();
       var verificator = new CRFut.VeryToken();
       verificator.setToken(token);
       verificator.checksession();
-      window.setInterval((function(){ verificator.checksession(); }).bind(verificator),5000);
+      window.setInterval((function(){ verificator.checksession(); }).bind(verificator),60000);
 
       $(".log-out").on("click",function(){
         if(window.confirm("Logout?")){
