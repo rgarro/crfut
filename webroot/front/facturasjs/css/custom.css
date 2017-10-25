@@ -16,8 +16,14 @@
   text-shadow: 2px 2px black;
 }
 
+.tituloBrandNav {
+  font-family: 'serifled';
+  color:#23ad0d;
+  font-size:22px;
+  text-shadow: 2px 2px black;
+}
 .crfbody {
     background-image: url("img/tortuguero.jpg");
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
