@@ -78,6 +78,22 @@ class CsrfsTable extends Table
     }
 
     public function SetCsfrs($theKey,$session_id){
-      
+
+    }
+
+    public function ResetCsfrs($session_id){
+
+    }
+
+    public function CreateKey(){
+
+    }
+
+    public function VerifyReset($session_id,$key){
+
+    }
+
+    public function DeletePrevSessionKeys($session_id){
+
     }
 }
