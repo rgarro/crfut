@@ -37,6 +37,9 @@ class SessionsTable extends Table
         $this->setTable('Sessions');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+        $this->hasMany('Csrfs', [
+            'foreignKey' => 'session_id'
+        ]);
     }
 
     /**

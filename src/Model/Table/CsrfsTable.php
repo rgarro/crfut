@@ -32,7 +32,7 @@ class CsrfsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('csrfs');
+        $this->setTable('Csrfs');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -53,9 +53,10 @@ class CsrfsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
         $validator
-            ->scalar('theKey')
+            ->requirePresence('session_id', 'create')
+            ->notEmpty('session_id');
+        $validator
             ->requirePresence('theKey', 'create')
             ->notEmpty('theKey');
 
