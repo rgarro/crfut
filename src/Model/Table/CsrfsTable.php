@@ -22,6 +22,11 @@ use Cake\Validation\Validator;
 class CsrfsTable extends Table
 {
 
+    public var $Xtimes = 0;
+    public var $IsReseted = false;
+    public var $Counter = 0;
+    public var $CypherKey = "";
+    public var $CypherKeys = [];
     /**
      * Initialize method
      *

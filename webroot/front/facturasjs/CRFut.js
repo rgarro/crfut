@@ -1,1 +1,2 @@
 var CRFut = {};
+CRFut.AdminModules = {};

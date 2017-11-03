@@ -1,4 +1,4 @@
-describe("facturascr",function(){
+describe("CRFut.FacturasCR",function(){
 
   var facturascr;
 
