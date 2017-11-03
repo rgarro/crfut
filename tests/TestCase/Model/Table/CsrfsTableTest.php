@@ -60,6 +60,11 @@ class CsrfsTableTest extends TestCase
         $this->assertTrue(method_exists($this->Csrfs,'VerifyReset'));
     }
 
+    public function testHasDeletePrevSessionKeys()
+    {
+        $this->assertTrue(method_exists($this->Csrfs,'DeletePrevSessionKeys'));
+    }
+
     public function testHasGetTheLuckyOne()
     {
         $this->assertTrue(method_exists($this->Csrfs,'GetTheLuckyOne'));

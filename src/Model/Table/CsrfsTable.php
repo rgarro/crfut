@@ -76,4 +76,8 @@ class CsrfsTable extends Table
 
         return $rules;
     }
+
+    public function SetCsfrs($theKey,$session_id){
+      
+    }
 }
