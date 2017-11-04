@@ -22,12 +22,12 @@ use Cake\Validation\Validator;
 class CsrfsTable extends Table
 {
 
-    public  $Xtimes = 0;
+    public  $Xtimes = 5;
     public  $IsReseted = false;
     public  $Counter = 0;
     public  $CypherKey = "";
-    public  $CypherKeys = [];
-    
+    public  $CypherKeys = ["elcuasranbatioalosgallegos","nopasaranmorosendiquis","laultramoradavencera","vivasaprissaytibas","lavirgendefatimaentangaroja","lavirgendecuatlaviendoalsur"];
+    public $keys = [];
     /**
      * Initialize method
      *
@@ -88,7 +88,17 @@ class CsrfsTable extends Table
     }
 
     public function ResetCsfrs($session_id){
-
+      if(!$this->IsReseted){
+        $this->DeletePrevSessionKeys($session_id);
+        $this->IsReseted = true;
+      }
+      if($this->Counter < $this->Xtimes){
+        $tkey = $this->CreateKey();
+        $this->SetCsfrs($tkey,$session_id);
+        
+        $this->Counter ++;
+        $this->ResetCsfrs($session_id);
+      }
     }
 
     public function CreateKey(){
@@ -100,10 +110,10 @@ class CsrfsTable extends Table
     }
 
     public function DeletePrevSessionKeys($session_id){
-
+      $this->deleteAll(["Csrfs.session_id"=>$session_id]);
     }
 
-    public function GetTheLuckyOne(){
-
+    public function GetTheLuckyOne($session_id){
+      $this->ResetCsfrs($session_id);
     }
 }

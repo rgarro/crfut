@@ -111,7 +111,7 @@ class CsrfsTableTest extends TestCase
 //print_r($re);
       $r = $this->Sessions->userHasLivingSession(intval($re['session_data']['UserID']));
       $session_id = intval($r['session_data']['id']);
-      
+
       $csfrs_key = $this->Csrfs->GetTheLuckyOne($session_id);
       $this->assertTrue($this->Csrfs->VerifyReset($session_id,$csfrs_key));
     }
@@ -131,7 +131,8 @@ class CsrfsTableTest extends TestCase
     public function tearDown()
     {
         unset($this->Csrfs);
-
+        unset($this->Users);
+        unset($this->Sessions);
         parent::tearDown();
     }
 
