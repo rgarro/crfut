@@ -75,8 +75,8 @@ class SessionsTableTest extends TestCase
 
     public function testHasGetSessionByUserID()
     {
-        //$this->assertTrue(method_exists($this->Sessions,'getSessionByUserID'));
-        $this->assertTrue(true);//has living session return session data
+        $this->assertTrue(method_exists($this->Sessions,'getSessionByUserID'));
+        //$this->assertTrue(true);//has living session return session data
     }
 
     /**

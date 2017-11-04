@@ -22,11 +22,12 @@ use Cake\Validation\Validator;
 class CsrfsTable extends Table
 {
 
-    public var $Xtimes = 0;
-    public var $IsReseted = false;
-    public var $Counter = 0;
-    public var $CypherKey = "";
-    public var $CypherKeys = [];
+    public  $Xtimes = 0;
+    public  $IsReseted = false;
+    public  $Counter = 0;
+    public  $CypherKey = "";
+    public  $CypherKeys = [];
+    
     /**
      * Initialize method
      *
@@ -99,6 +100,10 @@ class CsrfsTable extends Table
     }
 
     public function DeletePrevSessionKeys($session_id){
+
+    }
+
+    public function GetTheLuckyOne(){
 
     }
 }

@@ -2,6 +2,8 @@
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\CsrfsTable;
+use App\Model\Table\SessionsTable;
+use App\Model\Table\UsersTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -17,7 +19,8 @@ class CsrfsTableTest extends TestCase
      * @var \App\Model\Table\CsrfsTable
      */
     public $Csrfs;
-
+    public $Users;
+    public $Sessions;
     /**
      * Fixtures
      *
@@ -38,6 +41,10 @@ class CsrfsTableTest extends TestCase
         parent::setUp();
         $config = TableRegistry::exists('Csrfs') ? [] : ['className' => CsrfsTable::class];
         $this->Csrfs = TableRegistry::get('Csrfs', $config);
+        $config = TableRegistry::exists('Users') ? [] : ['className' => UsersTable::class];
+        $this->Users = TableRegistry::get('Users', $config);
+        $config = TableRegistry::exists('Sessions') ? [] : ['className' => SessionsTable::class];
+        $this->Sessions = TableRegistry::get('Sessions', $config);
     }
 
     public function testHasSetCsfrs()
@@ -96,14 +103,24 @@ class CsrfsTableTest extends TestCase
 
     public function testVerifyTrue()
     {
-      $csfrs_key = $this->Csrfs->GetTheLuckyOne();
-      $this->assertTrue($this->Csrfs->VerifyReset($csfrs_key));
+      $valid_email = "fchacon@pragmatico.com";
+      $valid_pass = sha1("NewPas1557");
+      $res = $this->Users->checkAuth($valid_email,$valid_pass);
+//print_r($res);
+      $re = $this->Sessions->setSession(intval($res["User"]["UserID"]));
+//print_r($re);
+      $r = $this->Sessions->userHasLivingSession(intval($re['session_data']['UserID']));
+      $session_id = intval($r['session_data']['id']);
+      
+      $csfrs_key = $this->Csrfs->GetTheLuckyOne($session_id);
+      $this->assertTrue($this->Csrfs->VerifyReset($session_id,$csfrs_key));
     }
 
     public function testVerifyFalse()
     {
+      $session_id = 1;
       $csfrs_key = "latigradepuriscalpariounavisondetoromucodequepos";
-      $this->assertFalse($this->Csrfs->VerifyReset($csfrs_key));
+      $this->assertFalse($this->Csrfs->VerifyReset($session_id,$csfrs_key));
     }
 
     /**
