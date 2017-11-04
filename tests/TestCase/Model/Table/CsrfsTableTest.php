@@ -79,26 +79,30 @@ class CsrfsTableTest extends TestCase
 
     public function testHasXtimesProp()
     {
-        $this->assertClassHasAttribute('Xtimes', $this->Csrfs);
-        $this->assertTrue($this->Csrfs->Xtimes == 0);
+        //$this->assertClassHasAttribute('Xtimes', $this->Csrfs);
+        $this->assertTrue(property_exists($this->Csrfs,'Xtimes'));
+        $this->assertTrue($this->Csrfs->Xtimes > 0);
     }
 
     public function testHasIsResetedProp()
     {
-        $this->assertClassHasAttribute('IsReseted', $this->Csrfs);
+        //$this->assertClassHasAttribute('IsReseted', $this->Csrfs);
+        $this->assertTrue(property_exists($this->Csrfs,'IsReseted'));
         $this->assertFalse($this->Csrfs->IsReseted);
     }
 
     public function testHasCounterProp()
     {
-        $this->assertClassHasAttribute('Counter', $this->Csrfs);
+        //$this->assertClassHasAttribute('Counter', $this->Csrfs);
+        $this->assertTrue(property_exists($this->Csrfs,'Counter'));
         $this->assertTrue($this->Csrfs->Counter == 0);
     }
 
     public function testHasCypherKeyProp()
     {
-        $this->assertClassHasAttribute('CypherKey', $this->Csrfs);
-        $this->assertTrue(strlen($this->Csrfs->CypherKey) > 15);
+        //$this->assertClassHasAttribute('CypherKey', $this->Csrfs);
+        $this->assertTrue(property_exists($this->Csrfs,'CypherKey'));
+        //$this->assertTrue(strlen($this->Csrfs->CypherKey) > 15);
     }
 
     public function testVerifyTrue()

@@ -26,8 +26,8 @@ class CsrfsTable extends Table
     public  $IsReseted = false;
     public  $Counter = 0;
     public  $CypherKey = "";
-    public  $CypherKeys = ["elcuasranbatioalosgallegos","nopasaranmorosendiquis","laultramoradavencera","vivasaprissaytibas","lavirgendefatimaentangaroja","lavirgendecuatlaviendoalsur"];
-    public $keys = [];
+    public  $CypherKeys = ["chamucosiamanecenosvamoes","elcuasranbatioalosgallegos","nopasaranmorosendiquis","laultramoradavencera","vivasaprissaytibas","lavirgendefatimaentangaroja","lavirgendecuatlaviendoalsur"];
+    public $newKeys = [];
     /**
      * Initialize method
      *
@@ -84,7 +84,10 @@ class CsrfsTable extends Table
     }
 
     public function SetCsfrs($theKey,$session_id){
-
+      $cs = $this->newEntity();
+      $cs->session_id = $session_id;
+      $cs->theKey = $theKey;
+      $this->save($cs);
     }
 
     public function ResetCsfrs($session_id){
@@ -94,19 +97,24 @@ class CsrfsTable extends Table
       }
       if($this->Counter < $this->Xtimes){
         $tkey = $this->CreateKey();
+        array_push($this->newKeys,$tkey);
         $this->SetCsfrs($tkey,$session_id);
-        
         $this->Counter ++;
         $this->ResetCsfrs($session_id);
+      }else{
+        $this->CypherKey = $this->newKeys[array_rand($this->newKeys)];
       }
     }
 
     public function CreateKey(){
-
+      return str_shuffle(str_shuffle(str_shuffle(decoct(rand(10000,90000)).str_shuffle($this->CypherKeys[array_rand($this->CypherKeys)]).decoct(rand(10000,90000)))));
     }
 
     public function VerifyReset($session_id,$key){
-
+      $q = $this->find('all',['conditions'=>["Csrfs.session_id"=>$session_id,"Csrfs.theKey"=>$key]]);
+      $ret = ($q->count() > 0 ? true : false);
+      $this->DeletePrevSessionKeys($session_id);
+      return $ret;
     }
 
     public function DeletePrevSessionKeys($session_id){
@@ -115,5 +123,6 @@ class CsrfsTable extends Table
 
     public function GetTheLuckyOne($session_id){
       $this->ResetCsfrs($session_id);
+      return $this->CypherKey;
     }
 }
