@@ -2,7 +2,7 @@ var Users = (function(){
 
   function Users(){
     this.parentVars();
-
+    this.dataTableUrl = this.baseUrl + "users/datatable";
   }
 
   Users.prototype = Object.create(CRFut.FacturasCR.prototype);

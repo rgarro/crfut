@@ -1,6 +1,51 @@
 <div class="row">
   <div class="col-12">
-    <h3 class="tituloBrandNav" align="center">Usuarios</h3>
-    <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
+
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="tituloBrandNav cardTitle"></h4>
+
+  <table id="usesDataTable" class="table table-striped">
+    <thead>
+      <tr>
+          <th class="firstname-head"></th>
+          <th class="lastname-head"></th>
+          <th class="email-head"></th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+        <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+      </div>
+    </div>
+
+
+
   </div>
 </div>
+<script>
+$(document).ready(function(){
+
+  var crfut_users = new CRFut.AdminModules.Users();
+
+  $('#usesDataTable3').dataTable({
+        "bProcessing": true,
+        "sAjaxSource": crfut_users.dataTableUrl,
+        "aoColumns": [
+              { mData: 'id' } ,
+              { mData: 'name' },
+              { mData: 'email' }
+            ]
+      });
+
+  //Translatables
+  $(".cardTitle").html("<i class='fa fa-users'></i> " + translate('Users'));
+  $(".firstname-head").html("<i class='fa fa-address-card'></i> " + translate('FirstName'));
+  $(".lastname-head").html("<i class='fa fa-address-card-o'></i> " + translate('LastName'));
+  $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
+
+});
+</script>

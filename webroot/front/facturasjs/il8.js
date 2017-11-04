@@ -1,3 +1,9 @@
+translate.add({LastName: 'LastName'}, 'en');
+translate.add({LastName: 'Apellido'}, 'es');
+
+translate.add({FirstName: 'FirstName'}, 'en');
+translate.add({FirstName: 'Nombre'}, 'es');
+
 translate.add({projectTitle: 'FacturaDigitalCR'}, 'en');
 translate.add({projectTitle: 'FacturaDigitalCR'}, 'es');
 
