@@ -103,7 +103,7 @@ class UsersTable extends Table
         $sql .=" AND Password ='".$sha1_password."'";
   			$res = $this->connection()->execute($sql)->fetch('assoc');
         $return = [];
-        
+
         if($res['hay']){
           $return['is_valid'] = true;
           $return['User'] = $this->getUserbyEmail($email);
@@ -126,6 +126,20 @@ class UsersTable extends Table
 
     public function isSha1($str){
       return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
+    }
+
+    public function dataTableData(){
+      $sql ="SELECT COUNT(*) as hay ";
+      $sql .=" FROM Users ";
+      $res = $this->connection()->execute($sql)->fetch('assoc');
+      $list_sql = "SELECT * FROM Users ";
+      $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
+      $ret = [];
+      //$q = $this->find('all');
+      //$ret['total'] = $q->count();
+      $ret['total'] = $res['hay'];
+      $ret['data'] = $DataSet;
+      return $ret;
     }
 
 }

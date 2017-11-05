@@ -31,15 +31,29 @@ $(document).ready(function(){
 
   var crfut_users = new CRFut.AdminModules.Users();
 
-  $('#usesDataTable3').dataTable({
+  $('#usesDataTable').DataTable( {
+         "processing": true,
+         "serverSide": true,
+         "ajax": {
+             "url": crfut_users.dataTableUrl + "?token="+Cookies.get("token"),
+             "type": "POST"
+         },
+         "columns": [
+             { "data": "FirstName" },
+             { "data": "LastName" },
+             { "data": "Email" },
+         ]
+     } );
+
+  /*$('#usesDataTable').dataTable({
         "bProcessing": true,
         "sAjaxSource": crfut_users.dataTableUrl,
         "aoColumns": [
-              { mData: 'id' } ,
-              { mData: 'name' },
-              { mData: 'email' }
+              { mData: 'FirstName' } ,
+              { mData: 'LastName' },
+              { mData: 'Email' }
             ]
-      });
+      });*/
 
   //Translatables
   $(".cardTitle").html("<i class='fa fa-users'></i> " + translate('Users'));
