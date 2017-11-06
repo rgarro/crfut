@@ -1,3 +1,15 @@
+translate.add({Alevel: 'Access'}, 'en');
+translate.add({Alevel: 'Acceso'}, 'es');
+
+translate.add({Since: 'Since'}, 'en');
+translate.add({Since: 'Desde'}, 'es');
+
+translate.add({AbsentToken: 'Absent Token'}, 'en');
+translate.add({AbsentToken: 'Token Ausente'}, 'es');
+
+translate.add({SesExpired: 'Session Expired'}, 'en');
+translate.add({SesExpired: 'La Sesion Expiro'}, 'es');
+
 translate.add({LastName: 'LastName'}, 'en');
 translate.add({LastName: 'Apellido'}, 'es');
 

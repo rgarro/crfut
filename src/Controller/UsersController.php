@@ -27,14 +27,20 @@ class UsersController extends AppController
             "recordsTotal" => $res['total'],
             "recordsFiltered" => 10,
             "data" => $res['data'] ];
-        $this->cors_here();
-        $this->set($ret);
+
       }else{
-        throw new Exception("token is expired");//ajax logout callback will be ...
+        $ret = [];
+        $ret["token_is_expired"] = 1;
+        //throw new Exception("token is expired");//ajax logout callback will be ...
       }
+
     }else{
-      throw new Exception("token is required");
+      $ret = [];
+      $ret["token_is_absent"] = 1;
+      //throw new Exception("token is required");
     }
+    $this->cors_here();
+    $this->set($ret);
   }
 
 }

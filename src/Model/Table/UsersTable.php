@@ -34,7 +34,7 @@ class UsersTable extends Table
         $this->setTable('Users');
         $this->setDisplayField('UserID');
         $this->setPrimaryKey('UserID');
-        //$this->belongsTo('AccessLevels', ['className' => 'AccessLevels','foreignKey'=>"AccessLevelID"]);
+        $this->belongsTo('AccessLevels', ['className' => 'AccessLevels','foreignKey'=>"AccessLevelID"]);
     }
 
     /**
@@ -132,7 +132,7 @@ class UsersTable extends Table
       $sql ="SELECT COUNT(*) as hay ";
       $sql .=" FROM Users ";
       $res = $this->connection()->execute($sql)->fetch('assoc');
-      $list_sql = "SELECT * FROM Users ";
+      $list_sql = "SELECT a.* , b.AccessLevel FROM Users as a , AccessLevels as b WHERE a.AccessLevelID = b.AccessLevelID";
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       $ret = [];
       //$q = $this->find('all');

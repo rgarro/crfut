@@ -12,6 +12,8 @@
           <th class="firstname-head"></th>
           <th class="lastname-head"></th>
           <th class="email-head"></th>
+          <th class="entered-head"></th>
+          <th class="accesslevel-head"></th>
       </tr>
     </thead>
     <tbody>
@@ -36,30 +38,34 @@ $(document).ready(function(){
          "serverSide": true,
          "ajax": {
              "url": crfut_users.dataTableUrl + "?token="+Cookies.get("token"),
-             "type": "POST"
+             "type": "POST",
+             "dataSrc": (function (json) {
+               if(json.token_is_absent ==1){
+                 crfut_users.alert_error(translate('SesExpired'));
+                   window.location = "index.html";
+               }
+                if(json.token_is_expired ==1){
+                  crfut_users.alert_error(translate('SesExpired'));
+                    window.location = "index.html";
+                }
+                return json.data;
+            }).bind(this)
          },
          "columns": [
              { "data": "FirstName" },
              { "data": "LastName" },
              { "data": "Email" },
+             { "data": "Entered" },
+             { "data": "AccessLevel" },
          ]
      } );
-
-  /*$('#usesDataTable').dataTable({
-        "bProcessing": true,
-        "sAjaxSource": crfut_users.dataTableUrl,
-        "aoColumns": [
-              { mData: 'FirstName' } ,
-              { mData: 'LastName' },
-              { mData: 'Email' }
-            ]
-      });*/
 
   //Translatables
   $(".cardTitle").html("<i class='fa fa-users'></i> " + translate('Users'));
   $(".firstname-head").html("<i class='fa fa-address-card'></i> " + translate('FirstName'));
   $(".lastname-head").html("<i class='fa fa-address-card-o'></i> " + translate('LastName'));
   $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
-
+  $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
+  $(".accesslevel-head").html("<i class='fa fa-calendar'></i> " + translate('Alevel'));
 });
 </script>
