@@ -134,7 +134,7 @@ class UsersTable extends Table
       $res = $this->connection()->execute($sql)->fetch('assoc');
       $list_sql = "SELECT a.* , b.AccessLevel FROM Users as a , AccessLevels as b";
       $list_sql .= " WHERE a.AccessLevelID = b.AccessLevelID ";
-      $list_sql .= "LIMIT ".$length.",".$start;
+      $list_sql .= "LIMIT ".$start.",".$length;
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       $ret = [];
       //$q = $this->find('all');

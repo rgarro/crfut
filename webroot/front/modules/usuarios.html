@@ -6,7 +6,7 @@
       <div class="card-body">
         <h4 class="tituloBrandNav cardTitle"></h4>
 
-  <table id="usesDataTable" class="table table-striped">
+  <table id="usesDataTable" class="table table-striped display">
     <thead>
       <tr>
           <th class="firstname-head"></th>
@@ -45,6 +45,7 @@ $(document).ready(function(){
   $('#usesDataTable').DataTable( {
          "processing": true,
          "serverSide": true,
+         "paging": true,
          "ajax": {
              "url": crfut_users.dataTableUrl + "?token="+Cookies.get("token"),
              "type": "POST",
