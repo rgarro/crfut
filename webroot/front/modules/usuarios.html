@@ -31,7 +31,16 @@
 <script>
 $(document).ready(function(){
 
+  //Translatables
+  $(".cardTitle").html("<i class='fa fa-users'></i> " + translate('Users'));
+  $(".firstname-head").html("<i class='fa fa-address-card'></i> " + translate('FirstName'));
+  $(".lastname-head").html("<i class='fa fa-address-card-o'></i> " + translate('LastName'));
+  $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
+  $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
+  $(".accesslevel-head").html("<i class='fa fa-calendar'></i> " + translate('Alevel'));
+
   var crfut_users = new CRFut.AdminModules.Users();
+  var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
 
   $('#usesDataTable').DataTable( {
          "processing": true,
@@ -41,7 +50,7 @@ $(document).ready(function(){
              "type": "POST",
              "dataSrc": (function (json) {
                if(json.token_is_absent ==1){
-                 crfut_users.alert_error(translate('SesExpired'));
+                 crfut_users.alert_error(translate('AbsentToken'));
                    window.location = "index.html";
                }
                 if(json.token_is_expired ==1){
@@ -57,15 +66,12 @@ $(document).ready(function(){
              { "data": "Email" },
              { "data": "Entered" },
              { "data": "AccessLevel" },
-         ]
-     } );
+         ],
+         "language": {
+           "url": data_lang_url,
+         },
+     });
 
-  //Translatables
-  $(".cardTitle").html("<i class='fa fa-users'></i> " + translate('Users'));
-  $(".firstname-head").html("<i class='fa fa-address-card'></i> " + translate('FirstName'));
-  $(".lastname-head").html("<i class='fa fa-address-card-o'></i> " + translate('LastName'));
-  $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
-  $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
-  $(".accesslevel-head").html("<i class='fa fa-calendar'></i> " + translate('Alevel'));
+
 });
 </script>

@@ -22,10 +22,10 @@ class UsersController extends AppController
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
-        $res = $this->Users->dataTableData();
+        $res = $this->Users->dataTableData($_POST['length'],$_POST['start']);
         $ret = ["sEcho" => 1,
             "recordsTotal" => $res['total'],
-            "recordsFiltered" => 10,
+            "recordsFiltered" => count($res['data']),
             "data" => $res['data'] ];
 
       }else{

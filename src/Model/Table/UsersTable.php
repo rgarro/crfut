@@ -128,11 +128,13 @@ class UsersTable extends Table
       return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
     }
 
-    public function dataTableData(){
+    public function dataTableData($length=10,$start=0){
       $sql ="SELECT COUNT(*) as hay ";
       $sql .=" FROM Users ";
       $res = $this->connection()->execute($sql)->fetch('assoc');
-      $list_sql = "SELECT a.* , b.AccessLevel FROM Users as a , AccessLevels as b WHERE a.AccessLevelID = b.AccessLevelID";
+      $list_sql = "SELECT a.* , b.AccessLevel FROM Users as a , AccessLevels as b";
+      $list_sql .= " WHERE a.AccessLevelID = b.AccessLevelID ";
+      $list_sql .= "LIMIT ".$length.",".$start;
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       $ret = [];
       //$q = $this->find('all');
