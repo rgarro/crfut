@@ -128,12 +128,42 @@ class UsersTable extends Table
       return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
     }
 
-    public function dataTableData($length=10,$start=0){
+    public function getDataTableSortableColumnNames($columns){
+      $ret = [];
+      foreach($columns as $col){
+        if(settype($col['orderable'],"bool"){
+          array_push($ret,$col['Data']);
+        }
+      }
+      return $ret;
+    }
+
+    public function getDataTableSearchableColumnNames($columns){
+      $ret = [];
+      foreach($columns as $col){
+        if(settype($col['searchable'],"bool")){
+          array_push($ret,$col['Data']);
+        }
+      }
+      return $ret;
+    }
+
+    public function dataTableData($length=10,$start=0,$search="",$searchables=[],$sortables=[],$direction =""){
       $sql ="SELECT COUNT(*) as hay ";
       $sql .=" FROM Users ";
       $res = $this->connection()->execute($sql)->fetch('assoc');
       $list_sql = "SELECT a.* , b.AccessLevel FROM Users as a , AccessLevels as b";
       $list_sql .= " WHERE a.AccessLevelID = b.AccessLevelID ";
+
+      if(strlen($seach)>0 && count($searchables) > 0){
+        $list_sql .= " AND (";
+        foreach($i=0;$i<count($searchables);$i++){
+          $list_sql .= ($i > 0 ?" OR ":"");
+          $list_sql .= " a.".$s." LIKE '%".$search."%'";
+        }
+        $list_sql .= " )";
+      }
+
       $list_sql .= "LIMIT ".$start.",".$length;
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       $ret = [];

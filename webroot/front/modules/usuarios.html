@@ -62,11 +62,11 @@ $(document).ready(function(){
             }).bind(this)
          },
          "columns": [
-             { "data": "FirstName" },
-             { "data": "LastName" },
-             { "data": "Email" },
-             { "data": "Entered" },
-             { "data": "AccessLevel" },
+             { "data": "FirstName", "orderable": false,"searchable":true },
+             { "data": "LastName", "orderable": false ,"searchable":true},
+             { "data": "Email", "orderable": false ,"searchable":true },
+             { "data": "Entered", "orderable": true,"searchable":false },
+             { "data": "AccessLevel", "orderable": false ,"searchable":false},
          ],
          "language": {
            "url": data_lang_url,
