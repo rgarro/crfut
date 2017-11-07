@@ -49,8 +49,7 @@ $(document).ready(function(){
          "ajax": {
              "url": crfut_users.dataTableUrl + "?token="+Cookies.get("token"),
              "type": "POST",
-             "dataSrc": (function (json) {
-console.log(json);               
+             "dataSrc": (function (json) {               
                if(json.token_is_absent ==1){
                  crfut_users.alert_error(translate('AbsentToken'));
                    window.location = "index.html";

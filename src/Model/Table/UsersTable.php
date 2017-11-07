@@ -137,20 +137,22 @@ class UsersTable extends Table
       $list_sql = "SELECT a.* , b.AccessLevel FROM Users as a , AccessLevels as b";
       $list_sql .= " WHERE a.AccessLevelID = b.AccessLevelID ";
       //get list searchables ...
-      if(strlen($seach)>0 && count($searchables) > 0){
+      if(strlen($search)>0 && count($searchables) > 0){
         $list_sql .= " AND (";
         for($i=0;$i<count($searchables);$i++){
           $list_sql .= ($i > 0 ?" OR ":"");
-          $list_sql .= " a.".$s." LIKE '%".$search."%' ";
+          $list_sql .= " a.".$searchables[$i]." LIKE '%".$search."%' ";
         }
         $list_sql .= " ) ";
       }
       //get list sortables ...
-      if(strlen($direction)>0 && count($sortables) > 0 && ($direction == "asc" || $direction == "desc")){
-        $list_sql .= " GROUP BY ".implode(",",$sortables)." ".$direction;
+  //file_put_contents("/Users/rolando/Documents/Unity/sql.log", $direction."\n\n",FILE_APPEND);
+      if(strlen($direction)>0 && count($sortables) > 0 ){
+        $list_sql .= " GROUP BY a.".implode(",a.",$sortables)." ".$direction;
       }
       //get list pagination ...
       $list_sql .= " LIMIT ".$start.",".$length;
+  //file_put_contents("/Users/rolando/Documents/Unity/sql.log", $list_sql."\n\n",FILE_APPEND);
 //print_r($_POST);
 //echo $list_sql;
 //exit;
