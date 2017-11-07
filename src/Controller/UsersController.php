@@ -16,14 +16,15 @@ class UsersController extends AppController
       $this->loadModel("Users");
       $this->loadModel("Sessions");
       $this->loadComponent("BettyChecks");
+      $this->loadComponent("DataTablePastry");
   }
 
   public function datatable(){
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
-        $searchables = $this->Users->getDataTableSearchableColumnNames($_POST['columns']);
-        $sortables =  = $this->Users->getDataTableSortableColumnNames($_POST['columns']);
+        $searchables = $this->DataTablePastry->paramFilterSearchableColumnNames($_POST['columns']);
+        $sortables = $this->DataTablePastry->paramFilterSortableColumnNames($_POST['columns']);
         $res = $this->Users->dataTableData($_POST['length'],$_POST['start'],$_POST['search']['value'],$searchables,$sortables,$_POST['order'][0]['dir']);
         $ret = [
             "draw"=> intval($_POST['draw']),
