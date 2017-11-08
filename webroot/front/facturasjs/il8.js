@@ -1,3 +1,6 @@
+translate.add({NewUser: 'New User'}, 'en');
+translate.add({NewUser: 'Nuevo Usuario'}, 'es');
+
 translate.add({Alevel: 'Access'}, 'en');
 translate.add({Alevel: 'Acceso'}, 'es');
 

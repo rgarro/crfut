@@ -50,7 +50,7 @@ class DataTablePastryComponent extends Component
     public function paramFilterSortableColumnNames($columns){
       $ret = [];
       foreach($columns as $col){
-        if(settype($col['orderable'],"bool")){
+        if($col['orderable'] == "true"){
           array_push($ret,$col['data']);
         }
       }
@@ -60,7 +60,7 @@ class DataTablePastryComponent extends Component
     public function paramFilterSearchableColumnNames($columns){
       $ret = [];
       foreach($columns as $col){
-        if(settype($col['searchable'],"bool")){
+        if($col['searchable'] == "true"){
           array_push($ret,$col['data']);
         }
       }

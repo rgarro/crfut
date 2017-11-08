@@ -146,17 +146,11 @@ class UsersTable extends Table
         $list_sql .= " ) ";
       }
       //get list sortables ...
-  //file_put_contents("/Users/rolando/Documents/Unity/sql.log", $direction."\n\n",FILE_APPEND);
       if(strlen($direction)>0 && count($sortables) > 0 ){
         $list_sql .= " GROUP BY a.".implode(",a.",$sortables)." ".$direction;
       }
       //get list pagination ...
       $list_sql .= " LIMIT ".$start.",".$length;
-  //file_put_contents("/Users/rolando/Documents/Unity/sql.log", $list_sql."\n\n",FILE_APPEND);
-//print_r($_POST);
-//echo $list_sql;
-//exit;
-
       //get list fetch the thing
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       //pack results ...

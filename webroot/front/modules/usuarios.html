@@ -19,13 +19,9 @@
     <tbody>
     </tbody>
   </table>
-
-        <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+        <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
       </div>
     </div>
-
-
-
   </div>
 </div>
 <script>
@@ -38,6 +34,7 @@ $(document).ready(function(){
   $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
   $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
   $(".accesslevel-head").html("<i class='fa fa-calendar'></i> " + translate('Alevel'));
+  $(".new-user-btn").html("<i class='fa fa-plus'></i> " + translate('NewUser'));
 
   var crfut_users = new CRFut.AdminModules.Users();
   var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
@@ -49,7 +46,7 @@ $(document).ready(function(){
          "ajax": {
              "url": crfut_users.dataTableUrl + "?token="+Cookies.get("token"),
              "type": "POST",
-             "dataSrc": (function (json) {               
+             "dataSrc": (function (json) {
                if(json.token_is_absent ==1){
                  crfut_users.alert_error(translate('AbsentToken'));
                    window.location = "index.html";
