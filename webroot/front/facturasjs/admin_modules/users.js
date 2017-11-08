@@ -8,6 +8,9 @@ var Users = (function(){
   Users.prototype = Object.create(CRFut.FacturasCR.prototype);
   Users.prototype.constructor = Users;
 
+  Users.prototype.save = function(){
+    
+  }
 
   return Users;
 })();

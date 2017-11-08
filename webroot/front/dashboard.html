@@ -41,6 +41,7 @@
   <script src="facturasjs/noty.js"></script>
   <script src="facturasjs/jquery.route32.js"></script>
   <script src="facturasjs/config.js"></script>
+  <script src="/facturasjs/handlebars-v4.0.11.js"></script>
 
   <script src="facturasjs/CRFut.js"></script>
     <script src="facturasjs/il8.js"></script>
@@ -54,10 +55,14 @@
     <link href="facturasjs/css/noty.css" rel="stylesheet">
     <link href="facturasjs/css/custom.css" rel="stylesheet">
     <script src="facturasjs/admin_modules/users.js"></script>
+    <script src="facturasjs/CompaniesSwitcher.js"></script>
     <script>
+    var current_company_id = 0;
+    var current_company_name = "";
+
     function loadStage(stage_url){
       var s = createjs.Sound.play(changeRouteSnd);
-      s.volume = 0.03;
+      s.volume = 0.010;
     	$("#centerContent").html("<i class='fa fa-truck'></i> <i class='fa fa-spinner fa-pulse'></i> Cargando ...");
     	$.ajax({
     		url:stage_url,
@@ -176,7 +181,7 @@
 $(document).ready(function(){
   var token = Cookies.get("token");
   //console.log("asdf");
-  //console.log(Cookies.get("User"));  
+  //console.log(Cookies.get("User"));
   if(typeof token == "undefined"){
     window.location = "index.html";
   }else{
