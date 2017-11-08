@@ -114,6 +114,19 @@ class UsersTableTest extends TestCase
         $this->assertTrue(method_exists($this->Users,'checkAuth'));
     }
 
+    public function testHasGetUserCompanies()
+    {
+        $this->assertTrue(method_exists($this->Users,'getUserCompanies'));
+    }
+
+    public function testGetUserCompaniesResult()
+    {
+        $valid_user_id = 1;
+        $res = $this->Users->getUserCompanies($valid_user_id);      
+        $this->assertTrue($res[1]["CompanyName"] == "Pragmasoft");
+        $this->assertTrue($res[2]["CompanyID"] == 3);
+    }
+
     /**
      * Test valid checkAuth method
      *
@@ -136,7 +149,7 @@ class UsersTableTest extends TestCase
     {
       $valid_email = "fchacon@pragmatico.com";
       $valid_pass = sha1("NewPas1557");
-      $res = $this->Users->checkAuth($valid_email,$valid_pass);      
+      $res = $this->Users->checkAuth($valid_email,$valid_pass);
       $this->assertArraySubset(["is_valid"=>true],$res);
     }
 

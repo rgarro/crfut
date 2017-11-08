@@ -226,6 +226,10 @@ $(document).ready(function(){
       verificator.checksession();
       window.setInterval((function(){ verificator.checksession(); }).bind(verificator),60000);
 
+      var CiaSwitch = new CRFut.CompaniesSwitcher();
+      CiaSwitch.getData();
+      var cias_sel_html = CiaSwitch.buildSelect();
+console.log(cias_sel_html);
       $(".log-out").on("click",function(){
         if(window.confirm("Logout?")){
           var login = new CRFut.Login();

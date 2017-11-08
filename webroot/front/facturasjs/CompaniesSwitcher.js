@@ -2,9 +2,10 @@ var CompaniesSwitcher = (function(){
 
   function CompaniesSwitcher(){
     this.parentVars();
-    this.html = "<select id='ciaSwitcher'>{{#list}}<option value='{{CompanyID}}'>{{CompanyName}}</option>{{/list}}</select>";
+    this.html = "<select id='ciaSwitcher'>{{#each cias}}<option value='{{CompanyID}}'>{{CompanyName}}</option>{{/each}}</select>";
     this.template = Handlebars.compile(this.html);
-    this.data = [];
+    this.data = {};
+    this.data.cias = [];
     this.dataIsGet = false;
   }
 
@@ -13,8 +14,9 @@ var CompaniesSwitcher = (function(){
 
   CompaniesSwitcher.prototype.getData = function(){
     var u = Cookies.get('User');
-    if(typeof u.CiasList !== 'undefined'){
-      this.data = u.CiasList;
+    var o = JSON.parse(u);
+    if(typeof o.CiasList !== 'undefined'){
+      this.data.cias = o.CiasList;
       this.dataIsGet = true;
     }else{
       throw new Error("Error getting data");
@@ -23,8 +25,7 @@ var CompaniesSwitcher = (function(){
 
   CompaniesSwitcher.prototype.buildSelect = function(){
     if(this.dataIsGet){
-
-    return this.template();
+    return this.template(this.data);
     }else{
       throw new Error("get data first");
     }

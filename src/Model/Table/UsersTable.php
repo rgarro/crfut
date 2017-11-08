@@ -107,6 +107,7 @@ class UsersTable extends Table
         if($res['hay']){
           $return['is_valid'] = true;
           $return['User'] = $this->getUserbyEmail($email);
+          $return['User']['CiasList'] = $this->getUserCompanies(intval($return['User']['UserID']));
         }else{
           $return['is_valid'] = false;
         }
@@ -117,7 +118,15 @@ class UsersTable extends Table
     }
 
     public function getUserCompanies($user_id){
-      
+      if(is_int($user_id)){
+        $sql = "SELECT CompanyID , CompanyName ";
+        $sql .= "FROM Companies WHERE ";
+        $sql .= "CompanyID IN(SELECT CompanyID FROM CompanyUsers WHERE UserID ='".$user_id."')";
+        $sql .= " GROUP BY CompanyID";
+        return $this->connection()->execute($sql)->fetchAll('assoc');
+      }else{
+        throw new Exception("user_id must be int.");
+      }
     }
 
     public function getUserbyEmail($email){
