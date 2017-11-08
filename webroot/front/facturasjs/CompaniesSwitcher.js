@@ -2,7 +2,7 @@ var CompaniesSwitcher = (function(){
 
   function CompaniesSwitcher(){
     this.parentVars();
-    this.html = "<select id='ciaSwitcher'>{{#each cias}}<option value='{{CompanyID}}'>{{CompanyName}}</option>{{/each}}</select>";
+    this.html = "<select id='ciaSwitcher' class='form-control form-control-sm'>{{#each cias}}<option value='{{CompanyID}}' {{#if selected}}selected='selected'{{/if}}>{{CompanyName}}</option>{{/each}}</select>";
     this.template = Handlebars.compile(this.html);
     this.data = {};
     this.data.cias = [];
@@ -23,8 +23,15 @@ var CompaniesSwitcher = (function(){
     }
   }
 
-  CompaniesSwitcher.prototype.buildSelect = function(){
+  CompaniesSwitcher.prototype.buildSelect = function(current_company_id){
     if(this.dataIsGet){
+      for(var i =0;i < this.data.cias.length;i++){
+        if(this.data.cias[i].CompanyID == current_company_id){
+          this.data.cias[i].selected = true;
+        }else{
+          this.data.cias[i].selected = false;
+        }
+      }
     return this.template(this.data);
     }else{
       throw new Error("get data first");

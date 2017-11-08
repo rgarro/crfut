@@ -58,6 +58,10 @@
     <script src="facturasjs/CompaniesSwitcher.js"></script>
     <script>
     var current_company_id = 0;
+    var cc = Cookies.get('current_company_id');
+    if(cc > 0){
+      current_company_id = cc;
+    }
     var current_company_name = "";
 
     function loadStage(stage_url){
@@ -132,6 +136,9 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
+        <li id="companySelNav" class="nav-item">
+
+        </li>
         <li class="nav-item">
           <a href="dashboard.html?lang=es" class="nav-link">
             <img src="img/cr.png">
@@ -144,7 +151,7 @@
         </li>
         <li class="nav-item">
           <a href="#/MyProfile/" class="nav-link">
-            <i class="fa fa-fw fa-user"></i><script>document.write(translate('Profile'));</script></a>
+            <i class="fa fa-fw fa-user"></i><span class="nameNavHolder"><span> <script>document.write(translate('Profile'));</script></a>
         </li>
         <li class="nav-item">
           <a class="nav-link log-out">
@@ -226,10 +233,29 @@ $(document).ready(function(){
       verificator.checksession();
       window.setInterval((function(){ verificator.checksession(); }).bind(verificator),60000);
 
+      //cia switcher widget
       var CiaSwitch = new CRFut.CompaniesSwitcher();
       CiaSwitch.getData();
-      var cias_sel_html = CiaSwitch.buildSelect();
-console.log(cias_sel_html);
+      var cias_sel_html = CiaSwitch.buildSelect(current_company_id);
+      if(current_company_id == 0){
+        var ccid = CiaSwitch.data.cias[0].CompanyID;
+        Cookies.set('current_company_id',ccid);
+      }
+      $("#companySelNav").html(cias_sel_html);
+      $("#ciaSwitcher").on("change",function(){
+        var cid = $(this).val();
+        Cookies.set('current_company_id',cid);
+        CiaSwitch.alert_success(translate('CompanySwitch'));
+        setTimeout(function(){ window.location = "dashboard.html"; }, 2000);
+        //window.location = "dashboard.html";
+      });
+
+
+      //Current User Top Name
+      var ucookie = Cookies.get('User');
+      var ucookiedata = JSON.parse(ucookie);
+      $(".nameNavHolder").html(ucookiedata.FirstName + " " + ucookiedata.LastName);
+
       $(".log-out").on("click",function(){
         if(window.confirm("Logout?")){
           var login = new CRFut.Login();

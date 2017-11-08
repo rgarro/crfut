@@ -1,3 +1,6 @@
+translate.add({CompanySwitch: 'Cambiando Cia'}, 'en');
+translate.add({CompanySwitch: 'Switching Company'}, 'es');
+
 translate.add({NewUser: 'New User'}, 'en');
 translate.add({NewUser: 'Nuevo Usuario'}, 'es');
 
