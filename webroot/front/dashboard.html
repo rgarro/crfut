@@ -175,6 +175,8 @@
 <script>
 $(document).ready(function(){
   var token = Cookies.get("token");
+  //console.log("asdf");
+  //console.log(Cookies.get("User"));  
   if(typeof token == "undefined"){
     window.location = "index.html";
   }else{

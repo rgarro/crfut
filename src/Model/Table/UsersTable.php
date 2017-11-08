@@ -116,6 +116,10 @@ class UsersTable extends Table
       }
     }
 
+    public function getUserCompanies($user_id){
+      
+    }
+
     public function getUserbyEmail($email){
       $sql ="SELECT * ";
       $sql .=" FROM Users ";
