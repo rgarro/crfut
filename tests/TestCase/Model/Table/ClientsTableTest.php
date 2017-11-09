@@ -60,7 +60,7 @@ class ClientsTableTest extends TestCase
     {
       $company_id = 1;
       $res = $this->Clients>dataTableData($company_id);
-      $this->assertTrue($res[0]["Email"] == "test@grupochanto.com");
+      $this->assertTrue($res['data'][0]["Email"] == "test@grupochanto.com");
     }
 
     /**
