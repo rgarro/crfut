@@ -1,3 +1,6 @@
+translate.add({ComercialName: 'Nombre Comercial'}, 'en');
+translate.add({ComercialName: 'ComercialName'}, 'es');
+
 translate.add({CompanySwitch: 'Cambiando Cia'}, 'en');
 translate.add({CompanySwitch: 'Switching Company'}, 'es');
 

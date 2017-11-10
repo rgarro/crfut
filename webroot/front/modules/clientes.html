@@ -4,9 +4,64 @@
           <div class="card-body">
             <h4 class="tituloBrandNav cardTitle"><i class="fa fa-male"></i> Clientes</h4>
 
+            <table id="clientsDataTable" class="table table-striped display">
+              <thead>
+                <tr>
+                    <th class="email-head"></th>
+                    <th class="commercialname-head"></th>
+                    <th class="entered-head"></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+                  <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
 
-            <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
           </div>
         </div>
       </div>
     </div>
+    <script>
+    $(document).ready(function(){
+
+      //Translatables
+      $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Clients'));
+      $(".commercialname-head").html("<i class='fa fa-address-card'></i> " + translate('ComercialName'));
+      $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
+      $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
+
+      var crfut_clients = new CRFut.AdminModules.Clients();
+      var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
+      var encoded_cia_id = $.base64.encode(current_company_id);
+      $('#clientsDataTable').DataTable( {
+             "processing": true,
+             "serverSide": true,
+             "paging": true,
+             "ajax": {
+                 "url": crfut_clients.dataTableUrl + "?token="+Cookies.get("token") +"&company_id=" + encoded_cia_id,
+                 "type": "POST",
+                 "dataSrc": (function (json) {
+                   if(json.token_is_absent ==1){
+                     crfut_clients.alert_error(translate('AbsentToken'));
+                       window.location = "index.html";
+                   }
+                    if(json.token_is_expired ==1){
+                      crfut_clients.alert_error(translate('SesExpired'));
+                        window.location = "index.html";
+                    }
+                    return json.data;
+                }).bind(this)
+             },
+             "columns": [
+                 { "data": "Email", "orderable": false ,"searchable":true },
+                 { "data": "CommercialName", "orderable": false ,"searchable":true},
+                 { "data": "Entered", "orderable": true,"searchable":false },
+             ],
+             "language": {
+               "url": data_lang_url,
+             },
+         });
+
+
+    });
+    </script>

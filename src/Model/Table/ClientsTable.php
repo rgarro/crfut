@@ -30,7 +30,7 @@ class ClientsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('clients');
+        $this->setTable('Clients');
         $this->setDisplayField('ClientID');
         $this->setPrimaryKey('ClientID');
     }
@@ -114,4 +114,39 @@ class ClientsTable extends Table
 
         return $validator;
     }
+
+    public function dataTableData($company_id,$length=10,$start=0,$search="",$searchables=[],$sortables=[],$direction =""){
+      //get total
+      $sql ="SELECT COUNT(*) as hay ";
+      $sql .=" FROM Clients ";
+      $sql .=" WHERE CompanyID = '".$company_id."'";
+      $res = $this->connection()->execute($sql)->fetch('assoc');
+      //get list
+      $list_sql = "SELECT a.*  FROM Clients as a ";
+      $list_sql .=" WHERE a.CompanyID = '".$company_id."' ";
+      //get list searchables ...
+      if(strlen($search)>0 && count($searchables) > 0){
+        $list_sql .= " AND (";
+        for($i=0;$i<count($searchables);$i++){
+          $list_sql .= ($i > 0 ?" OR ":"");
+          $list_sql .= " a.".$searchables[$i]." LIKE '%".$search."%' ";
+        }
+        $list_sql .= " ) ";
+      }
+      //get list sortables ...
+      if(strlen($direction)>0 && count($sortables) > 0 ){
+        $list_sql .= " GROUP BY a.".implode(",a.",$sortables)." ".$direction;
+      }
+      //get list pagination ...
+      $list_sql .= " LIMIT ".$start.",".$length;
+      //get list fetch the thing
+      $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
+      //pack results ...
+      $ret = [];
+      $ret['total'] = $res['hay'];
+      $ret['data'] = $DataSet;
+      return $ret;
+    }
+
+
 }
