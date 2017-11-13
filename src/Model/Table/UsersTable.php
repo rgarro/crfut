@@ -108,6 +108,7 @@ class UsersTable extends Table
           $return['is_valid'] = true;
           $return['User'] = $this->getUserbyEmail($email);
           $return['User']['CiasList'] = $this->getUserCompanies(intval($return['User']['UserID']));
+          $return['User']['AccessLevel'] =  $this->getAccessLabel($return['User']['AccessLevelID']);
         }else{
           $return['is_valid'] = false;
         }
@@ -115,6 +116,14 @@ class UsersTable extends Table
       }else{
         throw new Exception("Password must be sha1.");
       }
+    }
+
+    public function getAccessLabel($AccessLevelID){
+      $sql ="SELECT AccessLevel as label ";
+      $sql .=" FROM AccessLevels ";
+      $sql .=" WHERE AccessLevelID ='".$AccessLevelID."'";
+      $res = $this->connection()->execute($sql)->fetch('assoc');
+      return $res['label'];
     }
 
     public function getUserCompanies($user_id){

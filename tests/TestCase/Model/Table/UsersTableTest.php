@@ -82,6 +82,18 @@ class UsersTableTest extends TestCase
         $this->assertTrue(method_exists($this->Users,'isSha1'));
     }
 
+    public function testHasGetAccessLabel()
+    {
+        $this->assertTrue(method_exists($this->Users,'getAccessLabel'));
+    }
+
+    public function testGetAccessLabel()
+    {
+      $res   =  $this->Users->getAccessLabel(0);
+      $this->assertTrue($res == "SuperAdmin");
+    }
+
+
     /**
      * Test testIsSha1WithValidHash
      *
@@ -122,7 +134,7 @@ class UsersTableTest extends TestCase
     public function testGetUserCompaniesResult()
     {
         $valid_user_id = 1;
-        $res = $this->Users->getUserCompanies($valid_user_id);      
+        $res = $this->Users->getUserCompanies($valid_user_id);
         $this->assertTrue($res[1]["CompanyName"] == "Pragmasoft");
         $this->assertTrue($res[2]["CompanyID"] == 3);
     }
