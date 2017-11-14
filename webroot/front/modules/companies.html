@@ -5,8 +5,40 @@
             <h4 class="tituloBrandNav cardTitle"><i class="fa fa-map-signs"></i> Companies</h4>
 
 
-            <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
+            <table id="companiesDataTable" class="table table-striped display">
+              <thead>
+                <tr>
+                    <th class="company-head"></th>
+                    <th class="email-head"></th>
+                    <th class="entered-head"></th>
+                    <th class="phone-head"></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+                  <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
+                  
           </div>
         </div>
       </div>
     </div>
+    <script>
+    $(document).ready(function(){
+
+      //Translatables
+      $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Companies'));
+      $(".company-head").html("<i class='fa fa-address-card'></i> " + translate('Company'));
+      $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
+      $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
+      $(".phone-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
+
+      var crfut_companies = new CRFut.AdminModules.Companies();
+      var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
+      console.log(current_user);
+      //var encoded_cia_id = $.base64.encode(current_company_id);
+
+
+
+    });
+    </script>
