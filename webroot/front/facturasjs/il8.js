@@ -1,3 +1,6 @@
+translate.add({Phone: 'Telephone'}, 'en');
+translate.add({Phone: 'Teléfono'}, 'es');
+
 translate.add({Companies: 'Companies'}, 'en');
 translate.add({Companies: 'Compañías'}, 'es');
 

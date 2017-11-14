@@ -10,6 +10,7 @@
                     <th class="email-head"></th>
                     <th class="commercialname-head"></th>
                     <th class="entered-head"></th>
+                    <th class="phone-head"></th>
                 </tr>
               </thead>
               <tbody>
@@ -29,6 +30,7 @@
       $(".commercialname-head").html("<i class='fa fa-address-card'></i> " + translate('ComercialName'));
       $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
       $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
+        $(".phone-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
 
       var crfut_clients = new CRFut.AdminModules.Clients();
       var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
@@ -56,6 +58,7 @@
                  { "data": "Email", "orderable": false ,"searchable":true },
                  { "data": "CommercialName", "orderable": false ,"searchable":true},
                  { "data": "Entered", "orderable": true,"searchable":false },
+                 { "data": "Phone", "orderable": false,"searchable":false },
              ],
              "language": {
                "url": data_lang_url,
