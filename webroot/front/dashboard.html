@@ -58,11 +58,12 @@
     <script src="facturasjs/admin_modules/users.js"></script>
     <script src="facturasjs/CompaniesSwitcher.js"></script>
     <script src="facturasjs/admin_modules/clients.js"></script>
+    <script src="facturasjs/admin_modules/companies.js"></script>
     <script>
     var current_company_id = 0;
     var cc = Cookies.get('current_company_id');
     var current_user = JSON.parse(Cookies.get('User'));
-  
+
     if(cc > 0){
       current_company_id = cc;
     }
@@ -120,7 +121,7 @@
           translate('Users') + "</span></a></li>");
 
           document.write("<li class='nav-item' data-toggle='tooltip' data-placement='right' title='' data-original-title='Tables'>"+
-          "<a class='nav-link' href='#/Companies/'><i class='fa fa-fw fa-building'></i><span class='nav-link-text'>" +
+          "<a class='nav-link' href='#/Companies/'><i class='fa fa-fw fa-map-signs'></i><span class='nav-link-text'>" +
           translate('Companies') + "</span></a></li>");
       }
         </script>
@@ -235,6 +236,10 @@ $(document).ready(function(){
         router.add('#/MyProfile/',function(){
     			loadStage("modules/myprofile.html");
     		});
+
+        router.add('#/Companies/',function(){
+          loadStage("modules/companies.html");
+        });
 
         router.drive();
       var verificator = new CRFut.VeryToken();

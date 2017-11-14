@@ -1,3 +1,6 @@
+translate.add({Companies: 'Companies'}, 'en');
+translate.add({Companies: 'Compañías'}, 'es');
+
 translate.add({ComercialName: 'Nombre Comercial'}, 'en');
 translate.add({ComercialName: 'ComercialName'}, 'es');
 
