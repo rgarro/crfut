@@ -18,7 +18,7 @@
               </tbody>
             </table>
                   <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
-                  
+
           </div>
         </div>
       </div>
@@ -35,9 +35,38 @@
 
       var crfut_companies = new CRFut.AdminModules.Companies();
       var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
-      console.log(current_user);
-      //var encoded_cia_id = $.base64.encode(current_company_id);
+      //console.log(current_user);
+      var encoded_user_id = $.base64.encode(current_user.UserID);
 
+      $('#companiesDataTable').DataTable( {
+             "processing": true,
+             "serverSide": true,
+             "paging": true,
+             "ajax": {
+                 "url": crfut_companies.dataTableUrl + "?token="+Cookies.get("token") +"&user_id=" + encoded_user_id,
+                 "type": "POST",
+                 "dataSrc": (function (json) {
+                   if(json.token_is_absent ==1){
+                     crfut_companies.alert_error(translate('AbsentToken'));
+                       window.location = "index.html";
+                   }
+                    if(json.token_is_expired ==1){
+                      crfut_companies.alert_error(translate('SesExpired'));
+                        window.location = "index.html";
+                    }
+                    return json.data;
+                }).bind(this)
+             },
+             "columns": [
+               { "data": "CompanyName", "orderable": true ,"searchable":true},
+                 { "data": "Email", "orderable": false ,"searchable":true },
+                 { "data": "Entered", "orderable": false,"searchable":false },
+                 { "data": "Phone", "orderable": false,"searchable":false },
+             ],
+             "language": {
+               "url": data_lang_url,
+             },
+         });
 
 
     });
