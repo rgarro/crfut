@@ -6,10 +6,10 @@
 
             <ul id="facturasTab" class="nav nav-pills" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" href="#pendpago" role="tab" data-toggle="tab">Pend. Pago</a>
+                <a class="nav-link active pendpago-tab" href="#pendpago" role="tab" desturl="modules/facturas/pendpago.html" data-toggle="tab">Pend. Pago</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#pagadas" role="tab" data-toggle="tab">Pagadas</a>
+                <a class="nav-link pagadas-tab" href="#pagadas" role="tab" desturl="modules/facturas/pagadas.html" data-toggle="tab">Pagadas</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#parcialpag" role="tab" data-toggle="tab">Pagadas Parcial</a>
@@ -42,14 +42,34 @@
     </div>
 <script>
 $(document).ready(function(){
-  
+  var invoices = new CRFut.AdminModules.Invoices();
+  //Translatables
+  $(".cardTitle").html("<i class='fa fa-folder'></i> " + translate('Invoices'));
+  $(".pendpago-tab").html("<i class='fa fa-calendar'></i> " + translate('PendPayment'));
+  $(".pagadas-tab").html("<i class='fa fa-male'></i> " + translate('Paid'));
+
   $('#facturasTab a:first').tab('show');
 
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    console.log("datatogle");
-  //e.target // newly activated tab
-  //e.relatedTarget // previous active tab
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    var s = createjs.Sound.play(restaurantBellSnd);
+    s.volume = 0.010;
+
+    $.ajax({
+      url: $(e.target).attr("href"),
+      type:"GET",
+      success:(function(data){
+        $("#pendpago").html(data);
+      }).bind(this)
+    });
   });
-  //$('#facturasTab a:first').tab('show');
+
+  $.ajax({
+    url: "modules/facturas/pendpago.html",
+    type:"GET",
+    success:(function(data){
+      $("#pendpago").html(data);
+    }).bind(this)
+  });
+
 });
 </script>

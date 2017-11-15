@@ -1,3 +1,9 @@
+translate.add({PendPayment: 'Pending Paymet'}, 'en');
+translate.add({PendPayment: 'Pago Pendiente'}, 'es');
+
+translate.add({Paid: 'Paid'}, 'en');
+translate.add({Paid: 'Pagadas'}, 'es');
+
 translate.add({Company: 'Company'}, 'en');
 translate.add({Company: 'Compañía'}, 'es');
 
