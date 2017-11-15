@@ -116,7 +116,7 @@ class ClientsTable extends Table
     }
 
     public function dataTableData($company_id,$length=10,$start=0,$search="",$searchables=[],$sortables=[],$direction =""){
-      //get total
+      //get total ..
       $sql ="SELECT COUNT(*) as hay ";
       $sql .=" FROM Clients ";
       $sql .=" WHERE CompanyID = '".$company_id."'";
