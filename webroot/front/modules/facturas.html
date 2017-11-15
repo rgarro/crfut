@@ -4,9 +4,52 @@
           <div class="card-body">
             <h4 class="tituloBrandNav cardTitle"><i class="fa fa-folder"></i> Facturas</h4>
 
+            <ul id="facturasTab" class="nav nav-pills" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#pendpago" role="tab" data-toggle="tab">Pend. Pago</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#pagadas" role="tab" data-toggle="tab">Pagadas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#parcialpag" role="tab" data-toggle="tab">Pagadas Parcial</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#anuladas" role="tab" data-toggle="tab">Anuladas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#incobrables" role="tab" data-toggle="tab">Incobrables</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#buscar" role="tab" data-toggle="tab">Buscar</a>
+              </li>
+            </ul>
 
-            <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade show active" id="pendpago">pendpago</div>
+              <div role="tabpanel" class="tab-pane fade" id="pagadas">pagadas</div>
+              <div role="tabpanel" class="tab-pane fade" id="parcialpag">parcialpag</div>
+              <div role="tabpanel" class="tab-pane fade" id="anuladas">anuladas</div>
+              <div role="tabpanel" class="tab-pane fade" id="incobrables">incobrables</div>
+              <div role="tabpanel" class="tab-pane fade" id="buscar">buscar</div>
+            </div>
+
+<button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i> Nueva</button>
           </div>
         </div>
       </div>
     </div>
+<script>
+$(document).ready(function(){
+  
+  $('#facturasTab a:first').tab('show');
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    console.log("datatogle");
+  //e.target // newly activated tab
+  //e.relatedTarget // previous active tab
+  });
+  //$('#facturasTab a:first').tab('show');
+});
+</script>
