@@ -23,9 +23,9 @@ class InvoicesTableTest extends TestCase
      *
      * @var array
      */
-    public $fixtures = [
+  /*  public $fixtures = [
         'app.invoices'
-    ];
+    ];*/
 
     /**
      * setUp method
