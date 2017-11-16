@@ -51,6 +51,23 @@ class InvoicesTableTest extends TestCase
         parent::tearDown();
     }
 
+    public function testHasDataTableData()
+    {
+        $this->assertTrue(method_exists($this->Invoices,'dataTableData'));
+    }
+
+    public function testDataTableDataValidResult()
+    {
+      $company_id = 1;
+      $status_id = 3;
+      $res = $this->Invoices->dataTableData($company_id,$status_id);
+      //echo ($res['data'][0]["Email"] == "test@grupochanto.com");
+  //print_r($res['data'][0]);
+  //exit;
+      $this->assertTrue($res['data'][0]["InvoiceNumber"] == 4451);
+    }
+
+
     /**
      * Test initialize method
      *
