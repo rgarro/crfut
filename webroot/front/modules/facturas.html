@@ -12,27 +12,27 @@
                 <a class="nav-link pagadas-tab" href="#pagadas" role="tab" desturl="modules/facturas/pagadas.html" data-toggle="tab">Pagadas</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#parcialpag" role="tab" data-toggle="tab">Pagadas Parcial</a>
+                <a class="nav-link parcialpay-tab" href="#parcialpag" role="tab" desturl="modules/facturas/pagadasparcial.html" data-toggle="tab">Pagadas Parcial</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#anuladas" role="tab" data-toggle="tab">Anuladas</a>
+                <a class="nav-link anuladas-tab" href="#anuladas" role="tab" desturl="modules/facturas/anuladas.html" data-toggle="tab">Anuladas</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#incobrables" role="tab" data-toggle="tab">Incobrables</a>
+                <a class="nav-link uncollectable-tab" href="#incobrables" role="tab" desturl="modules/facturas/incobrables.html" data-toggle="tab">Incobrables</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#buscar" role="tab" data-toggle="tab">Buscar</a>
+                <a class="nav-link search-tab" href="#buscar" role="tab"  desturl="modules/facturas/buscar.html" data-toggle="tab">Buscar</a>
               </li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-              <div role="tabpanel" class="tab-pane fade show active" id="pendpago">pendpago</div>
-              <div role="tabpanel" class="tab-pane fade" id="pagadas">pagadas</div>
-              <div role="tabpanel" class="tab-pane fade" id="parcialpag">parcialpag</div>
-              <div role="tabpanel" class="tab-pane fade" id="anuladas">anuladas</div>
-              <div role="tabpanel" class="tab-pane fade" id="incobrables">incobrables</div>
-              <div role="tabpanel" class="tab-pane fade" id="buscar">buscar</div>
+              <div role="tabpanel" class="tab-pane fade show active" id="pendpago"></div>
+              <div role="tabpanel" class="tab-pane fade" id="pagadas"></div>
+              <div role="tabpanel" class="tab-pane fade" id="parcialpag"></div>
+              <div role="tabpanel" class="tab-pane fade" id="anuladas"></div>
+              <div role="tabpanel" class="tab-pane fade" id="incobrables"></div>
+              <div role="tabpanel" class="tab-pane fade" id="buscar"></div>
             </div>
 
 <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i> Nueva</button>
@@ -46,19 +46,23 @@ $(document).ready(function(){
   //Translatables
   $(".cardTitle").html("<i class='fa fa-folder'></i> " + translate('Invoices'));
   $(".pendpago-tab").html("<i class='fa fa-calendar'></i> " + translate('PendPayment'));
-  $(".pagadas-tab").html("<i class='fa fa-male'></i> " + translate('Paid'));
+  $(".pagadas-tab").html("<i class='fa fa-credit-card'></i> " + translate('Paid'));
+  $(".parcialpay-tab").html("<i class='fa fa-pie-chart'></i> " + translate('ParcialPay'));
+  $(".anuladas-tab").html("<i class='fa fa-archive'></i> " + translate('Canceled'));
+  $(".uncollectable-tab").html("<i class='fa fa-bullhorn'></i> " + translate('Uncollectable'));
+  $(".search-tab").html("<i class='fa fa-search'></i> " + translate('Search'));
 
   $('#facturasTab a:first').tab('show');
 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     var s = createjs.Sound.play(restaurantBellSnd);
     s.volume = 0.010;
-
+    var content_target = $(e.target).attr("href");
     $.ajax({
-      url: $(e.target).attr("href"),
+      url: $(e.target).attr("desturl"),
       type:"GET",
       success:(function(data){
-        $("#pendpago").html(data);
+        $(content_target).html(data);
       }).bind(this)
     });
   });

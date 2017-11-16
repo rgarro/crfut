@@ -1,3 +1,15 @@
+translate.add({Search: 'Search'}, 'en');
+translate.add({Search: 'Buscar'}, 'es');
+
+translate.add({Uncollectable: 'UnCollectable'}, 'en');
+translate.add({Uncollectable: 'Incobrable'}, 'es');
+
+translate.add({Canceled: 'Canceled'}, 'en');
+translate.add({Canceled: 'Anuladas'}, 'es');
+
+translate.add({ParcialPay: 'Parcial Pay'}, 'en');
+translate.add({ParcialPay: 'Pago Parcial'}, 'es');
+
 translate.add({PendPayment: 'Pending Paymet'}, 'en');
 translate.add({PendPayment: 'Pago Pendiente'}, 'es');
 
