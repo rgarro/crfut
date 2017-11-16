@@ -27,7 +27,7 @@ class ClientsController extends AppController
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
         $company_id = intval(base64_decode($_GET['company_id']));
-        
+
         $searchables = $this->DataTablePastry->paramFilterSearchableColumnNames($_POST['columns']);
         $sortables = $this->DataTablePastry->paramFilterSortableColumnNames($_POST['columns']);
         $res = $this->Clients->dataTableData($company_id,$_POST['length'],$_POST['start'],$_POST['search']['value'],$searchables,$sortables,$_POST['order'][0]['dir']);

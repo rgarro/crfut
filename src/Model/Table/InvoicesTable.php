@@ -226,7 +226,7 @@ class InvoicesTable extends Table
       $list_sql .=" WHERE a.CompanyID = '".$company_id."' ";
       $list_sql .=" AND a.StatusID = '".$status_id."'";
       $list_sql .=" AND c.ClientID = a.ClientID";
-      $list_sql .=" AND d.InvoiceID = a.InvoiceID AND d.LineID = '1'";
+      $list_sql .=" AND d.InvoiceID = a.InvoiceID ";//AND d.LineID = '1'
       //get list searchables ...
       if(strlen($search)>0 && count($searchables) > 0){
         $list_sql .= " AND (";

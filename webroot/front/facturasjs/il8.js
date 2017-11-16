@@ -1,3 +1,12 @@
+translate.add({Description: 'Description'}, 'en');
+translate.add({Description: 'Descripción'}, 'es');
+
+translate.add({InvoiceNumber: 'Invoice Number'}, 'en');
+translate.add({InvoiceNumber: 'Numero Factura'}, 'es');
+
+translate.add({Client: 'Client'}, 'en');
+translate.add({Client: 'Cliente'}, 'es');
+
 translate.add({Search: 'Search'}, 'en');
 translate.add({Search: 'Buscar'}, 'es');
 
