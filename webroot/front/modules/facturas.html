@@ -55,6 +55,12 @@ $(document).ready(function(){
   $('#facturasTab a:first').tab('show');
 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    $("#pendpago").html(" ");
+    $("#pagadas").html(" ");
+    $("#parcialpag").html(" ");
+    $("#anuladas").html(" ");
+    $("#incobrables").html(" ");
+    $("#buscar").html(" ");
     var s = createjs.Sound.play(restaurantBellSnd);
     s.volume = 0.010;
     var content_target = $(e.target).attr("href");
