@@ -23,11 +23,10 @@
 
       //Translatables
       $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
-      $(".invoicenumber-head").html("<i class='fa fa-address-card'></i> " + translate('InvoiceNumber'));
+      $(".invoicenumber-head").html("<i class='fa fa-hashtag'></i> " + translate('InvoiceNumber'));
       $(".clientname-head").html("<i class='fa fa-address-card'></i> " + translate('Client'));
       $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
-      $(".description-head").html("<i class='fa fa-phone'></i> " + translate('Description'));
-
+      $(".description-head").html("<i class='fa fa-newspaper-o'></i> " + translate('Description'));
 
       var encoded_cia_id = $.base64.encode(current_company_id);
       var invoicesb = new CRFut.AdminModules.Invoices();
@@ -63,7 +62,6 @@
                "url": data_lang_url,
              },
          });
-
 
     });
     </script>

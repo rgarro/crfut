@@ -243,6 +243,7 @@ class InvoicesTable extends Table
       //get list pagination ...
       $list_sql .= " LIMIT ".$start.",".$length;
       //get list fetch the thing
+//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$list_sql,FILE_APPEND);      
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       //pack results ...
       $ret = [];
