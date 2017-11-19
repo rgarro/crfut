@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\Rule\IsUnique;
 
 /**
  * Clients Model
@@ -55,8 +56,8 @@ class ClientsTable extends Table
         $validator
             ->email('Email')
             ->requirePresence('Email', 'create')
-            ->notEmpty('Email');
-            ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmpty('Email')
+            ->isUnique("Email");
 
         $validator
             ->scalar('ExtraEmails')

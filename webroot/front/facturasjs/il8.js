@@ -37,8 +37,8 @@ translate.add({Phone: 'Teléfono'}, 'es');
 translate.add({Companies: 'Companies'}, 'en');
 translate.add({Companies: 'Compañías'}, 'es');
 
-translate.add({ComercialName: 'Nombre Comercial'}, 'en');
-translate.add({ComercialName: 'ComercialName'}, 'es');
+translate.add({ComercialName: 'Comercial Name'}, 'en');
+translate.add({ComercialName: 'Nombre Comercial'}, 'es');
 
 translate.add({CompanySwitch: 'Cambiando Cia'}, 'en');
 translate.add({CompanySwitch: 'Switching Company'}, 'es');

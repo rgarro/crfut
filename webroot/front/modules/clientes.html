@@ -3,7 +3,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="tituloBrandNav cardTitle"><i class="fa fa-male"></i> Clientes</h4>
-
+<button class="btn btn-outline-primary btn-sm new-cliente-showfrm-btn"><i class="fa fa-plus"></i></button><br><br>
             <table id="clientsDataTable" class="table table-striped display">
               <thead>
                 <tr>
@@ -19,7 +19,7 @@
 
             <!-- Modal -->
   <div class="modal fade" id="createClienteModal" tabindex="-1" role="dialog" aria-labelledby="createClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title newclient" id="createClienteModalLabel">Modal title</h5>
@@ -27,12 +27,22 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          ...
+        <div class="modal-body ">
+          <form id="newClientFrm">
+            <input class="hid-company-id" type="hidden" name="Client[CompanyID]" value=""/>
+            <div class="form-group">
+                <label for="comerNameInput" class="commercialname-head">CommercialName</label>
+                <input type="text" name="Client[CommercialName]" class="form-control" id="comerNameInput" placeholder="acme" required="required">
+              </div>
+            <div class="form-group">
+                <label for="clientEmailInput" class="email-head">Email</label>
+                <input type="email" name="Client[Email]" class="form-control" id="clientEmailInput" placeholder="name@example.com" required="required">
+              </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close-o"></i> </button>
+          <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-database"></i></button>
         </div>
       </div>
     </div>
@@ -51,6 +61,10 @@
         $('#createClienteModal').modal('show');
       });
 
+      $('#createClienteModal').on('hidden.bs.modal', function (e) {
+        $("#newClientFrm")[0].reset();
+      });
+
       //Translatables
       $(".new-cliente-showfrm-btn").html("<i class='fa fa-plus'></i> " + translate('NewClient'));
       $(".newclient").html("<i class='fa fa-male'></i> " + translate('NewClient'));
@@ -62,7 +76,9 @@
 
       var crfut_clients = new CRFut.AdminModules.Clients();
       var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
+      $(".hid-company-id").val(current_company_id);
       var encoded_cia_id = $.base64.encode(current_company_id);
+
       $('#clientsDataTable').DataTable( {
              "processing": true,
              "serverSide": true,
