@@ -54,4 +54,28 @@ class InvoicesController extends AppController
     $this->set($ret);
   }
 
+  public function getcount(){
+    if(isset($_GET["token"])){
+      $this->BettyChecks->veryToken($_GET["token"]);
+      $ret = [];
+      $ret["is_success"] = 0;
+      if($this->BettyChecks->LastCheckResult["is_alive"]){
+        $company_id = intval(base64_decode($_GET['company_id']));
+        $status_id = intval(base64_decode($_GET['status_id']));
+        $total = $this->Invoices->countByCompanyAndStatus($company_id,$status_id);
+        $ret["is_success"] = 1;
+        $ret['total'] = $total;
+      }else{
+        $ret["token_is_expired"] = 1;
+        //throw new Exception("token is expired");//ajax logout callback will be ...
+      }
+
+    }else{
+      $ret["token_is_absent"] = 1;
+      //throw new Exception("token is required");
+    }
+    $this->cors_here();
+    $this->set($ret);
+  }
+
 }

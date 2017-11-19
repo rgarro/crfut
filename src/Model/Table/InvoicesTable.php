@@ -215,12 +215,7 @@ class InvoicesTable extends Table
     }
 
     public function dataTableData($company_id,$status_id,$length=10,$start=0,$search="",$searchables=[],$sortables=[],$direction =""){
-      //get total ..
-      $sql ="SELECT COUNT(*) as hay ";
-      $sql .=" FROM Invoices ";
-      $sql .=" WHERE CompanyID = '".$company_id."'";
-      $sql .=" AND StatusID = '".$status_id."'";
-      $res = $this->connection()->execute($sql)->fetch('assoc');
+      $hay = $this->countByCompanyAndStatus($company_id,$status_id);
       //get list
       $list_sql = "SELECT a.* , c.ClientName, c.Email,d.Description FROM Invoices as a,InvoiceDetail as d ,Clients as c";
       $list_sql .=" WHERE a.CompanyID = '".$company_id."' ";
@@ -243,13 +238,23 @@ class InvoicesTable extends Table
       //get list pagination ...
       $list_sql .= " LIMIT ".$start.",".$length;
       //get list fetch the thing
-//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$list_sql,FILE_APPEND);      
+//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$list_sql,FILE_APPEND);
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       //pack results ...
       $ret = [];
-      $ret['total'] = $res['hay'];
+      $ret['total'] = $hay;
       $ret['data'] = $DataSet;
       return $ret;
+    }
+
+    public function countByCompanyAndStatus($company_id,$status_id){
+      //get total ..
+      $sql ="SELECT COUNT(*) as hay ";
+      $sql .=" FROM Invoices ";
+      $sql .=" WHERE CompanyID = '".$company_id."'";
+      $sql .=" AND StatusID = '".$status_id."'";
+      $res = $this->connection()->execute($sql)->fetch('assoc');
+      return $res['hay'];
     }
 
 }
