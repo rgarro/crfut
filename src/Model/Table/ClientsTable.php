@@ -53,8 +53,10 @@ class ClientsTable extends Table
             ->notEmpty('CompanyID');
 
         $validator
-            ->scalar('Email')
-            ->allowEmpty('Email');
+            ->email('Email')
+            ->requirePresence('Email', 'create')
+            ->notEmpty('Email');
+            ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('ExtraEmails')
@@ -65,7 +67,8 @@ class ClientsTable extends Table
 
         $validator
             ->scalar('CommercialName')
-            ->allowEmpty('CommercialName');
+            ->requirePresence('CommercialName', 'create')
+            ->notEmpty('CommercialName');
 
         $validator
             ->dateTime('Entered')

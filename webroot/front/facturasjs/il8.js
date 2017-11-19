@@ -1,3 +1,6 @@
+translate.add({NewClient: 'New Client'}, 'en');
+translate.add({NewClient: 'Nuevo Cliente'}, 'es');
+
 translate.add({Description: 'Description'}, 'en');
 translate.add({Description: 'Descripción'}, 'es');
 

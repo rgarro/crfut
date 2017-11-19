@@ -53,4 +53,43 @@ class ClientsController extends AppController
     $this->set($ret);
   }
 
+  public function save(){
+    $ret = [];
+    if(isset($_GET["token"])){
+      $this->BettyChecks->veryToken($_GET["token"]);
+      if($this->BettyChecks->LastCheckResult["is_alive"]){
+        if(isset($_POST['ClientID']) && is_numeric($_POST['ClientID'])){
+          $client = $this->Clients->get($_POST['ClientID'],['contain' => []]);
+        }else{
+          $client = $this->Clients->newEntity();
+        }
+        $cli = $this->Clients->patchEntity($client,$_POST);
+        if ($this->Clients->save($cli)) {
+            $flash = __('The Client has been saved.');
+            $success = 1;
+            $invalid_form = 0;
+            $errors = [];
+        }else{
+          $success = 0;
+          $flash = __('The Client could not be saved. Please, try again.');
+          $invalid_form = 1;
+          $errors = $cli->errors();
+        }
+        $ret['is_success'] = $success;
+        $ret['flash'] = $flash;
+        $ret['invalid_form'] = $invalid_form;
+        $ret['error_list'] = $errors;
+      }else{
+        $ret["token_is_expired"] = 1;
+        //throw new Exception("token is expired");//ajax logout callback will be ...
+      }
+
+    }else{
+      $ret["token_is_absent"] = 1;
+      //throw new Exception("token is required");
+    }
+    $this->cors_here();
+    $this->set($ret);
+  }
+
 }
