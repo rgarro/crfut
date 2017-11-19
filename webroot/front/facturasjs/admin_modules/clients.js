@@ -8,8 +8,8 @@ var Clients = (function(){
   Clients.prototype = Object.create(CRFut.FacturasCR.prototype);
   Clients.prototype.constructor = Clients;
 
-  Clients.prototype.save = function(){
-
+  Clients.prototype.save = function(data){
+console.log(data);
   }
 
   return Clients;

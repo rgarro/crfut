@@ -31,18 +31,46 @@
           <form id="newClientFrm">
             <input class="hid-company-id" type="hidden" name="Client[CompanyID]" value=""/>
             <div class="form-group">
-                <label for="comerNameInput" class="commercialname-head">CommercialName</label>
+                * <label for="comerNameInput" class="commercialname-head">CommercialName</label>
                 <input type="text" name="Client[CommercialName]" class="form-control" id="comerNameInput" placeholder="acme" required="required">
               </div>
+              <div class="form-group">
+                  <label for="cliNameInput" class="clientname-head">ClientName</label>
+                  <input type="text" name="Client[ClientName]" class="form-control" id="cliNameInput" placeholder="acme">
+                </div>
+              <div class="form-group">
+                  <label for="cedJuriInput" class="legalced-head">Cédula Jurídica</label>
+                  <input type="text" name="Client[CedulaJuridica]" class="form-control" id="cedJuriInput" placeholder="00000000000">
+                </div>
             <div class="form-group">
-                <label for="clientEmailInput" class="email-head">Email</label>
+                * <label for="clientEmailInput" class="email-head">Email</label>
                 <input type="email" name="Client[Email]" class="form-control" id="clientEmailInput" placeholder="name@example.com" required="required">
               </div>
+              <div class="form-group">
+                  <label for="eENameInput">ExtraEmails</label>
+                  <input type="text" name="Client[ExtraEmails]" class="form-control" id="eENameInput" placeholder="sub@domain.com,sub@domain.net">
+                </div>
+                <div class="form-group">
+                    * <label for="addrNameInput" class="addressname-head">Address</label>
+                    <input type="text" name="Client[Address]" class="form-control" id="addrNameInput" placeholder="avenue,street" required="required">
+                  </div>
+                  <div class="form-group">
+                    *  <label for="acodeNameInput" class="acodename-head">AreaCode</label>
+                      <input type="number" name="Client[AreaCode]" maxlength="3" size="3" class="form-control" id="acodeNameInput" placeholder="506" required="required">
+                    </div>
+                    <div class="form-group">
+                      *  <label for="phoneNameInput" class="phonename-head">Phone</label>
+                        <input type="number" name="Client[Phone]" minlength="8" maxlength="8" size="8" class="form-control" id="phoneNameInput" placeholder="80000000" required="required">
+                      </div>
+                      <div class="form-group">
+                          <label for="intphoneNameInput" class="intphonename-head">Phone</label>
+                          <input type="number" name="Client[ForeginPhone]" minlength="5" maxlength="20" size="8" class="form-control" id="intphoneNameInput" placeholder="80000">
+                        </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close-o"></i> </button>
-          <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa fa-database"></i></button>
+          <button type="submit" form="newClientFrm" class="btn btn-outline-primary btn-sm"><i class="fa fa-database"></i></button>
         </div>
       </div>
     </div>
@@ -66,6 +94,12 @@
       });
 
       //Translatables
+      $(".intphonename-head").html("<i class='fa fa-globe'></i> " + translate('IntPhone'));
+      $(".phonename-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
+      $(".acodename-head").html("<i class='fa fa-hashtag'></i> " + translate('AreaCode'));
+      $(".addressname-head").html("<i class='fa fa-map'></i> " + translate('Address'));
+      $(".clientname-head").html("<i class='fa fa-user'></i> " + translate('Contact'));
+      $(".legalced-head").html("<i class='fa fa-drivers-license'></i> " + translate('LegalCed'));
       $(".new-cliente-showfrm-btn").html("<i class='fa fa-plus'></i> " + translate('NewClient'));
       $(".newclient").html("<i class='fa fa-male'></i> " + translate('NewClient'));
       $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Clients'));
@@ -109,6 +143,11 @@
              },
          });
 
+         $("#newClientFrm").on("submit",function(){
+           var data = $("#newClientFrm").serializeHash();
+           crfut_clients.save(data);
+           return false;
+         });
 
     });
     </script>

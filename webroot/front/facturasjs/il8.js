@@ -1,3 +1,15 @@
+translate.add({IntPhone: 'International Telephone'}, 'en');
+translate.add({IntPhone: 'Teléfono Internacional'}, 'es');
+
+translate.add({AreaCode: 'Area Code'}, 'en');
+translate.add({AreaCode: 'Código de área'}, 'es');
+
+translate.add({Address: 'Address'}, 'en');
+translate.add({Address: 'Dirección'}, 'es');
+
+translate.add({LegalCed: 'Legal ID Number'}, 'en');
+translate.add({LegalCed: 'Cédula Jurídica'}, 'es');
+
 translate.add({NewClient: 'New Client'}, 'en');
 translate.add({NewClient: 'Nuevo Cliente'}, 'es');
 
