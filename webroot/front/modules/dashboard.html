@@ -99,21 +99,64 @@
         type:"GET",
         dataType:"json",
         success:(function(data){
-console.log(data);
-          //this.checkTimedOut(data);
-          /*if(data.is_alive){
-            //this.alert_warning(data.flash);
-            this.session_is_alive = true;
-          }else{
-            this.session_is_alive = false;
-            this.alert_success("La Sesion ha finalizado");
-            Cookies.remove('Session');
-            Cookies.remove('User');
-            Cookies.remove('token');
-            window.location = "index.html";
-          }*/
+          invoicesc.verifyTokenizedRequest(data);
+          if(data.is_success == 1){
+            $(".pendpago-tab").html("<i class='fa fa-calendar'></i> " + data.total + " " + translate('PendPayment'));
+          }
         }).bind(this)
       });
+
+      $.ajax({
+        url:invoicesc.dataCountUrl,
+        data:{
+          token:Cookies.get("token"),
+          company_id:encoded_cia_id,
+          status_id:$.base64.encode("3")
+        },
+        type:"GET",
+        dataType:"json",
+        success:(function(data){
+          invoicesc.verifyTokenizedRequest(data);
+          if(data.is_success == 1){
+            $(".pagadas-tab").html("<i class='fa fa-credit-card'></i> "+ data.total + " "  + translate('Paid'));
+          }
+        }).bind(this)
+      });
+
+      $.ajax({
+        url:invoicesc.dataCountUrl,
+        data:{
+          token:Cookies.get("token"),
+          company_id:encoded_cia_id,
+          status_id:$.base64.encode("4")
+        },
+        type:"GET",
+        dataType:"json",
+        success:(function(data){
+          invoicesc.verifyTokenizedRequest(data);
+          if(data.is_success == 1){
+            $(".parcialpay-tab").html("<i class='fa fa-pie-chart'></i> " + data.total + " "  + translate('ParcialPay'));
+          }
+        }).bind(this)
+      });
+
+      $.ajax({
+        url:invoicesc.dataCountUrl,
+        data:{
+          token:Cookies.get("token"),
+          company_id:encoded_cia_id,
+          status_id:$.base64.encode("5")
+        },
+        type:"GET",
+        dataType:"json",
+        success:(function(data){
+          invoicesc.verifyTokenizedRequest(data);
+          if(data.is_success == 1){
+            $(".anuladas-tab").html("<i class='fa fa-archive'></i> " + data.total + " " + translate('Canceled'));
+          }
+        }).bind(this)
+      });
+
 
     });
     </script>

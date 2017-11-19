@@ -75,6 +75,17 @@ var FacturasCR = (function(){
       }
   }
 
+  FacturasCR.prototype.verifyTokenizedRequest = function(data){
+    if(data.token_is_absent ==1){
+      this.alert_error(translate('AbsentToken'));
+        window.location = "index.html";
+    }
+     if(data.token_is_expired ==1){
+       this.alert_error(translate('SesExpired'));
+         window.location = "index.html";
+     }
+  }
+
   return FacturasCR;
 })();
 CRFut.FacturasCR = FacturasCR;
