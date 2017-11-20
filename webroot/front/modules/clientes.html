@@ -113,7 +113,7 @@
       $(".hid-company-id").val(current_company_id);
       var encoded_cia_id = $.base64.encode(current_company_id);
 
-      $('#clientsDataTable').DataTable( {
+      crfut_clients.table = $('#clientsDataTable').DataTable( {
              "processing": true,
              "serverSide": true,
              "paging": true,

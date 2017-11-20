@@ -58,12 +58,14 @@ class ClientsController extends AppController
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
-        if(isset($_POST['ClientID']) && is_numeric($_POST['ClientID'])){
-          $client = $this->Clients->get($_POST['ClientID'],['contain' => []]);
+//3file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_POST,true));
+        if(isset($_GET['Client']['ClientID']) && is_numeric($_GET['Client']['ClientID'])){
+          $client = $this->Clients->get($_GET['Client']['ClientID'],['contain' => []]);
         }else{
           $client = $this->Clients->newEntity();
+          $_GET['Client']['Entered'] = date("Y-m-d H:i:s");
         }
-        $cli = $this->Clients->patchEntity($client,$_POST);
+        $cli = $this->Clients->patchEntity($client,$_GET['Client']);
         if ($this->Clients->save($cli)) {
             $flash = __('The Client has been saved.');
             $success = 1;
