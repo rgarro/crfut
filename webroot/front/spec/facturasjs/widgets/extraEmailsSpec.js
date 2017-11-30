@@ -46,16 +46,13 @@ describe("CRFut.Widgets.extraEmails",function(){
     expect(exM).toHaveString("emailBoxSrc");
   });
 
-  it("should have emailBoxTpl property",function(){
-    expect(exM).toHaveObject("emailBoxTpl");
-  });
-
-  it("should have extraEmails property",function(){
-    expect(exM).toHaveArray("extraEmails");
+  it("should have emails property",function(){
+    expect(exM).toHaveArray("emails");
   });
 
   it("should have emailBoxTpl property",function(){
-    expect(exM).toHaveObject("emailBoxTpl");
+    //expect(exM).toHaveObject("emailBoxTpl");
+    expect(exM.emailBoxTpl).toBeFunction();
   });
 
 });

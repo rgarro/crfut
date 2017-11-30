@@ -1,3 +1,6 @@
+translate.add({ValidEmail: 'Must be valid email'}, 'en');
+translate.add({ValidEmail: 'deber ser correo-e'}, 'es');
+
 translate.add({IntPhone: 'International Telephone'}, 'en');
 translate.add({IntPhone: 'Teléfono Internacional'}, 'es');
 
