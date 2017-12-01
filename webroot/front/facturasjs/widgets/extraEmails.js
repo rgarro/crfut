@@ -8,7 +8,7 @@ var extraEmails = (function(){
     this.addBtn = "#extraEmailAddBtn";
     this.delBtn = ".delexmail";
     this.displayBox = "#extraEmailsBox";
-    this.emailBoxSrc = "<span class='badge badge-pill badge-warning'>{{email}} <i index='{{index}}' class='fa fa-trash delexmail' style='cursor:pointer;'></i></span>";
+    this.emailBoxSrc = "<span class='badge badge-pill badge-warning animated fadeInDown' style='margin-right:3px;'>{{email}} <i data-index='{{index}}' class='fa fa-trash delexmail' style='cursor:pointer;'></i></span>";
     this.emailBoxTpl = Handlebars.compile(this.emailBoxSrc);
     this.emails = [];
   }
@@ -26,7 +26,16 @@ var extraEmails = (function(){
   }
 
   extraEmails.prototype.remove = function(index){
-console.log(index);
+    this.emails.splice(index,1);
+    this.updateHidden();
+    this.rebuildDisplay();
+  }
+
+  extraEmails.prototype.rebuildDisplay = function(){
+    $(this.displayBox).html(" ");
+    for(var i =0;i < this.emails.length;i++){
+      this.updateDisplay(this.emails[i],i);
+    }
   }
 
   extraEmails.prototype.inList = function(email){
@@ -61,8 +70,10 @@ console.log(index);
       }
     }).bind(this));
     //del button listener
-    $(document).on(this.delBtn,"click",(function(evt){
-      var index = $(this).attr("index");
+    //var that = this;
+    $(document).on("click",this.delBtn,(function(evt){
+      var index = $(evt.target).data("index");
+      //$(evt.target).addClass("fadeOutUp");
       this.remove(index);
     }).bind(this));
   }
