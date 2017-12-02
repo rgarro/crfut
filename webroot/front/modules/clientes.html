@@ -113,9 +113,10 @@
       });
       });
 
+      var extraMails = new CRFut.Widgets.extraEmails();
+      extraMails.init();
+
       $(".new-cliente-showfrm-btn").on("click",function(){
-        var extraMails = new CRFut.Widgets.extraEmails();
-        extraMails.init();
         $('#createClienteModal').modal('show');
       });
 
@@ -124,6 +125,7 @@
 });
 
       $('#createClienteModal').on('hidden.bs.modal', function (e) {
+        extraMails.reset();
         $("#newClientFrm")[0].reset();
       });
 

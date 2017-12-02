@@ -70,22 +70,12 @@ var FacturasCR = (function(){
   }
 
   FacturasCR.prototype.modelErrors = function(errObj){
-console.log(errObj);
     for (var err in errObj){
-console.log(err);
-var oeb = errObj[err];
+      var oeb = errObj[err];
       for(var oe in oeb){
-        console.log(oe);
-        console.log(oeb[oe]);
+        this.alert_error(err + " " + oe + " " + oeb[oe]);
       }
-    //  var keys= Object.keys(err);
-    //  for (var i=0; i<keys.length; i++){
- //console.log(err[keys[i]]); //multiple all property values of object
-}
-      //for(var m in err){
-        //this.alert_error(err.toString() + ' ' + m.toString());
-      //}
-    //}
+    }
   }
 
   FacturasCR.prototype.checkTimedOut = function(data){

@@ -36,6 +36,7 @@ var extraEmails = (function(){
       this.updateHidden();
       var e_index = this.emails.length - 1;
       this.updateDisplay(email,e_index);
+      $("#" + this.newInput).val(" ");
     }
   }
 
@@ -58,6 +59,12 @@ var extraEmails = (function(){
     }else {
       return true;
     }
+  }
+
+  extraEmails.prototype.reset = function(){
+    $(this.displayBox).html(" ");
+    this.emails = [];
+    $(this.hiddenInput).val(" ");
   }
 
   extraEmails.prototype.updateDisplay = function(email,e_index){
