@@ -94,24 +94,8 @@
     <script>
     $(document).ready(function(){
 
-      var myLatlng = new google.maps.LatLng(9.9412516,-84.0859219);
-      var myOptions = {
-        zoom: 15,
-        center: myLatlng
-      }
-      var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-      var geocoder = new google.maps.Geocoder();
-      google.maps.event.addListener(map, 'click', function(event) {
-      geocoder.geocode({
-        'latLng': event.latLng
-      }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            $("#addrNameInput").val(results[0].formatted_address)
-          }
-        }
-      });
-      });
+      var mapClick = new CRFut.Widgets.addressClickMap();
+      mapClick.display();
 
       var extraMails = new CRFut.Widgets.extraEmails();
       extraMails.init();
@@ -121,8 +105,8 @@
       });
 
       $('#createClienteModal').on('shown.bs.modal', function () {
-    google.maps.event.trigger(map, "resize");
-});
+        google.maps.event.trigger(mapClick.map, "resize");
+      });
 
       $('#createClienteModal').on('hidden.bs.modal', function (e) {
         extraMails.reset();
