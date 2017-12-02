@@ -70,10 +70,8 @@ var extraEmails = (function(){
       }
     }).bind(this));
     //del button listener
-    //var that = this;
     $(document).on("click",this.delBtn,(function(evt){
       var index = $(evt.target).data("index");
-      //$(evt.target).addClass("fadeOutUp");
       this.remove(index);
     }).bind(this));
   }
