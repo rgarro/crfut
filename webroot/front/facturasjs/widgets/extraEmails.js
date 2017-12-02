@@ -1,3 +1,17 @@
+/**
+ * Allows you to set an html5 email list handling mechanism to fill an input with csv string
+ *
+ * <!-- Begin extraMails -->
+ * <label for="eENameInput"><i class="fa fa-cc"></i> ExtraEmails</label>
+ * <input type="email" class="form-control-sm" size="15" placeholder="u@domain.com" id="extraEmailNewTInput"/>
+ * <button id="extraEmailAddBtn" type="button" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Click to Add Emails"><i class="fa fa-plus"></i></button>
+ * <div id="extraEmailsBox" class="form-control">
+ * </div>
+ * <input type="hidden" name="Client[ExtraEmails]" id="extraEmailNewInput" value=""/>
+ * <!-- End extraMails -->
+ *
+ * @author Rolando <rgarro@gmail.com>
+ */
 var extraEmails = (function(){
 
   function extraEmails(){
