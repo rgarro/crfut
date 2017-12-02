@@ -30,6 +30,10 @@ var Clients = (function(){
     });
   }
 
+  Clients.prototype.buildEdit = function(data){
+    
+  }
+
   return Clients;
 })();
 

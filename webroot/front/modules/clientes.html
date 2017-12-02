@@ -11,6 +11,7 @@
                     <th class="commercialname-head"></th>
                     <th class="entered-head"></th>
                     <th class="phone-head"></th>
+                    <th>&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
@@ -29,7 +30,8 @@
         </div>
         <div class="modal-body ">
           <form id="newClientFrm">
-            <input class="hid-company-id" type="hidden" name="Client[CompanyID]" value=""/>
+            <input id="ClientID" class="hid-client-id" type="hidden" name="Client[ClientID]" value=""/>
+            <input id="ClientCompanyID" class="hid-company-id" type="hidden" name="Client[CompanyID]" value=""/>
             <div class="form-group">
                 * <label for="comerNameInput" class="commercialname-head">CommercialName</label>
                 <input type="text" name="Client[CommercialName]" class="form-control" id="comerNameInput" placeholder="acme" required="required">
@@ -101,6 +103,7 @@
       extraMails.init();
 
       $(".new-cliente-showfrm-btn").on("click",function(){
+        $("#ClientID").val(" ");
         $('#createClienteModal').modal('show');
       });
 
@@ -110,6 +113,7 @@
 
       $('#createClienteModal').on('hidden.bs.modal', function (e) {
         extraMails.reset();
+        $("#ClientID").val(" ");
         $("#newClientFrm")[0].reset();
       });
 
@@ -121,7 +125,7 @@
       $(".clientname-head").html("<i class='fa fa-user'></i> " + translate('Contact'));
       $(".legalced-head").html("<i class='fa fa-drivers-license'></i> " + translate('LegalCed'));
       $(".new-cliente-showfrm-btn").html("<i class='fa fa-plus'></i> " + translate('NewClient'));
-      $(".newclient").html("<i class='fa fa-male'></i> " + translate('NewClient'));
+      $(".newclient").html("<i class='fa fa-male'></i> " + translate('SaveClient'));
       $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Clients'));
       $(".commercialname-head").html("<i class='fa fa-address-card'></i> " + translate('ComercialName'));
       $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
@@ -157,11 +161,21 @@
                  { "data": "CommercialName", "orderable": false ,"searchable":true},
                  { "data": "Entered", "orderable": true,"searchable":false },
                  { "data": "Phone", "orderable": false,"searchable":false },
+                 {data:"",defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-client-btn'><i class='fa fa-edit'></i></button>","orderable": false,"searchable":false}
              ],
              "language": {
                "url": data_lang_url,
              },
          });
+
+         $('#clientsDataTable tbody').on( 'click', '.edit-client-btn',function(){
+           var data = crfut_clients.table.row( $(this).parents('tr') ).data();
+           console.log(data);
+           $("#ClientID").val(data.ClientID);
+           $("#comerNameInput").val(data.CommercialName);
+
+           $('#createClienteModal').modal('show');
+        });
 
          $("#newClientFrm").on("submit",function(){
            var data = $("#newClientFrm").serializeHash();

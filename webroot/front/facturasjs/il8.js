@@ -1,3 +1,6 @@
+translate.add({SaveClient: 'Save Client'}, 'en');
+translate.add({SaveClient: 'Guardar Cliente'}, 'es');
+
 translate.add({ValidEmail: 'Must be valid email'}, 'en');
 translate.add({ValidEmail: 'deber ser correo-e'}, 'es');
 
