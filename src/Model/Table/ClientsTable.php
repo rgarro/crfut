@@ -56,10 +56,6 @@ class ClientsTable extends Table
         $validator
         ->allowEmpty('Email')
         ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-            /*->email('Email')
-            ->requirePresence('Email', 'create')
-            ->notEmpty('Email')
-            ->isUnique("Email");*/
 
         $validator
             ->scalar('ExtraEmails')

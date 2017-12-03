@@ -58,10 +58,9 @@ class UsersTable extends Table
             ->notEmpty('LastName');
 
         $validator
+        ->allowEmpty('Email')
+        ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
-            ->notEmpty('Email')
-            ->email('Email')
-            ->isUnique('Email');
         $validator
 
             ->notEmpty('Password');

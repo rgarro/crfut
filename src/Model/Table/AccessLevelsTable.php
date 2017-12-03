@@ -54,4 +54,10 @@ class AccessLevelsTable extends Table
 
         return $validator;
     }
+
+    public function getList(){
+        $sql = "SELECT AccessLevelID , AccessLevel ";
+        $sql .= "FROM AccessLevels ";
+        return $this->connection()->execute($sql)->fetchAll('assoc');
+    }
 }
