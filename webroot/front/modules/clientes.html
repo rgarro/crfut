@@ -111,12 +111,6 @@
         google.maps.event.trigger(mapClick.map, "resize");
       });
 
-      $('#createClienteModal').on('hidden.bs.modal', function (e) {
-        extraMails.reset();
-        $("#ClientID").val(" ");
-        $("#newClientFrm")[0].reset();
-      });
-
       //Translatables
       $(".intphonename-head").html("<i class='fa fa-globe'></i> " + translate('IntPhone'));
       $(".phonename-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
@@ -168,11 +162,32 @@
              },
          });
 
+         $('#createClienteModal').on('hidden.bs.modal', function (e) {
+           extraMails.reset();
+           $("#ClientID").val(" ");
+           $("#newClientFrm")[0].reset();
+           crfut_clients.table.ajax.reload();
+         });
+
          $('#clientsDataTable tbody').on( 'click', '.edit-client-btn',function(){
            var data = crfut_clients.table.row( $(this).parents('tr') ).data();
-           console.log(data);
+           //console.log(data);
            $("#ClientID").val(data.ClientID);
            $("#comerNameInput").val(data.CommercialName);
+           $("#cliNameInput").val(data.ClientName);
+            $("#cedJuriInput").val(data.CedulaJuridica);
+            $("#cliNameInput").val(data.ClientName);
+            $("#clientEmailInput").val(data.Email);
+            if(data.ExtraEmails != null){
+              var emails = data.ExtraEmails.split(",");
+              for(var i=0;i<emails.length;i++){
+                extraMails.add(emails[i]);
+              }
+            }
+            $("#addrNameInput").val(data.Address);
+            $("#acodeNameInput").val(data.AreaCode);
+            $("#phoneNameInput").val(data.Phone);
+            $("#intphoneNameInput").val(data.ForeginPhone);
 
            $('#createClienteModal').modal('show');
         });
