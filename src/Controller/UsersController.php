@@ -15,8 +15,15 @@ class UsersController extends AppController
       parent::initialize();
       $this->loadModel("Users");
       $this->loadModel("Sessions");
+      $this->loadModel("AccessLevels");
       $this->loadComponent("BettyChecks");
       $this->loadComponent("DataTablePastry");
+  }
+
+  public function accesslevelsoptions(){
+    $ret = $this->AccessLevels->getList();
+    $this->cors_here();
+    $this->set($ret);
   }
 
   public function datatable(){

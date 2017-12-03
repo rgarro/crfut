@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="tituloBrandNav cardTitle"></h4>
-<button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
+<button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button> <br />
   <table id="usesDataTable" class="table table-striped display">
     <thead>
       <tr>
@@ -32,9 +32,29 @@
 <form id="userFrm">
   <input id="UserID" class="hid-user-id" type="hidden" name="User[UserID]" value=""/>
   <div class="form-group">
+      <label for="userStatusInput" class="status-head"><i class="fa fa-warning"></i> Status</label> <input type="checkbox" name="User[UserStatus]" value="1" checked="checked"/> Active <input type="checkbox" name="User[UserStatus]" value="0" /> Inactive<br />
+    </div>
+  <div class="form-group">
+      <label for="uNameInput" class="firstname-head">FirstName</label>
+      <input type="text" name="User[FirstName]" class="form-control" id="uNameInput" placeholder="John" required="required">
+    </div>
+    <div class="form-group">
+        <label for="uLNameInput" class="lastname-head">LastName</label>
+        <input type="text" name="User[FirstName]" class="form-control" id="uLNameInput" placeholder="Doe" required="required">
+      </div>
+  <div class="form-group">
       * <label for="userEmailInput" class="email-head">Email</label>
       <input type="email" name="User[Email]" class="form-control" id="userEmailInput" placeholder="name@example.com" required="required">
     </div>
+    <div class="form-group">
+        * <label for="userPasswordInput" class="password-head">Password</label>
+        <input type="text" name="User[Password]" class="form-control" id="userPasswordInput" placeholder="openSesame" required="required">
+      </div>
+      <div class="form-group">
+          * <label for="userAccessLevelIDInput" class="accesslevel-head">AccessLevel</label>
+          <select name="User[AccessLevelID]" class="form-control" id="userAccessLevelIDInput" required="required">
+          </select>
+        </div>
 
 </form>
 </div>
@@ -69,6 +89,8 @@ $(document).ready(function(){
   $(".new-user-btn").html("<i class='fa fa-plus'></i> " + translate('NewUser'));
 
   var crfut_users = new CRFut.AdminModules.Users();
+  crfut_users.getSetAccessLevelOptions();
+  
   var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
 
   $('#usesDataTable').DataTable( {
