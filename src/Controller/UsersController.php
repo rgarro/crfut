@@ -55,4 +55,45 @@ class UsersController extends AppController
     $this->set($ret);
   }
 
+  public function save(){
+    $ret = [];
+    if(isset($_GET["token"])){
+      $this->BettyChecks->veryToken($_GET["token"]);
+      if($this->BettyChecks->LastCheckResult["is_alive"]){
+//3file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_POST,true));
+        if(isset($_GET['User']['UserID']) && is_numeric($_GET['User']['UserID'])){
+          $user = $this->Users->get($_GET['User']['UserID'],['contain' => []]);
+        }else{
+          $user = $this->Users->newEntity();
+          $_GET['User']['Entered'] = date("Y-m-d H:i:s");
+        }
+        $cli = $this->Users->patchEntity($user,$_GET['User']);
+        if ($this->Users->save($cli)) {
+            $flash = __('The User has been saved.');
+            $success = 1;
+            $invalid_form = 0;
+            $errors = [];
+        }else{
+          $success = 0;
+          $flash = __('The User could not be saved. Please, try again.');
+          $invalid_form = 1;
+          $errors = $cli->errors();
+        }
+        $ret['is_success'] = $success;
+        $ret['flash'] = $flash;
+        $ret['invalid_form'] = $invalid_form;
+        $ret['error_list'] = $errors;
+      }else{
+        $ret["token_is_expired"] = 1;
+        //throw new Exception("token is expired");//ajax logout callback will be ...
+      }
+
+    }else{
+      $ret["token_is_absent"] = 1;
+      //throw new Exception("token is required");
+    }
+    $this->cors_here();
+    $this->set($ret);
+  }
+
 }

@@ -40,7 +40,7 @@
     </div>
     <div class="form-group">
         <label for="uLNameInput" class="lastname-head">LastName</label>
-        <input type="text" name="User[FirstName]" class="form-control" id="uLNameInput" placeholder="Doe" required="required">
+        <input type="text" name="User[LastName]" class="form-control" id="uLNameInput" placeholder="Doe" required="required">
       </div>
   <div class="form-group">
       * <label for="userEmailInput" class="email-head">Email</label>
@@ -94,13 +94,18 @@ $(document).ready(function(){
 
   var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
 
+  $('#userFormModal').on('hidden.bs.modal', function (e) {
+    $("#userFrm")[0].reset();
+    crfut_users.table.ajax.reload();
+  });
+
   $("#userFrm").on("submit",function(){
     var data = $("#userFrm").serializeHash();
     crfut_users.save(data);
     return false;
   });
 
-  $('#usesDataTable').DataTable( {
+  crfut_users.table = $('#usesDataTable').DataTable( {
          "processing": true,
          "serverSide": true,
          "paging": true,

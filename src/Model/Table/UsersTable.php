@@ -46,7 +46,7 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('UserID')
+
             ->allowEmpty('UserID', 'create');
 
         $validator
