@@ -75,6 +75,7 @@
 $(document).ready(function(){
 
   $(".new-user-btn").on("click",function(){
+    $("#UserID").val(" ");
     $('#userFormModal').modal('show');
   });
 
@@ -90,8 +91,14 @@ $(document).ready(function(){
 
   var crfut_users = new CRFut.AdminModules.Users();
   crfut_users.getSetAccessLevelOptions();
-  
+
   var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
+
+  $("#userFrm").on("submit",function(){
+    var data = $("#userFrm").serializeHash();
+    crfut_users.save(data);
+    return false;
+  });
 
   $('#usesDataTable').DataTable( {
          "processing": true,
