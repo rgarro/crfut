@@ -186,6 +186,12 @@ class CompaniesTable extends Table
         return $validator;
     }
 
+    public function getList(){
+        $sql = "SELECT CompanyID , CompanyName ";
+        $sql .= "FROM Companies  ";
+        return $this->connection()->execute($sql)->fetchAll('assoc');
+    }
+
     public function dataTableData($user_id,$length=10,$start=0,$search="",$searchables=[],$sortables=[],$direction =""){
       //get total
       $sql ="SELECT COUNT(*) as hay ";

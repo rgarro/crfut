@@ -21,6 +21,12 @@ class CompaniesController extends AppController
       $this->loadComponent("DataTablePastry");
   }
 
+  public function companiesoptions(){
+    $ret = $this->AccessLevels->getList();
+    $this->cors_here();
+    $this->set($ret);
+  }
+
   public function datatable(){
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);

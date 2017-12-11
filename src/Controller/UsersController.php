@@ -16,12 +16,13 @@ class UsersController extends AppController
       $this->loadModel("Users");
       $this->loadModel("Sessions");
       $this->loadModel("AccessLevels");
+      $this->loadModel("Companies");
       $this->loadComponent("BettyChecks");
       $this->loadComponent("DataTablePastry");
   }
 
   public function accesslevelsoptions(){
-    $ret = $this->AccessLevels->getList();
+    $ret = $this->Companies->getList();
     $this->cors_here();
     $this->set($ret);
   }
