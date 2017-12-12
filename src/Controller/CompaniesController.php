@@ -22,7 +22,7 @@ class CompaniesController extends AppController
   }
 
   public function companiesoptions(){
-    $ret = $this->AccessLevels->getList();
+    $ret = $this->Companies->getList();
     $this->cors_here();
     $this->set($ret);
   }

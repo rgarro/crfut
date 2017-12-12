@@ -22,7 +22,7 @@ class UsersController extends AppController
   }
 
   public function accesslevelsoptions(){
-    $ret = $this->Companies->getList();
+    $ret = $this->AccessLevels->getList();
     $this->cors_here();
     $this->set($ret);
   }
