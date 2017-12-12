@@ -55,7 +55,10 @@
           <select name="User[AccessLevelID]" class="form-control" id="userAccessLevelIDInput" required="required">
           </select>
         </div>
-        <div id="companiesCheckBoxes" class="form-group"></div>
+        <div id="companiesCheckBoxes" class="form-group">
+<label class="companies-head">Companies</label>
+  <div id="companiesCheckBoxes" class="border"></div>
+        </div>
 </form>
 </div>
 <div class="modal-footer">
@@ -88,6 +91,7 @@ $(document).ready(function(){
   $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
   $(".accesslevel-head").html("<i class='fa fa-lock'></i> " + translate('Alevel'));
   $(".new-user-btn").html("<i class='fa fa-plus'></i> " + translate('NewUser'));
+  $(".companies-head").html("<i class='fa fa-industry'></i> " + translate('Companies'));
 
   var crfut_users = new CRFut.AdminModules.Users();
   crfut_users.getSetAccessLevelOptions();
@@ -104,6 +108,8 @@ $(document).ready(function(){
     crfut_users.save(data);
     return false;
   });
+
+  crfut_users.getAndBuildCompanyOptions();
 
   crfut_users.table = $('#usesDataTable').DataTable( {
          "processing": true,

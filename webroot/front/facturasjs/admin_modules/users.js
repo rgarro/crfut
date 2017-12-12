@@ -11,7 +11,8 @@ var Users = (function(){
     this.table = {};
     this.companiesCheckBoxesContainer = "#companiesCheckBoxes";
     this.companiesOptionsUrl = this.baseUrl + "companies/companiesoptions";
-    this.companiesOptionsSrc = "{{#each companies}}<input type='checkbox' value='{{CompanyID}}' {{#if checked}}checked='checked'{{/if}}/>{{CompanyName}}<br>{{/each}}";
+    this.companiesOptionsSrc = "{{#each companies}}<span class='badge badge-pill badge-light'><input type='checkbox' value='{{CompanyID}}' {{#if checked}}checked='checked'{{/if}}/> {{CompanyName}} </span> &nbsp;{{/each}}";
+    this.companiesOptionsTemplate = Handlebars.compile(this.companiesOptionsSrc);
   }
 
   Users.prototype = Object.create(CRFut.FacturasCR.prototype);
@@ -63,8 +64,8 @@ var Users = (function(){
       type:"GET",
       dataType:"json",
       success:(function(data){
-        var options_hmtl = this.alevelsOptionsTemplate({alevels:data});
-        $(this.AccessLevelOptionsInput).append(options_hmtl);
+        var options_hmtl = this.companiesOptionsTemplate({companies:data});
+        $(this.companiesCheckBoxesContainer).append(options_hmtl);
       }).bind(this)
     });
   }
