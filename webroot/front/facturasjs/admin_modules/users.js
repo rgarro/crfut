@@ -9,6 +9,9 @@ var Users = (function(){
     this.alevelsOptionsTemplate = Handlebars.compile(this.accessLevelsOptionsSrc);
     this.saveUrl = this.baseUrl + "users/save";
     this.table = {};
+    this.companiesCheckBoxesContainer = "#companiesCheckBoxes";
+    this.companiesOptionsUrl = this.baseUrl + "companies/companiesoptions";
+    this.companiesOptionsSrc = "{{#each companies}}<input type='checkbox' value='{{CompanyID}}' {{#if checked}}checked='checked'{{/if}}/>{{CompanyName}}<br>{{/each}}";
   }
 
   Users.prototype = Object.create(CRFut.FacturasCR.prototype);
@@ -45,6 +48,18 @@ var Users = (function(){
   Users.prototype.getSetAccessLevelOptions = function(){
     $.ajax({
       url:this.AccessLevelsUrl,
+      type:"GET",
+      dataType:"json",
+      success:(function(data){
+        var options_hmtl = this.alevelsOptionsTemplate({alevels:data});
+        $(this.AccessLevelOptionsInput).append(options_hmtl);
+      }).bind(this)
+    });
+  }
+
+  Users.prototype.getAndBuildCompanyOptions = function(){
+    $.ajax({
+      url:this.companiesOptionsUrl,
       type:"GET",
       dataType:"json",
       success:(function(data){
