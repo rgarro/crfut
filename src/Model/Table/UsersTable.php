@@ -145,6 +145,16 @@ class UsersTable extends Table
       return $this->connection()->execute($sql)->fetch('assoc');
     }
 
+    public function assignCompanies($user_id,$companies,$entered="System"){
+      $sql =" DELETE FROM CompanyUsers WHERE UserID = '".$user_id."'";
+			$res = $this->connection()->execute($sql);
+      foreach ($companies as $cid) {
+        $sql = "INSERT INTO CompanyUsers (CompanyID,UserID,Entered) VALUES ('".$cid."','".$user_id."','".$entered."')";
+        $this->connection()->execute($sql);
+      }
+			return true;
+    }
+
     public function isSha1($str){
       return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
     }

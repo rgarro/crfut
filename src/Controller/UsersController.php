@@ -70,6 +70,9 @@ class UsersController extends AppController
         }
         $cli = $this->Users->patchEntity($user,$_GET['User']);
         if ($this->Users->save($cli)) {
+            if(isset($_GET['Companies']) && is_array($_GET['Companies'])  && count($_GET['Companies'])){
+              $this->Users->assignCompanies($cli->UserID,$_GET['Companies'],$_GET['User']['EnteredBy']);
+            }
             $flash = __('The User has been saved.');
             $success = 1;
             $invalid_form = 0;

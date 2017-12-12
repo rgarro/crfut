@@ -11,7 +11,7 @@ var Users = (function(){
     this.table = {};
     this.companiesCheckBoxesContainer = "#companiesCheckBoxes";
     this.companiesOptionsUrl = this.baseUrl + "companies/companiesoptions";
-    this.companiesOptionsSrc = "{{#each companies}}<span class='badge badge-pill badge-light'><input type='checkbox' value='{{CompanyID}}' {{#if checked}}checked='checked'{{/if}}/> {{CompanyName}} </span> &nbsp;{{/each}}";
+    this.companiesOptionsSrc = "{{#each companies}}<span class='badge badge-pill badge-light'><input name='Companies[{{CompanyID}}]' type='checkbox' value='{{CompanyID}}' {{#if checked}}checked='checked'{{/if}}/> {{CompanyName}} </span> &nbsp;{{/each}}";
     this.companiesOptionsTemplate = Handlebars.compile(this.companiesOptionsSrc);
   }
 
@@ -19,6 +19,7 @@ var Users = (function(){
   Users.prototype.constructor = Users;
 
   Users.prototype.save = function(data){
+console.log(data);
     var ucookie = Cookies.get('User');
     var ucookiedata = JSON.parse(ucookie);
     data.User.Password = SHA1(data.User.Password);
