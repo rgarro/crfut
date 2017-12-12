@@ -58,7 +58,7 @@ class ClientsController extends AppController
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
-//3file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_POST,true));
+//file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_POST,true));
         if(isset($_GET['Client']['ClientID']) && is_numeric($_GET['Client']['ClientID'])){
           $client = $this->Clients->get($_GET['Client']['ClientID'],['contain' => []]);
         }else{

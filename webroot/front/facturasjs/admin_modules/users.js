@@ -19,7 +19,6 @@ var Users = (function(){
   Users.prototype.constructor = Users;
 
   Users.prototype.save = function(data){
-console.log(data);
     var ucookie = Cookies.get('User');
     var ucookiedata = JSON.parse(ucookie);
     data.User.Password = SHA1(data.User.Password);

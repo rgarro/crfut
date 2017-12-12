@@ -61,7 +61,6 @@ class UsersController extends AppController
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
-//3file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_POST,true));
         if(isset($_GET['User']['UserID']) && is_numeric($_GET['User']['UserID'])){
           $user = $this->Users->get($_GET['User']['UserID'],['contain' => []]);
         }else{
@@ -70,9 +69,9 @@ class UsersController extends AppController
         }
         $cli = $this->Users->patchEntity($user,$_GET['User']);
         if ($this->Users->save($cli)) {
-            if(isset($_GET['Companies']) && is_array($_GET['Companies'])  && count($_GET['Companies'])){
-              $this->Users->assignCompanies($cli->UserID,$_GET['Companies'],$_GET['User']['EnteredBy']);
-            }
+
+            $this->Users->assignCompanies($cli->UserID,array_values($_GET['Companies']),$_GET['User']['EnteredBy']);
+
             $flash = __('The User has been saved.');
             $success = 1;
             $invalid_form = 0;
