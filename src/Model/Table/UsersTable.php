@@ -6,7 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\Rule\IsUnique;
-
+use Cake\ORM\TableRegistry;
 /**
  * Users Model
  *
@@ -186,6 +186,11 @@ class UsersTable extends Table
       //get list fetch the thing
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
       //pack results ...
+      $Companies = TableRegistry::get('Companies');
+      $cia_list = $Companies->getList();
+      for(var $i=0;$i<count($DataSet);$i++){
+        $DataSet[$i]['Companies'] = $cia_list;
+      }
       $ret = [];
       $ret['total'] = $res['hay'];
       $ret['data'] = $DataSet;
