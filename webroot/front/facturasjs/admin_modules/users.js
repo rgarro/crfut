@@ -21,7 +21,10 @@ var Users = (function(){
   Users.prototype.save = function(data){
     var ucookie = Cookies.get('User');
     var ucookiedata = JSON.parse(ucookie);
-    data.User.Password = SHA1(data.User.Password);
+    if (typeof data.User.Password !== 'undefined') {
+      data.User.Password = SHA1(data.User.Password);
+    }
+
     if(parseInt(data.User.UserID) > 0){
       data.User.ModifiedBy = ucookiedata.FirstName + " " + ucookiedata.LastName;
     }else{

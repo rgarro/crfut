@@ -80,11 +80,6 @@
 <script>
 $(document).ready(function(){
 
-  $(".new-user-btn").on("click",function(){
-    $("#UserID").val(" ");
-    $('#userFormModal').modal('show');
-  });
-
   //Translatables
   $(".newuser").html("<i class='fa fa-user'></i> " + translate('NewUser'));
   $(".cardTitle").html("<i class='fa fa-users'></i> " + translate('Users'));
@@ -102,10 +97,17 @@ $(document).ready(function(){
 
   var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
 
+  $(".new-user-btn").on("click",function(){
+    $("#UserID").val(" ");
+    crfut_users.getAndBuildCompanyOptions();
+    $('#userFormModal').modal('show');
+  });
+
   $('#userFormModal').on('hidden.bs.modal', function (e) {
     $("#userFrm")[0].reset();
     $("#UserID").val(" ");
-    crfut_users.getSetAccessLevelOptions();
+    $("#userPasswordInput").attr("disabled",false);
+
     $user_status_radios.filter('[value="1"]').prop('checked', true);
     crfut_users.table.ajax.reload();
   });
@@ -116,7 +118,7 @@ $(document).ready(function(){
     return false;
   });
 
-  crfut_users.getAndBuildCompanyOptions();
+  crfut_users.getSetAccessLevelOptions();
 
   crfut_users.table = $('#usesDataTable').DataTable( {
          "processing": true,
@@ -152,7 +154,6 @@ $(document).ready(function(){
 
      $('#usesDataTable tbody').on( 'click', '.edit-user-btn',function(){
        var data = crfut_users.table.row( $(this).parents('tr') ).data();
-       console.log(data);
        $("#UserID").val(data.UserID);
        if(data.UserStatus == 1){
          $user_status_radios.filter('[value="1"]').prop('checked', true);
@@ -164,19 +165,9 @@ $(document).ready(function(){
        $("#uNameInput").val(data.FirstName);
        $("#uLNameInput").val(data.LastName);
        $("#userEmailInput").val(data.Email);
-        /*$("#cliNameInput").val(data.ClientName);
-        $("#clientEmailInput").val(data.Email);
-        if(data.ExtraEmails != null){
-          var emails = data.ExtraEmails.split(",");
-          for(var i=0;i<emails.length;i++){
-            extraMails.add(emails[i]);
-          }
-        }
-        $("#addrNameInput").val(data.Address);
-        $("#acodeNameInput").val(data.AreaCode);
-        $("#phoneNameInput").val(data.Phone);
-        $("#intphoneNameInput").val(data.ForeginPhone);
-*/
+       $("#userPasswordInput").val(data.Password);
+       $("#userPasswordInput").attr("disabled",true);
+       $("#userAccessLevelIDInput").val(data.AccessLevelID);
        $('#userFormModal').modal('show');
     });
 

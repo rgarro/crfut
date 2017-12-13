@@ -61,16 +61,16 @@ class UsersController extends AppController
     if(isset($_GET["token"])){
       $this->BettyChecks->veryToken($_GET["token"]);
       if($this->BettyChecks->LastCheckResult["is_alive"]){
-        if(isset($_GET['User']['UserID']) && is_numeric($_GET['User']['UserID'])){
-          $user = $this->Users->get($_GET['User']['UserID'],['contain' => []]);
+        if(isset($_GET['User']['UserID']) && intval($_GET['User']['UserID']) > 0){
+          $user = $this->Users->get(intval($_GET['User']['UserID']),['contain' => []]);
         }else{
           $user = $this->Users->newEntity();
           $_GET['User']['Entered'] = date("Y-m-d H:i:s");
         }
         $cli = $this->Users->patchEntity($user,$_GET['User']);
         if ($this->Users->save($cli)) {
-
-            $this->Users->assignCompanies($cli->UserID,array_values($_GET['Companies']),$_GET['User']['EnteredBy']);
+            $entered = (isset($_GET['User']['EnteredBy'])? $_GET['User']['EnteredBy'] : $_GET['User']['ModifiedBy']);
+            $this->Users->assignCompanies($cli->UserID,array_values($_GET['Companies']),$entered);
 
             $flash = __('The User has been saved.');
             $success = 1;
