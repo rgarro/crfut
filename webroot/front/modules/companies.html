@@ -3,8 +3,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="tituloBrandNav cardTitle"><i class="fa fa-map-signs"></i> Companies</h4>
-
-
+            <button class="btn btn-outline-primary btn-sm new-company-btn"><i class="fa fa-plus"></i></button><br>
             <table id="companiesDataTable" class="table table-striped display">
               <thead>
                 <tr>
@@ -17,8 +16,41 @@
               <tbody>
               </tbody>
             </table>
-                  <button class="btn btn-outline-primary btn-sm new-user-btn"><i class="fa fa-plus"></i></button>
-
+            <!-- Modal -->
+          <div class="modal fade" id="companyFormModal" tabindex="-1" role="dialog" aria-labelledby="createCompanyModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title newcompany" id="createUserCompanyLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body ">
+          <form id="companyFrm">
+            <input id="UserID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
+            <div class="form-group">
+                * <label for="companyLocaleCode" class="localecode-head">LocaleCode</label>
+                <select name="Company[LocaleCode]" class="form-control" id="companyLocaleCode" required="required">
+                  <option value="en_US">English</option>
+                  <option value="es_CR">Español</option>
+                </select>
+              </div>
+              <div class="form-group">
+                  <label for="cNameInput" class="companyname-head">CompanyName</label>
+                  <input type="text" name="Company[CompanyName]" class="form-control" id="cNameInput" placeholder="Acme" required="required">
+              </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close-o"></i> </button>
+          <button type="submit" form="companyFrm" class="btn btn-outline-primary btn-sm"><i class="fa fa-database"></i></button>
+          </div>
+          </div>
+          </div>
+          </div>
+          <!-- end modal -->
+                  <button class="btn btn-outline-primary btn-sm new-company-btn"><i class="fa fa-plus"></i></button>
           </div>
         </div>
       </div>
@@ -27,18 +59,27 @@
     $(document).ready(function(){
 
       //Translatables
+      $(".companyname-head").html("<i class='fa fa-building'></i> " + translate('CompanyName'));
+      $(".localecode-head").html("<i class='fa fa-globe'></i> " + translate('LocaleCode'));
       $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Companies'));
       $(".company-head").html("<i class='fa fa-address-card'></i> " + translate('Company'));
       $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
       $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
       $(".phone-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
+      $(".new-company-btn").html("<i class='fa fa-plus'></i> " + translate('NewCompany'));
+      $(".newcompany").html("<i class='fa fa-building'></i> " + translate('NewCompany'));
 
       var crfut_companies = new CRFut.AdminModules.Companies();
       var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
       //console.log(current_user);
       var encoded_user_id = $.base64.encode(current_user.UserID);
 
-      $('#companiesDataTable').DataTable( {
+      $(".new-company-btn").on("click",function(){
+        $("#CompanyID").val(" ");
+        $('#companyFormModal').modal('show');
+      });
+
+      crfut_companies.table = $('#companiesDataTable').DataTable( {
              "processing": true,
              "serverSide": true,
              "paging": true,
@@ -68,6 +109,17 @@
              },
          });
 
+         $('#companyFormModal').on('hidden.bs.modal', function (e) {
+           $("#companyFrm")[0].reset();
+           $("#CompanyID").val(" ");
+           crfut_companies.table.ajax.reload();
+         });
+
+         $("#companyFrm").on("submit",function(){
+           var data = $("#companyFrm").serializeHash();
+           crfut_companies.save(data);
+           return false;
+         });
 
     });
     </script>

@@ -1,3 +1,12 @@
+translate.add({CompanyName: 'Company Name'}, 'en');
+translate.add({CompanyName: 'Nombre Compañía'}, 'es');
+
+translate.add({LocaleCode: 'Locale'}, 'en');
+translate.add({LocaleCode: 'Locale'}, 'es');
+
+translate.add({NewCompany: 'New Company'}, 'en');
+translate.add({NewCompany: 'Nueva Compañía'}, 'es');
+
 translate.add({SaveClient: 'Save Client'}, 'en');
 translate.add({SaveClient: 'Guardar Cliente'}, 'es');
 
