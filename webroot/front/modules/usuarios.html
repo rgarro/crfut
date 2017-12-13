@@ -33,7 +33,9 @@
 <form id="userFrm">
   <input id="UserID" class="hid-user-id" type="hidden" name="User[UserID]" value=""/>
   <div class="form-group">
-      <label for="userStatusInput" class="status-head"><i class="fa fa-warning"></i> Status</label> <input type="checkbox" name="User[UserStatus]" value="1" checked="checked"/> Active <input type="checkbox" name="User[UserStatus]" value="0" /> Inactive<br />
+      <label for="userStatusInput" class="status-head"><i class="fa fa-warning"></i> Status</label>
+      <input class="user-status-radios" type="radio" name="User[UserStatus]" value="1" checked="checked"/> Active
+      <input class="user-status-radios" id="inactiveCheck" type="radio" name="User[UserStatus]" value="0" /> Inactive<br />
     </div>
   <div class="form-group">
       <label for="uNameInput" class="firstname-head">FirstName</label>
@@ -94,6 +96,7 @@ $(document).ready(function(){
   $(".new-user-btn").html("<i class='fa fa-plus'></i> " + translate('NewUser'));
   $(".companies-head").html("<i class='fa fa-industry'></i> " + translate('Companies'));
 
+  var $user_status_radios = $('.user-status-radios');
   var crfut_users = new CRFut.AdminModules.Users();
   crfut_users.getSetAccessLevelOptions();
 
@@ -101,6 +104,9 @@ $(document).ready(function(){
 
   $('#userFormModal').on('hidden.bs.modal', function (e) {
     $("#userFrm")[0].reset();
+    $("#UserID").val(" ");
+    crfut_users.getSetAccessLevelOptions();
+    $user_status_radios.filter('[value="1"]').prop('checked', true);
     crfut_users.table.ajax.reload();
   });
 
@@ -147,11 +153,18 @@ $(document).ready(function(){
      $('#usesDataTable tbody').on( 'click', '.edit-user-btn',function(){
        var data = crfut_users.table.row( $(this).parents('tr') ).data();
        console.log(data);
-       /*$("#ClientID").val(data.ClientID);
-       $("#comerNameInput").val(data.CommercialName);
-       $("#cliNameInput").val(data.ClientName);
-        $("#cedJuriInput").val(data.CedulaJuridica);
-        $("#cliNameInput").val(data.ClientName);
+       $("#UserID").val(data.UserID);
+       if(data.UserStatus == 1){
+         $user_status_radios.filter('[value="1"]').prop('checked', true);
+       }else{
+         $user_status_radios.filter('[value="0"]').prop('checked', false);
+       }
+       var user_companies_options_hmtl = crfut_users.companiesOptionsTemplate({companies:data.Companies});
+       $(crfut_users.companiesCheckBoxesContainer).html(user_companies_options_hmtl);
+       $("#uNameInput").val(data.FirstName);
+       $("#uLNameInput").val(data.LastName);
+       $("#userEmailInput").val(data.Email);
+        /*$("#cliNameInput").val(data.ClientName);
         $("#clientEmailInput").val(data.Email);
         if(data.ExtraEmails != null){
           var emails = data.ExtraEmails.split(",");
@@ -163,8 +176,8 @@ $(document).ready(function(){
         $("#acodeNameInput").val(data.AreaCode);
         $("#phoneNameInput").val(data.Phone);
         $("#intphoneNameInput").val(data.ForeginPhone);
-
-       $('#createClienteModal').modal('show');*/
+*/
+       $('#userFormModal').modal('show');
     });
 
 });

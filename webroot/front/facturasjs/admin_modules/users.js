@@ -53,7 +53,7 @@ var Users = (function(){
       dataType:"json",
       success:(function(data){
         var options_hmtl = this.alevelsOptionsTemplate({alevels:data});
-        $(this.AccessLevelOptionsInput).append(options_hmtl);
+        $(this.AccessLevelOptionsInput).html(options_hmtl);
       }).bind(this)
     });
   }
@@ -65,7 +65,7 @@ var Users = (function(){
       dataType:"json",
       success:(function(data){
         var options_hmtl = this.companiesOptionsTemplate({companies:data});
-        $(this.companiesCheckBoxesContainer).append(options_hmtl);
+        $(this.companiesCheckBoxesContainer).html(options_hmtl);
       }).bind(this)
     });
   }
