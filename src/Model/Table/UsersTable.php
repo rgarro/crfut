@@ -188,12 +188,33 @@ class UsersTable extends Table
       //pack results ...
       $Companies = TableRegistry::get('Companies');
       $cia_list = $Companies->getList();
-      for(var $i=0;$i<count($DataSet);$i++){
-        $DataSet[$i]['Companies'] = $cia_list;
+      for($i=0;$i<count($DataSet);$i++){
+        $uid = $DataSet[$i]['UserID'];
+        $cias = $this->getUserCompanies(intval($uid));
+        $list = $this->userCompanyIDS($cias);
+        $filtered = $this->formFilterCias($list,$cia_list);
+        $DataSet[$i]['Companies'] = $filtered;
       }
       $ret = [];
       $ret['total'] = $res['hay'];
       $ret['data'] = $DataSet;
+      return $ret;
+    }
+
+    public function formFilterCias($list,$all){
+      for($i=0;$i<count($all);$i++){
+        if(in_array($all[$i]["CompanyID"], $list)){
+          $all[$i]["checked"] = 1;
+        }
+      }
+      return $all;
+    }
+
+    public function userCompanyIDS($userCompanies){
+      $ret = [];
+      for($i=0;$i<count($userCompanies);$i++){
+        $ret[$i] = $userCompanies[$i]['CompanyID'];
+      }
       return $ret;
     }
 
