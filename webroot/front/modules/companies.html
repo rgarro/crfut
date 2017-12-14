@@ -30,43 +30,56 @@
           <form id="companyFrm" enctype="multipart/form-data">
             <input id="UserID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
             <div class="form-group">
-                * <label for="companyLocaleCode" class="localecode-head">LocaleCode</label>
-                <select name="Company[LocaleCode]" class="form-control" id="companyLocaleCode" required="required">
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div id="targetLayer"></div>
+              <input type="File" name="Company[Logo]" id="companyLogo" size="40" value="" accept="image/*"/>
+            </div>
+            <div class="form-group">
+                * <label for="companyLocaleCode" class="localecode-head col-form-label">LocaleCode</label>
+
+                <select name="Company[LocaleCode]" class="form-control form-control-sm " id="companyLocaleCode" required="required">
                   <option value="en_US">English</option>
                   <option value="es_CR">Español</option>
                 </select>
+
               </div>
               <div class="form-group">
-                  <label for="cNameInput" class="companyname-head">CompanyName</label>
-                  <input type="text" name="Company[CompanyName]" class="form-control" id="cNameInput" placeholder="Acme" required="required">
+                  <label for="cNameInput" class="companyname-head col-form-label">CompanyName</label>
+                  <input type="text" name="Company[CompanyName]" class="form-control form-control-sm" id="cNameInput" placeholder="Acme" required="required">
               </div>
               <div class="form-group">
-                  <label for="commercialNameInput" class="commercialname-head">CommercialName</label>
-                  <input type="text" name="Company[CommercialName]" class="form-control" id="commercialNameInput" placeholder="Acme Inc" required="required">
+                  <label for="commercialNameInput" class="commercialname-head col-form-label">CommercialName</label>
+                  <input type="text" name="Company[CommercialName]" class="form-control form-control-sm" id="commercialNameInput" placeholder="Acme Inc" required="required">
               </div>
               <div class="form-group">
-                  <label for="cedJuriInput" class="legalced-head">Cédula Jurídica</label>
-                  <input type="text" name="Company[CedulaJuridica]" class="form-control" id="cedJuriInput" placeholder="00000000000">
+                  <label for="cedJuriInput" class="legalced-head col-form-label">Cédula Jurídica</label>
+                  <input type="text" name="Company[CedulaJuridica]" class="form-control form-control-sm" id="cedJuriInput" placeholder="00000000000">
                 </div>
                 <div class="form-group">
-                    <label for="addressInput" class="direccion-head">Direccion</label>
-                    <input type="text" name="Company[Address]" class="form-control" id="addressInput" placeholder="avenida54 calle25" required="required">
+                    <label for="addressInput" class="direccion-head col-form-label">Direccion</label>
+                    <input type="text" name="Company[Address]" class="form-control form-control-sm" id="addressInput" placeholder="avenida54 calle25" required="required">
                   </div>
                 <div class="form-group">
-                  *  <label for="acodeNameInput" class="acodename-head">AreaCode</label>
-                  <input type="number" name="Company[AreaCode]" maxlength="3" size="3" class="form-control" id="acodeNameInput" placeholder="506" required="required">
+                  *  <label for="acodeNameInput" class="acodename-head col-form-label">AreaCode</label>
+                  <input type="number" name="Company[AreaCode]" maxlength="3" size="3" class="form-control form-control-sm" id="acodeNameInput" placeholder="506" required="required">
                 </div>
                 <div class="form-group">
-                  *  <label for="phoneNameInput" class="phonename-head">Phone</label>
-                  <input type="number" name="Company[Phone]" minlength="8" maxlength="8" size="8" class="form-control" id="phoneNameInput" placeholder="80000000" required="required">
+                  *  <label for="phoneNameInput" class="phonename-head col-form-label">Phone</label>
+                  <input type="number" name="Company[Phone]" minlength="8" maxlength="8" size="8" class="form-control form-control-sm" id="phoneNameInput" placeholder="80000000" required="required">
                 </div>
                 <div class="form-group">
-                  <label for="intphoneNameInput" class="faxphonename-head">Phone</label>
-                  <input type="number" name="Company[Fax]" minlength="5" maxlength="20" size="8" class="form-control" id="intphoneNameInput" placeholder="80000">
+                  <label for="intphoneNameInput" class="faxphonename-head col-form-label">Phone</label>
+                  <input type="number" name="Company[Fax]" minlength="5" maxlength="20" size="8" class="form-control form-control-sm" id="intphoneNameInput" placeholder="80000">
                 </div>
                 <div class="form-group">
-                  * <label for="clientEmailInput" class="email-head">Email</label>
-                  <input type="email" name="Company[Email]" class="form-control" id="clientEmailInput" placeholder="name@example.com" required="required">
+                  * <label for="clientEmailInput" class="email-head col-form-label">Email</label>
+                  <input type="email" name="Company[Email]" class="form-control form-control-sm" id="clientEmailInput" placeholder="name@example.com" required="required">
+                </div>
+                <div class="form-group">
+                  * <label for="clientReplyToInput" class="replyto-head col-form-label">ReplyTo</label>
+                  <input type="email" name="Company[ReplyTo]" class="form-control form-control-sm" id="clientReplyToInput" placeholder="name@example.com">
                 </div>
           </form>
           </div>
@@ -98,6 +111,7 @@
       $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Companies'));
       $(".company-head").html("<i class='fa fa-address-card'></i> " + translate('Company'));
       $(".email-head").html("<i class='fa fa-envelope'></i> " + translate('Email'));
+      $(".replyto-head").html("<i class='fa fa-envelope'></i> " + translate('ReplyTo'));
       $(".entered-head").html("<i class='fa fa-calendar'></i> " + translate('Since'));
       $(".phone-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
       $(".new-company-btn").html("<i class='fa fa-plus'></i> " + translate('NewCompany'));
@@ -147,6 +161,10 @@
            $("#companyFrm")[0].reset();
            $("#CompanyID").val(" ");
            crfut_companies.table.ajax.reload();
+         });
+
+         $("#companyLogo").on("change",function(evt){
+           console.log(evt);
          });
 
          $("#companyFrm").on("submit",function(){

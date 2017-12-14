@@ -1,3 +1,6 @@
+translate.add({ReplyTo: 'Reply To'}, 'en');
+translate.add({ReplyTo: 'Responder A'}, 'es');
+
 translate.add({Fax: 'Fax'}, 'en');
 translate.add({Fax: 'Fax'}, 'es');
 
