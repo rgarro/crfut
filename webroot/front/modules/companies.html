@@ -28,7 +28,7 @@
           </button>
           </div>
           <div class="modal-body ">
-          <form id="companyFrm" enctype="multipart/form-data">
+          <form id="companyFrm" method="post" enctype="multipart/form-data">
             <input id="UserID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
             <div class="form-group">
               <div class="progress">
@@ -182,13 +182,16 @@ console.log(data);
            fileReader.readAsDataURL(this.files[0]);
          });
 
-         $("#companyFrm").on("submit",function(){
+         /*$("#companyFrm").on("submit",function(){
            var data = $("#companyFrm").serializeHash();
            crfut_companies.save(data);
            return false;
-         });
+         });*/
 
          $('#companyFrm').ajaxForm({
+           url:crfut_companies.saveUrl+"?token="+Cookies.get("token"),
+           type:"POST",
+           dataType:'json',
            beforeSend: function() {
              var percentVal = '0%';
              $("#companyFrm").css("width",percentVal);
@@ -197,10 +200,20 @@ console.log(data);
              var percentVal = percentComplete + '%';
              $("#companyFrm").css("width",percentVal);
            },
-           success: function(data) {
+           success: (function(data){
+console.log(data);             
              var percentVal = '100%';
-             console.log(data);
-           }
+             $("#companyFrm").css("width",percentVal);
+             this.verifyTokenizedRequest(data);
+               if(data.is_success == 1){
+                 this.alert_success(data.flash);
+                 $('#companyFormModal').modal('hide');
+                 this.table.ajax.reload();
+               }else{
+                   this.alert_error(data.flash);
+                   this.modelErrors(data.error_list);
+               }
+           }).bind(this)
          });
 
     });
