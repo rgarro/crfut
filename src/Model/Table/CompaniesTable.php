@@ -53,8 +53,8 @@ class CompaniesTable extends Table
             ->notEmpty('LocaleCode');
 
         $validator
-            ->scalar('CompanyName')
-            ->allowEmpty('CompanyName');
+            ->allowEmpty('CompanyName')
+            ->add('CompanyName', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('TaxID')
@@ -85,8 +85,8 @@ class CompaniesTable extends Table
             ->allowEmpty('Fax');
 
         $validator
-            ->scalar('Email')
-            ->allowEmpty('Email');
+        ->allowEmpty('Email')
+        ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('ReplyTo')
