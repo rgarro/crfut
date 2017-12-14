@@ -27,7 +27,7 @@
           </button>
           </div>
           <div class="modal-body ">
-          <form id="companyFrm">
+          <form id="companyFrm" enctype="multipart/form-data">
             <input id="UserID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
             <div class="form-group">
                 * <label for="companyLocaleCode" class="localecode-head">LocaleCode</label>
@@ -40,6 +40,34 @@
                   <label for="cNameInput" class="companyname-head">CompanyName</label>
                   <input type="text" name="Company[CompanyName]" class="form-control" id="cNameInput" placeholder="Acme" required="required">
               </div>
+              <div class="form-group">
+                  <label for="commercialNameInput" class="commercialname-head">CommercialName</label>
+                  <input type="text" name="Company[CommercialName]" class="form-control" id="commercialNameInput" placeholder="Acme Inc" required="required">
+              </div>
+              <div class="form-group">
+                  <label for="cedJuriInput" class="legalced-head">Cédula Jurídica</label>
+                  <input type="text" name="Company[CedulaJuridica]" class="form-control" id="cedJuriInput" placeholder="00000000000">
+                </div>
+                <div class="form-group">
+                    <label for="addressInput" class="direccion-head">Direccion</label>
+                    <input type="text" name="Company[Address]" class="form-control" id="addressInput" placeholder="avenida54 calle25" required="required">
+                  </div>
+                <div class="form-group">
+                  *  <label for="acodeNameInput" class="acodename-head">AreaCode</label>
+                  <input type="number" name="Company[AreaCode]" maxlength="3" size="3" class="form-control" id="acodeNameInput" placeholder="506" required="required">
+                </div>
+                <div class="form-group">
+                  *  <label for="phoneNameInput" class="phonename-head">Phone</label>
+                  <input type="number" name="Company[Phone]" minlength="8" maxlength="8" size="8" class="form-control" id="phoneNameInput" placeholder="80000000" required="required">
+                </div>
+                <div class="form-group">
+                  <label for="intphoneNameInput" class="faxphonename-head">Phone</label>
+                  <input type="number" name="Company[Fax]" minlength="5" maxlength="20" size="8" class="form-control" id="intphoneNameInput" placeholder="80000">
+                </div>
+                <div class="form-group">
+                  * <label for="clientEmailInput" class="email-head">Email</label>
+                  <input type="email" name="Company[Email]" class="form-control" id="clientEmailInput" placeholder="name@example.com" required="required">
+                </div>
           </form>
           </div>
           <div class="modal-footer">
@@ -59,6 +87,12 @@
     $(document).ready(function(){
 
       //Translatables
+      $(".faxphonename-head").html("<i class='fa fa-fax'></i> " + translate('Fax'));
+      $(".phonename-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
+      $(".acodename-head").html("<i class='fa fa-hashtag'></i> " + translate('AreaCode'));
+      $(".direccion-head").html("<i class='fa fa-car'></i> " + translate('Address'));
+      $(".legalced-head").html("<i class='fa fa-drivers-license'></i> " + translate('LegalCed'));
+      $(".commercialname-head").html("<i class='fa fa-map-signs'></i> " + translate('ComercialName'));
       $(".companyname-head").html("<i class='fa fa-building'></i> " + translate('CompanyName'));
       $(".localecode-head").html("<i class='fa fa-globe'></i> " + translate('LocaleCode'));
       $(".cardTitle").html("<i class='fa fa-male'></i> " + translate('Companies'));
