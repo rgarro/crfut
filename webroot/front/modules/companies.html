@@ -30,6 +30,7 @@
           <div class="modal-body ">
           <form id="companyFrm" method="post" enctype="multipart/form-data">
             <input id="UserID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
+
             <div class="form-group">
               <div class="progress">
                 <div id="calleElProgreso" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%;display:none;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -45,6 +46,10 @@
                   <option value="es_CR">Español</option>
                 </select>
 
+              </div>
+              <div class="form-group">
+                  <label for="cColorInput" class="bgcolor-head col-form-label">*BgColor</label>
+                  <input type="color" value="#80ff00" name="Company[BgColor]" id="cColorInput"  required="required">
               </div>
               <div class="form-group">
                   <label for="cNameInput" class="companyname-head col-form-label">CompanyName</label>
@@ -171,6 +176,9 @@ console.log(data);
          $('#companyFormModal').on('hidden.bs.modal', function (e) {
            $("#companyFrm")[0].reset();
            $("#CompanyID").val(" ");
+           $('#calleElProgreso').hide();
+           $("#calleElProgreso").css("width","0%");
+          $(".icon-choose-image").attr("src"," ");
            crfut_companies.table.ajax.reload();
          });
 
@@ -194,26 +202,26 @@ console.log(data);
            dataType:'json',
            beforeSend: function() {
              var percentVal = '0%';
-             $("#companyFrm").css("width",percentVal);
+             $('#calleElProgreso').show();
+             $("#calleElProgreso").css("width",percentVal);
            },
            uploadProgress: function(event, position, total, percentComplete) {
              var percentVal = percentComplete + '%';
-             $("#companyFrm").css("width",percentVal);
+             $("#calleElProgreso").css("width",percentVal);
            },
            success: (function(data){
-console.log(data);             
-             var percentVal = '100%';
-             $("#companyFrm").css("width",percentVal);
-             this.verifyTokenizedRequest(data);
+             $("#calleElProgreso").css("width","100%");
+             crfut_companies.verifyTokenizedRequest(data);
                if(data.is_success == 1){
-                 this.alert_success(data.flash);
+                 crfut_companies.alert_success(data.flash);
                  $('#companyFormModal').modal('hide');
-                 this.table.ajax.reload();
+                 crfut_companies.table.ajax.reload();
                }else{
-                   this.alert_error(data.flash);
-                   this.modelErrors(data.error_list);
+                   crfut_companies.alert_error(data.flash);
+                   crfut_companies.modelErrors(data.error_list);
                }
-           }).bind(this)
+               $('#calleElProgreso').hide();
+           }).bind(crfut_companies)
          });
 
     });
