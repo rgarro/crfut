@@ -70,13 +70,14 @@ class CompaniesController extends AppController
           $_POST['Company']['Entered'] = date("Y-m-d H:i:s");
         }
         $cli = $this->Companies->patchEntity($company,$_POST['Company']);
-    file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_POST,true));
-    file_put_contents("/Users/rolando/Documents/Unity/sql.log", print_r($_FILES,true));
+
+
         if ($this->Companies->save($cli)) {
-          if(isset($_FILES['Company'])){
+          if(isset($_FILES['photo'])){
             $file_dir = WWW_ROOT."/files/cialogos/".$cli->CompanyID;
+//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$file_dir);            
             mkdir($file_dir);
-            move_uploaded_file($_FILES['Company']['logo']['tmp_name'],$file_dir."/".$_FILES['Company']['logo']);
+            move_uploaded_file($_FILES['photo']['tmp_name'],$file_dir."/".$_FILES['photo']['name']);
           }
             $flash = __('The Company has been saved.');
             $success = 1;

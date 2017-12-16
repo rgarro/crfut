@@ -36,7 +36,8 @@
                 <div id="calleElProgreso" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%;display:none;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
               <img src="" class="icon-choose-image"/><br>
-            Logo:  <input type="File" name="Company[Logo]" id="companyLogo" size="40" value="" accept="image/*"/>
+            Logo:  <input type="File" name="photo" id="companyLogo" size="40" value="" accept="image/*"/>
+              <input id="ciaLogo" class="hid-cialogo-id" type="hidden" name="Company[Logo]" value=""/>
             </div>
             <div class="form-group">
                 * <label for="companyLocaleCode" class="localecode-head col-form-label">LocaleCode</label>
@@ -176,6 +177,7 @@ console.log(data);
          $('#companyFormModal').on('hidden.bs.modal', function (e) {
            $("#companyFrm")[0].reset();
            $("#CompanyID").val(" ");
+           $("#ciaLogo").val(" ");
            $('#calleElProgreso').hide();
            $("#calleElProgreso").css("width","0%");
           $(".icon-choose-image").attr("src"," ");
@@ -188,6 +190,7 @@ console.log(data);
              $(".icon-choose-image").attr("src",e.target.result);
            }
            fileReader.readAsDataURL(this.files[0]);
+           $("#ciaLogo").val($("#companyLogo").val());
          });
 
          /*$("#companyFrm").on("submit",function(){
