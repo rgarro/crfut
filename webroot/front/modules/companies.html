@@ -29,7 +29,7 @@
           </div>
           <div class="modal-body ">
           <form id="companyFrm" method="post" enctype="multipart/form-data">
-            <input id="UserID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
+            <input id="CompanyID" class="hid-company-id" type="hidden" name="Company[CompanyID]" value=""/>
 
             <div class="form-group">
               <div class="progress">
@@ -169,9 +169,26 @@
              },
          });
 
+         var $company_locale_select = $('#companyLocaleCode');
+
          $('#companiesDataTable tbody').on( 'click', '.edit-company-btn',function(){
            var data = crfut_companies.table.row( $(this).parents('tr') ).data();
 console.log(data);
+             $("#CompanyID").val(data.CompanyID);
+             //$("#companyLogo").val(crfut_companies.getLogoUrl());
+             $(".icon-choose-image").attr("src",crfut_companies.getLogoUrl(data.CompanyID,data.Logo));
+             if(data.LocaleCode == "es_CR"){
+               $company_locale_select.filter('[value="es_CR"]').prop('selected', true);
+               $company_locale_select.filter('[value="en_US"]').prop('selected', false);
+             }else{
+               $company_locale_select.filter('[value="es_CR"]').prop('selected', false);
+               $company_locale_select.filter('[value="en_US"]').prop('selected', true);
+             }
+             $("#cNameInput").val(data.CompanyName);
+             $("#cColorInput").val(data.BgColor);
+            //$("#cColorInput").val(data.BgColor);
+
+             $('#companyFormModal').modal('show');
         });
 
          $('#companyFormModal').on('hidden.bs.modal', function (e) {
@@ -181,6 +198,8 @@ console.log(data);
            $('#calleElProgreso').hide();
            $("#calleElProgreso").css("width","0%");
           $(".icon-choose-image").attr("src"," ");
+          $company_locale_select.filter('[value="es_CR"]').prop('selected', false);
+          $company_locale_select.filter('[value="en_US"]').prop('selected', false);
            crfut_companies.table.ajax.reload();
          });
 
@@ -190,7 +209,10 @@ console.log(data);
              $(".icon-choose-image").attr("src",e.target.result);
            }
            fileReader.readAsDataURL(this.files[0]);
-           $("#ciaLogo").val($("#companyLogo").val());
+           var tmpLogo = $("#companyLogo").val();
+           var logo = tmpLogo.slice(12, tmpLogo.length);//the fakepath thing
+//console.log(logo);
+           $("#ciaLogo").val(logo);
          });
 
          /*$("#companyFrm").on("submit",function(){

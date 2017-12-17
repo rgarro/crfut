@@ -15,6 +15,10 @@ var Companies = (function(){
 
   }
 
+  Companies.prototype.getLogoUrl = function(CompanyID,Logo){
+    return this.BaseLogoUrl + CompanyID + "/" + Logo;
+  }
+
   return Companies;
 })();
 
