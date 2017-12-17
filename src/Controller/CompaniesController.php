@@ -73,9 +73,9 @@ class CompaniesController extends AppController
 
 
         if ($this->Companies->save($cli)) {
-          if(isset($_FILES['photo'])){
+          if(isset($_FILES['photo']) && strlen($_FILES['photo']['tmp_name']) > 1){
             $file_dir = WWW_ROOT."/files/cialogos/".$cli->CompanyID;
-//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$file_dir);            
+//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$file_dir);
             mkdir($file_dir);
             move_uploaded_file($_FILES['photo']['tmp_name'],$file_dir."/".$_FILES['photo']['name']);
           }

@@ -60,10 +60,10 @@
                   <label for="commercialNameInput" class="commercialname-head col-form-label">CommercialName</label>
                   <input type="text" name="Company[CommercialName]" class="form-control form-control-sm" id="commercialNameInput" placeholder="Acme Inc" required="required">
               </div>
-              <div class="form-group">
+              <!--<div class="form-group">
                   <label for="cedJuriInput" class="legalced-head col-form-label">Cédula Jurídica</label>
                   <input type="text" name="Company[CedulaJuridica]" class="form-control form-control-sm" id="cedJuriInput" placeholder="00000000000">
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="addressInput" class="direccion-head col-form-label">Direccion</label>
                     <input type="text" name="Company[Address]" class="form-control form-control-sm" id="addressInput" placeholder="avenida54 calle25" required="required">
@@ -175,7 +175,7 @@
            var data = crfut_companies.table.row( $(this).parents('tr') ).data();
 console.log(data);
              $("#CompanyID").val(data.CompanyID);
-             //$("#companyLogo").val(crfut_companies.getLogoUrl());
+             $("#ciaLogo").val(data.Logo);
              $(".icon-choose-image").attr("src",crfut_companies.getLogoUrl(data.CompanyID,data.Logo));
              if(data.LocaleCode == "es_CR"){
                $company_locale_select.filter('[value="es_CR"]').prop('selected', true);
@@ -186,7 +186,15 @@ console.log(data);
              }
              $("#cNameInput").val(data.CompanyName);
              $("#cColorInput").val(data.BgColor);
-            //$("#cColorInput").val(data.BgColor);
+             $("#commercialNameInput").val(data.CommercialName);
+            // $("#cedJuriInput").val(data.CedulaJuridica);
+             $("#addressInput").val(data.Address);
+             $("#acodeNameInput").val(data.AreaCode);
+             $("#phoneNameInput").val(data.Phone);
+             $("#intphoneNameInput").val(data.Fax);
+             $("#clientEmailInput").val(data.Email);
+             $("#clientReplyToInput").val(data.ReplyTo);
+             $("#emailSbjInput").val(data.EmailSubject);
 
              $('#companyFormModal').modal('show');
         });
