@@ -15,6 +15,10 @@ var Companies = (function(){
 
   }
 
+  Companies.prototype.delete = function(data){
+    console.log(data);
+  }
+
   Companies.prototype.getLogoUrl = function(CompanyID,Logo){
     return this.BaseLogoUrl + CompanyID + "/" + Logo;
   }

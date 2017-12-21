@@ -1,3 +1,6 @@
+translate.add({ConfirmD: 'Want To Continue'}, 'en');
+translate.add({ConfirmD: 'Continuar'}, 'es');
+
 translate.add({ReplyTo: 'Reply To'}, 'en');
 translate.add({ReplyTo: 'Responder A'}, 'es');
 

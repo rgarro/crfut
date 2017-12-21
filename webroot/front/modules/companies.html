@@ -138,6 +138,14 @@
         $('#companyFormModal').modal('show');
       });
 
+      $('#companiesDataTable tbody').on( 'click', '.delete-company-btn',function(){
+        var cia_data = crfut_companies.table.row( $(this).parents('tr') ).data();
+        if(window.confirm(translate('ConfirmD'))){
+          crfut_companies.delete(cia_data);
+        }
+      });
+
+
       crfut_companies.table = $('#companiesDataTable').DataTable( {
              "processing": true,
              "serverSide": true,
@@ -162,7 +170,12 @@
                  { "data": "Email", "orderable": false ,"searchable":true },
                  { "data": "Entered", "orderable": false,"searchable":false },
                  { "data": "Phone", "orderable": false,"searchable":false },
-                 {data:"",defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-company-btn'><i class='fa fa-edit'></i></button>","orderable": false,"searchable":false}
+                 {
+                   data:"",
+                   defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-company-btn'><i class='fa fa-edit'></i></button> <button type='button' class='btn btn-outline-warning btn-sm delete-company-btn'><i class='fa fa-trash'></i></button>",
+                   "orderable": false,
+                   "searchable":false
+                 }
              ],
              "language": {
                "url": data_lang_url,
@@ -173,7 +186,7 @@
 
          $('#companiesDataTable tbody').on( 'click', '.edit-company-btn',function(){
            var data = crfut_companies.table.row( $(this).parents('tr') ).data();
-console.log(data);
+//3console.log(data);
              $("#CompanyID").val(data.CompanyID);
              $("#ciaLogo").val(data.Logo);
              $(".icon-choose-image").attr("src",crfut_companies.getLogoUrl(data.CompanyID,data.Logo));
