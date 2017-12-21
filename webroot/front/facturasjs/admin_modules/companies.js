@@ -6,6 +6,7 @@ var Companies = (function(){
     this.table = {};
     this.saveUrl = this.baseUrl + "companies/save";
     this.BaseLogoUrl = this.baseUrl + "files/cialogos/";
+    this.deleteUrl = this.baseUrl + "companies/delete";
   }
 
   Companies.prototype = Object.create(CRFut.FacturasCR.prototype);
@@ -16,7 +17,22 @@ var Companies = (function(){
   }
 
   Companies.prototype.delete = function(data){
-    console.log(data);
+    $.ajax({
+      url:this.deleteUrl+"?token="+Cookies.get("token"),
+      data:data,
+      type:"post",
+      dataType:"json",
+      success:(function(data){
+      this.verifyTokenizedRequest(data);
+        if(data.is_success == 1){
+          this.alert_success(data.flash);
+          this.table.ajax.reload();
+        }else{
+            this.alert_error(data.flash);
+            this.modelErrors(data.error_list);
+        }
+      }).bind(this)
+    });
   }
 
   Companies.prototype.getLogoUrl = function(CompanyID,Logo){

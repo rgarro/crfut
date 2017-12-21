@@ -106,4 +106,36 @@ class CompaniesController extends AppController
     $this->set($ret);
   }
 
+  public function delete(){
+    $ret = [];
+    if(isset($_GET["token"])){
+      $this->BettyChecks->veryToken($_GET["token"]);
+      if($this->BettyChecks->LastCheckResult["is_alive"]){
+        if(isset($_POST['CompanyID']) && intval($_POST['CompanyID']) > 0){
+          $company = $this->Companies->get(intval($_POST['CompanyID']),['contain' => []]);
+//file_put_contents("/Users/rolando/Documents/Unity/sql.log",print_r($company,true));
+          $flash = __('The Company has been deleted.');
+          $success = 1;
+          $invalid_form = 0;
+          $errors = [];
+        }else{
+          $flash = __('The Company could not been deleted.');
+          $success = 0;
+          $invalid_form = 1;
+          $errors = [];
+        }
+        $ret['is_success'] = $success;
+        $ret['flash'] = $flash;
+        $ret['invalid_form'] = $invalid_form;
+        $ret['error_list'] = $errors;
+      }else{
+        $ret["token_is_expired"] = 1;
+      }
+    }else{
+      $ret["token_is_absent"] = 1;
+    }
+    $this->cors_here();
+    $this->set($ret);
+  }
+
 }
