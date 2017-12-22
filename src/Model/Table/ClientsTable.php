@@ -150,5 +150,27 @@ class ClientsTable extends Table
       return $ret;
     }
 
+    public function deleteCliente($ClientID){
+      $sql ="SET FOREIGN_KEY_CHECKS=0";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM Receipts WHERE ClientID ='".$ClientID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM InvoiceDetail WHERE InvoiceID IN( SELECT InvoiceID FROM Invoices WHERE ClientID = '".$ClientID."')";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM InvoiceLog WHERE InvoiceID IN( SELECT InvoiceID FROM Invoices WHERE ClientID = '".$ClientID."')";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM Invoices WHERE ClientID ='".$ClientID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM Clients WHERE ClientID ='".$ClientID."'";
+      $this->connection()->execute($sql);
+
+      $sql ="SET FOREIGN_KEY_CHECKS=1";
+      $this->connection()->execute($sql);
+    }
 
 }

@@ -155,7 +155,11 @@
                  { "data": "CommercialName", "orderable": false ,"searchable":true},
                  { "data": "Entered", "orderable": true,"searchable":false },
                  { "data": "Phone", "orderable": false,"searchable":false },
-                 {data:"",defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-client-btn'><i class='fa fa-edit'></i></button>","orderable": false,"searchable":false}
+                 { data:"",
+                    defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-client-btn'><i class='fa fa-edit'></i></button>  <button type='button' class='btn btn-outline-warning btn-sm delete-cliente-btn'><i class='fa fa-trash'></i></button>",
+                    "orderable": false,
+                    "searchable":false
+                  }
              ],
              "language": {
                "url": data_lang_url,
@@ -196,6 +200,13 @@
            var data = $("#newClientFrm").serializeHash();
            crfut_clients.save(data);
            return false;
+         });
+
+         $('#clientsDataTable tbody').on( 'click', '.delete-cliente-btn',function(){
+           var cliente_data = crfut_clients.table.row( $(this).parents('tr') ).data();
+           if(window.confirm(translate('ConfirmD'))){
+             crfut_clients.delete(cliente_data);
+           }
          });
 
     });

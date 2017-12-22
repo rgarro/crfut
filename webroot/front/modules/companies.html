@@ -186,7 +186,6 @@
 
          $('#companiesDataTable tbody').on( 'click', '.edit-company-btn',function(){
            var data = crfut_companies.table.row( $(this).parents('tr') ).data();
-//3console.log(data);
              $("#CompanyID").val(data.CompanyID);
              $("#ciaLogo").val(data.Logo);
              $(".icon-choose-image").attr("src",crfut_companies.getLogoUrl(data.CompanyID,data.Logo));
@@ -200,7 +199,6 @@
              $("#cNameInput").val(data.CompanyName);
              $("#cColorInput").val(data.BgColor);
              $("#commercialNameInput").val(data.CommercialName);
-            // $("#cedJuriInput").val(data.CedulaJuridica);
              $("#addressInput").val(data.Address);
              $("#acodeNameInput").val(data.AreaCode);
              $("#phoneNameInput").val(data.Phone);
@@ -232,7 +230,6 @@
            fileReader.readAsDataURL(this.files[0]);
            var tmpLogo = $("#companyLogo").val();
            var logo = tmpLogo.slice(12, tmpLogo.length);//the fakepath thing
-//console.log(logo);
            $("#ciaLogo").val(logo);
          });
 
