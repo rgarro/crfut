@@ -75,8 +75,9 @@ class CompaniesController extends AppController
         if ($this->Companies->save($cli)) {
           if(isset($_FILES['photo']) && strlen($_FILES['photo']['tmp_name']) > 1){
             $file_dir = WWW_ROOT."/files/cialogos/".$cli->CompanyID;
-//file_put_contents("/Users/rolando/Documents/Unity/sql.log",$file_dir);
-            mkdir($file_dir);
+            if(!is_dir($file_dir)){
+              mkdir($file_dir);
+            }
             move_uploaded_file($_FILES['photo']['tmp_name'],$file_dir."/".$_FILES['photo']['name']);
           }
             $flash = __('The Company has been saved.');
@@ -114,6 +115,9 @@ class CompaniesController extends AppController
         if(isset($_POST['CompanyID']) && intval($_POST['CompanyID']) > 0){
           $company = $this->Companies->get(intval($_POST['CompanyID']),['contain' => []]);
 //file_put_contents("/Users/rolando/Documents/Unity/sql.log",print_r($company,true));
+          $this->Companies->deleteCia($_POST['CompanyID']);
+          unlink(WWW_ROOT."/files/cialogos/".$_POST['CompanyID']."/".$_POST['Logo']);
+          rmdir(WWW_ROOT."/files/cialogos/".$_POST['CompanyID']);
           $flash = __('The Company has been deleted.');
           $success = 1;
           $invalid_form = 0;

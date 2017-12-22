@@ -192,6 +192,35 @@ class CompaniesTable extends Table
         return $this->connection()->execute($sql)->fetchAll('assoc');
     }
 
+    public function deleteCia($CompanyID){
+      $sql ="SET FOREIGN_KEY_CHECKS=0";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM CompanyBanks WHERE CompanyID ='".$CompanyID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM CompanyCurrencies WHERE CompanyID ='".$CompanyID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM CompanyUsers WHERE CompanyID ='".$CompanyID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM InvoiceDetail WHERE InvoiceID IN( SELECT InvoiceID FROM Invoices WHERE CompanyID = '".$CompanyID."')";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM InvoiceLog WHERE InvoiceID IN( SELECT InvoiceID FROM Invoices WHERE CompanyID = '".$CompanyID."')";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM Invoices WHERE CompanyID ='".$CompanyID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM Companies WHERE CompanyID ='".$CompanyID."'";
+      $this->connection()->execute($sql);
+
+      $sql ="SET FOREIGN_KEY_CHECKS=1";
+      $this->connection()->execute($sql);
+    }
+
     public function dataTableData($user_id,$length=10,$start=0,$search="",$searchables=[],$sortables=[],$direction =""){
       //get total
       $sql ="SELECT COUNT(*) as hay ";
