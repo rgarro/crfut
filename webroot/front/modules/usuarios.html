@@ -145,7 +145,12 @@ $(document).ready(function(){
              { "data": "Email", "orderable": false ,"searchable":true },
              { "data": "Entered", "orderable": true,"searchable":false },
              { "data": "AccessLevel", "orderable": false ,"searchable":false},
-            {data:"",defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-user-btn'><i class='fa fa-edit'></i></button>","orderable": false,"searchable":false}
+            {
+              data:"",
+              defaultContent: "<button type='button' class='btn btn-outline-primary btn-sm edit-user-btn'><i class='fa fa-edit'></i></button>  <button type='button' class='btn btn-outline-warning btn-sm delete-user-btn'><i class='fa fa-trash'></i></button>",
+              "orderable": false,
+              "searchable":false
+            }
          ],
          "language": {
            "url": data_lang_url,
@@ -169,6 +174,13 @@ $(document).ready(function(){
        $("#userPasswordInput").attr("disabled",true);
        $("#userAccessLevelIDInput").val(data.AccessLevelID);
        $('#userFormModal').modal('show');
+    });
+
+    $('#usesDataTable tbody').on( 'click', '.delete-user-btn',function(){
+      var user_data = crfut_users.table.row( $(this).parents('tr') ).data();
+      if(window.confirm(translate('ConfirmD'))){
+        crfut_users.delete(user_data);
+      }
     });
 
 });

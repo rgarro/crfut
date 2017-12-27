@@ -73,6 +73,10 @@ var Users = (function(){
     });
   }
 
+  Users.prototype.delete = function(user_data){
+    console.log(user_data);
+  }
+
   return Users;
 })();
 
