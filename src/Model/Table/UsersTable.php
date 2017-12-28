@@ -218,4 +218,18 @@ class UsersTable extends Table
       return $ret;
     }
 
+    public function deleteUser($UserID){
+      $sql ="SET FOREIGN_KEY_CHECKS=0";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM CompanyUsers WHERE UserID ='".$UserID."'";
+      $this->connection()->execute($sql);
+
+      $sql = "DELETE FROM Users WHERE UserID = '".$UserID."'";
+      $this->connection()->execute($sql);
+
+      $sql ="SET FOREIGN_KEY_CHECKS=1";
+      $this->connection()->execute($sql);
+    }
+
 }

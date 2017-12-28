@@ -13,6 +13,7 @@ var Users = (function(){
     this.companiesOptionsUrl = this.baseUrl + "companies/companiesoptions";
     this.companiesOptionsSrc = "{{#each companies}}<span class='badge badge-pill badge-light'><input name='Companies[{{CompanyID}}]' type='checkbox' value='{{CompanyID}}' {{#if checked}}checked='checked'{{/if}}/> {{CompanyName}} </span> &nbsp;{{/each}}";
     this.companiesOptionsTemplate = Handlebars.compile(this.companiesOptionsSrc);
+    this.deleteUrl = this.baseUrl + "users/delete";
   }
 
   Users.prototype = Object.create(CRFut.FacturasCR.prototype);
@@ -74,7 +75,22 @@ var Users = (function(){
   }
 
   Users.prototype.delete = function(user_data){
-    console.log(user_data);
+    $.ajax({
+      url:this.deleteUrl+"?token="+Cookies.get("token"),
+      data:user_data,
+      type:"post",
+      dataType:"json",
+      success:(function(data){
+      this.verifyTokenizedRequest(data);
+        if(data.is_success == 1){
+          this.alert_success(data.flash);
+          this.table.ajax.reload();
+        }else{
+            this.alert_error(data.flash);
+            this.modelErrors(data.error_list);
+        }
+      }).bind(this)
+    });
   }
 
   return Users;

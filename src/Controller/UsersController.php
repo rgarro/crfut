@@ -99,4 +99,35 @@ class UsersController extends AppController
     $this->set($ret);
   }
 
+  public function delete(){
+    $ret = [];
+    if(isset($_GET["token"])){
+      $this->BettyChecks->veryToken($_GET["token"]);
+      if($this->BettyChecks->LastCheckResult["is_alive"]){
+        if(isset($_POST['UserID']) && intval($_POST['UserID']) > 0){
+          $this->Users->deleteUser($_POST['UserID']);
+          $flash = __('The User has been deleted.');
+          $success = 1;
+          $invalid_form = 0;
+          $errors = [];
+        }else{
+          $flash = __('The User could not been deleted.');
+          $success = 0;
+          $invalid_form = 1;
+          $errors = [];
+        }
+        $ret['is_success'] = $success;
+        $ret['flash'] = $flash;
+        $ret['invalid_form'] = $invalid_form;
+        $ret['error_list'] = $errors;
+      }else{
+        $ret["token_is_expired"] = 1;
+      }
+    }else{
+      $ret["token_is_absent"] = 1;
+    }
+    $this->cors_here();
+    $this->set($ret);
+  }
+
 }
