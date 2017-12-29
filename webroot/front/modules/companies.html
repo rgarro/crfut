@@ -17,12 +17,14 @@
               <tbody>
               </tbody>
             </table>
+
             <!-- Modal -->
           <div class="modal fade" id="companyFormModal" tabindex="-1" role="dialog" aria-labelledby="createCompanyModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
           <div class="modal-header">
           <h5 class="modal-title newcompany" id="createUserCompanyLabel">Modal title</h5>
+          <button id="banksBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#companyBanksModal"><i class="fa fa-bank"></i> </button>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -102,6 +104,27 @@
           </div>
           </div>
           <!-- end modal -->
+          <!-- Modal -->
+        <div class="modal fade" id="companyBanksModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        ...asdfasdf
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+        </div>
+        </div>
+
                   <button class="btn btn-outline-primary btn-sm new-company-btn"><i class="fa fa-plus"></i></button>
           </div>
         </div>
@@ -135,6 +158,7 @@
 
       $(".new-company-btn").on("click",function(){
         $("#CompanyID").val(" ");
+         $('#banksBtn').hide();
         $('#companyFormModal').modal('show');
       });
 
@@ -208,6 +232,7 @@
              $("#emailSbjInput").val(data.EmailSubject);
 
              $('#companyFormModal').modal('show');
+             $('#banksBtn').show();
         });
 
          $('#companyFormModal').on('hidden.bs.modal', function (e) {
@@ -215,6 +240,7 @@
            $("#CompanyID").val(" ");
            $("#ciaLogo").val(" ");
            $('#calleElProgreso').hide();
+           $('#banksBtn').hide();
            $("#calleElProgreso").css("width","0%");
           $(".icon-choose-image").attr("src"," ");
           $company_locale_select.filter('[value="es_CR"]').prop('selected', false);
