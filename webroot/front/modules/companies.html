@@ -162,6 +162,13 @@
         $('#companyFormModal').modal('show');
       });
 
+var companyBanks = new CRFut.AdminModules.bankAccounts();
+
+
+      $("#banksBtn").on("click",function(){
+        console.log("banks click");
+      });
+
       $('#companiesDataTable tbody').on( 'click', '.delete-company-btn',function(){
         var cia_data = crfut_companies.table.row( $(this).parents('tr') ).data();
         if(window.confirm(translate('ConfirmD'))){
