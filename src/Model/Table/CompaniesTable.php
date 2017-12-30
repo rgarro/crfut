@@ -247,11 +247,20 @@ class CompaniesTable extends Table
       $list_sql .= " LIMIT ".$start.",".$length;
       //get list fetch the thing
       $DataSet = $this->connection()->execute($list_sql)->fetchAll('assoc');
+      //bank accounts loop ...
+      for($i =0;$i<count($DataSet);$i++){
+        $DataSet[$i]['Accounts'] = $this->getCompanyBanks($DataSet[$i]['CompanyID']);
+      }
       //pack results ...
       $ret = [];
       $ret['total'] = $res['hay'];
       $ret['data'] = $DataSet;
       return $ret;
+    }
+
+    public function getCompanyBanks($CompanyID){
+      $sql = "SELECT * FROM CompanyBanks WHERE CompanyID ='".$CompanyID."'";
+      return $this->connection()->execute($sql)->fetchAll('assoc');
     }
 
 }
