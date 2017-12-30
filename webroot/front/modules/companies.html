@@ -62,10 +62,6 @@
                   <label for="commercialNameInput" class="commercialname-head col-form-label">CommercialName</label>
                   <input type="text" name="Company[CommercialName]" class="form-control form-control-sm" id="commercialNameInput" placeholder="Acme Inc" required="required">
               </div>
-              <!--<div class="form-group">
-                  <label for="cedJuriInput" class="legalced-head col-form-label">Cédula Jurídica</label>
-                  <input type="text" name="Company[CedulaJuridica]" class="form-control form-control-sm" id="cedJuriInput" placeholder="00000000000">
-                </div> -->
                 <div class="form-group">
                     <label for="addressInput" class="direccion-head col-form-label">Direccion</label>
                     <input type="text" name="Company[Address]" class="form-control form-control-sm" id="addressInput" placeholder="avenida54 calle25" required="required">
@@ -109,13 +105,33 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="companyBanksModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
         </div>
         <div class="modal-body">
-        ...asdfasdf
+          <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">banco</th>
+        <th scope="col">moneda</th>
+        <th scope="col">cuenta</th>
+        <th scope="col">cuenta cliente</th>
+        <th scope="col">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody id="companyBanksTBody">
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>@mdo</td>
+      </tr>
+
+    </tbody>
+  </table>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -150,6 +166,7 @@
       $(".phone-head").html("<i class='fa fa-phone'></i> " + translate('Phone'));
       $(".new-company-btn").html("<i class='fa fa-plus'></i> " + translate('NewCompany'));
       $(".newcompany").html("<i class='fa fa-building'></i> " + translate('NewCompany'));
+      $("#companyBanksModalLabel").html("<i class='fa fa-bank'></i> " + translate('CompanyBanks'));
 
       var crfut_companies = new CRFut.AdminModules.Companies();
       var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");
@@ -162,11 +179,10 @@
         $('#companyFormModal').modal('show');
       });
 
-var companyBanks = new CRFut.AdminModules.bankAccounts();
-
+      var companyBanks = new CRFut.AdminModules.bankAccounts();
 
       $("#banksBtn").on("click",function(){
-        console.log("banks click");
+        companyBanks.buildTBody(crfut_companies.currentData);
       });
 
       $('#companiesDataTable tbody').on( 'click', '.delete-company-btn',function(){
@@ -217,6 +233,7 @@ var companyBanks = new CRFut.AdminModules.bankAccounts();
 
          $('#companiesDataTable tbody').on( 'click', '.edit-company-btn',function(){
            var data = crfut_companies.table.row( $(this).parents('tr') ).data();
+           crfut_companies.currentData = data;
              $("#CompanyID").val(data.CompanyID);
              $("#ciaLogo").val(data.Logo);
              $(".icon-choose-image").attr("src",crfut_companies.getLogoUrl(data.CompanyID,data.Logo));

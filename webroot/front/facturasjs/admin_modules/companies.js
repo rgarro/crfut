@@ -4,6 +4,7 @@ var Companies = (function(){
     this.parentVars();
     this.dataTableUrl = this.baseUrl + "companies/datatable";
     this.table = {};
+    this.currentData = {};
     this.saveUrl = this.baseUrl + "companies/save";
     this.BaseLogoUrl = this.baseUrl + "files/cialogos/";
     this.deleteUrl = this.baseUrl + "companies/delete";

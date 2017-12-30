@@ -1,3 +1,6 @@
+translate.add({CompanyBanks: 'Company Banks'}, 'en');
+translate.add({CompanyBanks: 'Bancos de la Compañía'}, 'es');
+
 translate.add({ConfirmD: 'Want To Continue'}, 'en');
 translate.add({ConfirmD: 'Continuar'}, 'es');
 
