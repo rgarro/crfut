@@ -60,11 +60,13 @@ class CompanyBanksTable extends Table
 
         $validator
             ->scalar('AccountNumber')
-            ->allowEmpty('AccountNumber');
+            ->allowEmpty('AccountNumber')
+            ->add('AccountNumber', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('SINPE')
-            ->allowEmpty('SINPE');
+            ->allowEmpty('SINPE')
+            ->add('SINPE', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->dateTime('Entered')

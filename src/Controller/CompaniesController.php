@@ -17,6 +17,7 @@ class CompaniesController extends AppController
       $this->loadModel("Users");
       $this->loadModel("Companies");
       $this->loadModel("Sessions");
+      $this->loadModel("CompanyBanks");
       $this->loadComponent("BettyChecks");
       $this->loadComponent("DataTablePastry");
   }
@@ -140,6 +141,10 @@ class CompaniesController extends AppController
     }
     $this->cors_here();
     $this->set($ret);
+  }
+
+  public function savecompanyaccount(){
+
   }
 
 }

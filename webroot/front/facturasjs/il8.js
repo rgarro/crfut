@@ -1,3 +1,6 @@
+translate.add({Bank: 'Bank'}, 'en');
+translate.add({Bank: 'Banco'}, 'es');
+
 translate.add({CompanyBanks: 'Company Banks'}, 'en');
 translate.add({CompanyBanks: 'Bancos de la Compañía'}, 'es');
 

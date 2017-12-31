@@ -259,7 +259,7 @@ class CompaniesTable extends Table
     }
 
     public function getCompanyBanks($CompanyID){
-      $sql = "SELECT * FROM CompanyBanks WHERE CompanyID ='".$CompanyID."'";
+      $sql = "SELECT a.* , b.Bank , c.CurrencyName FROM CompanyBanks as a , Banks as b , Currencies as c WHERE a.CompanyID ='".$CompanyID."' AND a.BankID = b.BankID AND a.CurrencyID = c.CurrencyID";
       return $this->connection()->execute($sql)->fetchAll('assoc');
     }
 
