@@ -11,13 +11,46 @@ var bankAccounts = class bankAccounts {
     this.setHtmlSrc();
     this.template = Handlebars.compile(this.htmlSrc);
     this.container = "#companyBanksTBody";
+    this.companyID = 0;
+    this.bankOptionsUrl = this.parent.baseUrl + "companies/getbankoptions";
+  }
+
+  showAccounts(data){
+    this.buildTBody(data);
+    this.setCompanyID(data.CompanyID);
   }
 
   buildTBody(data){
-    console.log(data);
     var html = this.template(data);
-console.log(html);    
     $(this.container).html(html);
+  }
+
+  setCompanyID(id){
+    $("#cbCompanyID").val(id);
+  }
+
+  setBankOptions(cid){
+    $.ajax({
+      url:this.bankOptionsUrl,
+      type:"get",
+      data:{
+        CompanyID:cid,
+        token:Cookies.get("token")
+      },
+      dataType:"json",
+      success:(function(data){
+      //this.parent.verifyTokenizedRequest(data);
+      console.log(data);
+        /*if(data.is_success == 1){
+          this.alert_success(data.flash);
+          $('#createClienteModal').modal('hide');
+          this.table.ajax.reload();
+        }else{
+            this.alert_error(data.flash);
+            this.modelErrors(data.error_list);
+        }*/
+      }).bind(this)
+    });
   }
 
   setHtmlSrc(){

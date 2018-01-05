@@ -115,15 +115,21 @@
     <thead>
       <tr>
         <th class="colbankbank" scope="col">banco</th>
-        <th scope="col">moneda</th>
-        <th scope="col">cuenta</th>
-        <th scope="col">cuenta cliente</th>
+        <th class="colbankcurrency" scope="col">moneda</th>
+        <th class="colbankaccount" scope="col">cuenta</th>
+        <th scope="col">SINPE</th>
         <th scope="col">&nbsp;</th>
       </tr>
     </thead>
     <tbody id="companyBanksTBody">
     </tbody>
   </table>
+  <form id="bankAccountBtn">
+    <input id="cbCompanyID" type="hidden" name="CompanyBanks[CompanyID]" value=""/>
+    <div class="form-row">
+
+    </div>
+  </form>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -160,7 +166,8 @@
       $(".newcompany").html("<i class='fa fa-building'></i> " + translate('NewCompany'));
       $("#companyBanksModalLabel").html("<i class='fa fa-bank'></i> " + translate('CompanyBanks'));
       $(".colbankbank").html("<i class='fa fa-bank'></i> " + translate('Bank'));
-      $(".colbankcurrencie").html("<i class='fa fa-bank'></i> " + translate('Bank'));
+      $(".colbankcurrency").html("<i class='fa fa-money'></i> " + translate('Currency'));
+      $(".colbankaccount").html("<i class='fa fa-sliders'></i> " + translate('Account'));
 
       var crfut_companies = new CRFut.AdminModules.Companies();
       var data_lang_url = (translate.getLocale() == "es" ? "datalang/spanish.json" : "datalang/english.json");

@@ -147,4 +147,10 @@ class CompaniesController extends AppController
 
   }
 
+  public function getbankoptions(){
+    $ret = $this->CompanyBanks->getList($_GET['CompanyID']);
+    $this->cors_here();
+    $this->set($ret);
+  }
+
 }

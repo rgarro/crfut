@@ -1,3 +1,9 @@
+translate.add({Account: 'Account'}, 'en');
+translate.add({Account: 'Cuenta'}, 'es');
+
+translate.add({Currency: 'Currency'}, 'en');
+translate.add({Currency: 'Moneda'}, 'es');
+
 translate.add({Bank: 'Bank'}, 'en');
 translate.add({Bank: 'Banco'}, 'es');
 

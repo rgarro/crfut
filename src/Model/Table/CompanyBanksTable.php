@@ -87,4 +87,9 @@ class CompanyBanksTable extends Table
 
         return $validator;
     }
+
+    public function getList($CompanyID){
+      
+    }
+
 }
