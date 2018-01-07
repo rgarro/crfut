@@ -17,6 +17,11 @@ var bankAccounts = class bankAccounts {
     this.currencyOptionsUrl = this.parent.baseUrl + "companies/currencyoptions";
   }
 
+  save(data){
+    console.log("here");
+    console.log(data);
+  }
+
   showAccounts(data){
     this.buildTBody(data);
     this.setCompanyID(data.CompanyID);

@@ -95,6 +95,43 @@ var FacturasCR = (function(){
      }
   }
 
+  FacturasCR.prototype.getTimeStamp = function(){
+    //dates
+    var dateO = new Date();
+    var month = "";
+    if(dateO.getMonth() < 9){
+      month = "0" + (dateO.getMonth() + 1);
+    }else{
+      month =  dateO.getMonth() + 1;
+    }
+    var day = "";
+    if(dateO.getDate() < 9){
+      day = "0" + (dateO.getDate() + 1);
+    }else{
+      day =  dateO.getDate() + 1;
+    }
+    var hours = "";
+    if(dateO.getHours() < 9){
+      hours = "0" + dateO.getHours();
+    }else{
+      hours =  dateO.getHours();
+    }
+    var minutes = "";
+    if(dateO.getMinutes() < 9){
+      minutes = "0" + dateO.getMinutes();
+    }else{
+      minutes =  dateO.getMinutes();
+    }
+    var seconds = "";
+    if(dateO.getSeconds() < 9){
+      seconds = "0" + dateO.getSeconds();
+    }else{
+      seconds =  dateO.getSeconds();
+    }
+    var entered = dateO.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    return entered;
+  }
+
   return FacturasCR;
 })();
 CRFut.FacturasCR = FacturasCR;
