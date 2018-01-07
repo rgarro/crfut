@@ -88,8 +88,9 @@ class CompanyBanksTable extends Table
         return $validator;
     }
 
-    public function getList($CompanyID){
-      
+    public function getBankList($CompanyID){
+      $sql = "SELECT Bank , BankID FROM Banks ";
+      return $this->connection()->execute($sql)->fetchAll('assoc');
     }
 
 }

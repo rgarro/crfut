@@ -258,6 +258,11 @@ class CompaniesTable extends Table
       return $ret;
     }
 
+    public function getCurrencies(){
+      $sql = "SELECT * FROM Currencies";
+      return $this->connection()->execute($sql)->fetchAll('assoc');
+    }
+
     public function getCompanyBanks($CompanyID){
       $sql = "SELECT a.* , b.Bank , c.CurrencyName FROM CompanyBanks as a , Banks as b , Currencies as c WHERE a.CompanyID ='".$CompanyID."' AND a.BankID = b.BankID AND a.CurrencyID = c.CurrencyID";
       return $this->connection()->execute($sql)->fetchAll('assoc');

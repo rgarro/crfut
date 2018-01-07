@@ -1,5 +1,5 @@
 
-//prototyping just died
+//prototyping died, 03/01/2018
 
 var bankAccounts = class bankAccounts {
 
@@ -13,11 +13,15 @@ var bankAccounts = class bankAccounts {
     this.container = "#companyBanksTBody";
     this.companyID = 0;
     this.bankOptionsUrl = this.parent.baseUrl + "companies/getbankoptions";
+    this.accountsOptionContainer = "#accountsOptions";
+    this.currencyOptionsUrl = this.parent.baseUrl + "companies/currencyoptions";
   }
 
   showAccounts(data){
     this.buildTBody(data);
     this.setCompanyID(data.CompanyID);
+    this.setBankOptions(data.CompanyID);
+    this.setCurrencyOptions();
   }
 
   buildTBody(data){
@@ -39,16 +43,27 @@ var bankAccounts = class bankAccounts {
       },
       dataType:"json",
       success:(function(data){
-      //this.parent.verifyTokenizedRequest(data);
-      console.log(data);
-        /*if(data.is_success == 1){
-          this.alert_success(data.flash);
-          $('#createClienteModal').modal('hide');
-          this.table.ajax.reload();
-        }else{
-            this.alert_error(data.flash);
-            this.modelErrors(data.error_list);
-        }*/
+        var src = "<select id='bankSwitcher' name='Companies[BankID]' class='form-control form-control-sm'>{{#each accounts}}<option value='{{BankID}}'>{{Bank}}</option>{{/each}}</select>";
+        var template = Handlebars.compile(src);
+        var html = template({accounts:data});
+        $("#accountsOptions").html(html);
+      }).bind(this)
+    });
+  }
+
+  setCurrencyOptions(cid){
+    $.ajax({
+      url:this.currencyOptionsUrl,
+      type:"get",
+      data:{
+        token:Cookies.get("token")
+      },
+      dataType:"json",
+      success:(function(data){
+        var src = "<select id='currencySwitcher' name='Companies[CurrencyID]' class='form-control form-control-sm'>{{#each currencies}}<option value='{{CurrencyID}}'>{{CurrencyName}}</option>{{/each}}</select>";
+        var template = Handlebars.compile(src);
+        var html = template({currencies:data});
+        $("#currencyOptions").html(html);
       }).bind(this)
     });
   }

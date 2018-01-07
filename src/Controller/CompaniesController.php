@@ -144,11 +144,17 @@ class CompaniesController extends AppController
   }
 
   public function savecompanyaccount(){
+    
+  }
 
+  public function currencyoptions(){
+    $ret = $this->Companies->getCurrencies();
+    $this->cors_here();
+    $this->set($ret);
   }
 
   public function getbankoptions(){
-    $ret = $this->CompanyBanks->getList($_GET['CompanyID']);
+    $ret = $this->CompanyBanks->getBankList($_GET['CompanyID']);
     $this->cors_here();
     $this->set($ret);
   }

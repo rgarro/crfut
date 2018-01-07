@@ -125,10 +125,13 @@
     </tbody>
   </table>
   <form id="bankAccountBtn">
-    <input id="cbCompanyID" type="hidden" name="CompanyBanks[CompanyID]" value=""/>
-    <div class="form-row">
-
-    </div>
+    <fieldset>
+      <legend><i class="fa fa-plus"></i> <i class="fa fa-bank"></i>  </legend>
+      <input id="cbCompanyID" type="hidden" name="Companies[CompanyID]" value=""/>
+      <input type="hidden" name="Companies[BankOrder]" value="1"/>
+      <div id="accountsOptions" class="form-group"></div>
+      <div id="currencyOptions" class="form-group"></div>
+    </fieldset>
   </form>
         </div>
         <div class="modal-footer">
@@ -183,7 +186,7 @@
       var companyBanks = new CRFut.AdminModules.bankAccounts();
 
       $("#banksBtn").on("click",function(){
-        companyBanks.buildTBody(crfut_companies.currentData);
+        companyBanks.showAccounts(crfut_companies.currentData);
       });
 
       $('#companiesDataTable tbody').on( 'click', '.delete-company-btn',function(){
