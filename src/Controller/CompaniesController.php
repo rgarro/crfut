@@ -144,7 +144,35 @@ class CompaniesController extends AppController
   }
 
   public function savecompanyaccount(){
-    
+    $ret = [];
+    if(isset($_GET["token"])){
+      $this->BettyChecks->veryToken($_GET["token"]);
+      if($this->BettyChecks->LastCheckResult["is_alive"]){
+        $companyBanks = $this->CompanyBanks->newEntity();
+        $cli = $this->CompanyBanks->patchEntity($companyBanks,$_GET['CompanyBanks']);
+        if ($this->CompanyBanks->save($cli)) {
+            $flash = __('The CompanyBank has been saved.');
+            $success = 1;
+            $invalid_form = 0;
+            $errors = [];
+        }else{
+          $success = 0;
+          $flash = __('The Company Bank could not be saved. Please, try again.');
+          $invalid_form = 1;
+          $errors = $cli->errors();
+        }
+        $ret['is_success'] = $success;
+        $ret['flash'] = $flash;
+        $ret['invalid_form'] = $invalid_form;
+        $ret['error_list'] = $errors;
+      }else{
+        $ret["token_is_expired"] = 1;
+      }
+    }else{
+      $ret["token_is_absent"] = 1;
+    }
+    $this->cors_here();
+    $this->set($ret);
   }
 
   public function currencyoptions(){

@@ -18,8 +18,23 @@ var bankAccounts = class bankAccounts {
   }
 
   save(data){
-    console.log("here");
-    console.log(data);
+    var parent = this.parent;
+    $.ajax({
+      url:this.saveUrl+"?token="+Cookies.get("token"),
+      data:data,
+      type:"get",
+      dataType:"json",
+      success:(function(data){
+        parent.verifyTokenizedRequest(data);
+        if(data.is_success == 1){
+          parent.alert_success(data.flash);
+          $('#companyBanksModal').modal('hide');
+        }else{
+            parent.alert_error(data.flash);
+            parent.modelErrors(data.error_list);
+        }
+      }).bind(parent)
+    });
   }
 
   showAccounts(data){
@@ -48,7 +63,7 @@ var bankAccounts = class bankAccounts {
       },
       dataType:"json",
       success:(function(data){
-        var src = "<select id='bankSwitcher' name='Companies[BankID]' class='form-control form-control-sm'>{{#each accounts}}<option value='{{BankID}}'>{{Bank}}</option>{{/each}}</select>";
+        var src = "<select id='bankSwitcher' name='CompanyBanks[BankID]' class='form-control form-control-sm'>{{#each accounts}}<option value='{{BankID}}'>{{Bank}}</option>{{/each}}</select>";
         var template = Handlebars.compile(src);
         var html = template({accounts:data});
         $("#accountsOptions").html(html);
@@ -65,7 +80,7 @@ var bankAccounts = class bankAccounts {
       },
       dataType:"json",
       success:(function(data){
-        var src = "<select id='currencySwitcher' name='Companies[CurrencyID]' class='form-control form-control-sm'>{{#each currencies}}<option value='{{CurrencyID}}'>{{CurrencyName}}</option>{{/each}}</select>";
+        var src = "<select id='currencySwitcher' name='CompanyBanks[CurrencyID]' class='form-control form-control-sm'>{{#each currencies}}<option value='{{CurrencyID}}'>{{CurrencyName}}</option>{{/each}}</select>";
         var template = Handlebars.compile(src);
         var html = template({currencies:data});
         $("#currencyOptions").html(html);

@@ -127,17 +127,17 @@
   <form id="bankAccountFrm" name="bankAccountFrm">
     <fieldset>
       <legend><i class="fa fa-plus"></i> <i class="fa fa-bank"></i>  </legend>
-      <input id="cbCompanyID" type="hidden" name="Companies[CompanyID]" value=""/>
-      <input type="hidden" name="Companies[BankOrder]" value="1"/>
+      <input id="cbCompanyID" type="hidden" name="CompanyBanks[CompanyID]" value=""/>
+      <input type="hidden" name="CompanyBanks[BankOrder]" value="1"/>
       <div id="accountsOptions" class="form-group"></div>
       <div id="currencyOptions" class="form-group"></div>
       <div class="form-group">
         <i class="fa fa-hashtag"></i>
-        <input name="Companies[AccountNumber]" placeholder="Account Number" type="text" required="required"/>
+        <input name="CompanyBanks[AccountNumber]" placeholder="Account Number" type="text" required="required"/>
       </div>
       <div class="form-group">
         <i class="fa fa-sliders"></i>
-        <input name="Companies[SINPE]" placeholder="SINPE" type="text" required="required"/>
+        <input name="CompanyBanks[SINPE]" placeholder="SINPE" type="text" required="required"/>
       </div>
     </fieldset>
   </form>
@@ -301,9 +301,9 @@
 
          $("#bankAccountFrm").on("submit",function(){
            var data = $("#bankAccountFrm").serializeHash();
-           data.Companies.Entered = companyBanks.parent.getTimeStamp();
+           data.CompanyBanks.Entered = companyBanks.parent.getTimeStamp();
            var current_user = JSON.parse(Cookies.get('User'));
-           data.Companies.EnteredBy = current_user.FirstName + " " + current_user.LastName;
+           data.CompanyBanks.EnteredBy = current_user.FirstName + " " + current_user.LastName;
            companyBanks.save(data);
            return false;
          });
