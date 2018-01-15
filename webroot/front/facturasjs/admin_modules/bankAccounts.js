@@ -15,6 +15,8 @@ var bankAccounts = class bankAccounts {
     this.bankOptionsUrl = this.parent.baseUrl + "companies/getbankoptions";
     this.accountsOptionContainer = "#accountsOptions";
     this.currencyOptionsUrl = this.parent.baseUrl + "companies/currencyoptions";
+    this.deleteSelector = ".delete-account-btn";
+    this.deleteUrl = this.parent.baseUrl + "companies/deletecompanyaccount";
   }
 
   save(data){
@@ -42,6 +44,18 @@ var bankAccounts = class bankAccounts {
     this.setCompanyID(data.CompanyID);
     this.setBankOptions(data.CompanyID);
     this.setCurrencyOptions();
+    this.init_listeners()
+  }
+
+  init_listeners(){
+    $(this.deleteSelector).on("click",(function(evt){
+      var acc_id  = $(evt.target).data("company_bank_id");
+      if(typeof acc_id != "undefined"){
+        if(window.confirm("Confirm")){
+          console.log(acc_id);
+        }
+      }
+    }).bind(parent));
   }
 
   buildTBody(data){
@@ -94,7 +108,7 @@ var bankAccounts = class bankAccounts {
     this.htmlSrc += "<td>{{CurrencyName}}</td>";
     this.htmlSrc += "<td>{{AccountNumber}}</td>";
     this.htmlSrc += "<td>{{SINPE}}</td>";
-    this.htmlSrc += "<td> <button type='button' sinpe='{{SINPE}}' class='btn btn-outline-danger btn-sm delete-account-btn'><i class='fa fa-trash'></i></button></td>";
+    this.htmlSrc += "<td> <button type='button' data-company_bank_id='{{CompanyBankID}}' class='btn btn-outline-danger btn-sm delete-account-btn'> <i class='fa fa-trash'> </i> </button></td>";
     this.htmlSrc += "</tr>{{/each}}";
   }
 
